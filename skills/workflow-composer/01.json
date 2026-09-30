@@ -1,0 +1,63 @@
+{
+  "name": "AiOS",
+  "purpose": "AiOS je podľa CLAUDE.md brand a projekt Advanced Intelligence Operating System pre B2B malé a stredné firmy; top-level obsah kombinuje internú dokumentáciu, vizuálne prompt packy, brand assets a zdrojový brand web.",
+  "kind": "Top-level projektový priečinok / pracovný workspace; nie je potvrdené, že ide o jeden Git repozitár.",
+  "technologies": [
+    "React 19",
+    "Vite 7",
+    "TypeScript 5.6",
+    "Tailwind CSS v4",
+    "Express 4",
+    "pnpm 10.4.1",
+    "Radix UI",
+    "Framer Motion",
+    "Recharts",
+    "wouter",
+    "Midjourney v6",
+    "Runway (Gen-4.5; Gen-3 ako legacy referencia)",
+    "Sora 2 API (prompt/model guide)"
+  ],
+  "structure": [
+    "CLAUDE.md — projektové pokyny a deklarovaná architektúra",
+    "brand-site/ — zdrojový kód brand webu; podľa CLAUDE.md hlavný projekt je brand-site/aios-brand-site (2)/",
+    "docs/ — interná dokumentácia; súbory neboli obsahovo prechádzané",
+    "branding/ — brandové materiály/assets; obsah nebol hĺbkovo prechádzaný",
+    "presentation/ a AiOS - prezentácia/ — prezentačné materiály; obsah nebol prechádzaný",
+    "scripts/ — skripty; neboli spúšťané ani hĺbkovo auditované",
+    "misc/ — ostatné materiály",
+    "archives/ — archívny obsah, zámerne neprehliadaný",
+    "AiOS_prompt_pack_obrazky_a_videa.md a AiOS_prompt_pack_v2_modelove_parametre.md — vizuálny/prompt systém",
+    "Jednotlivé .zip, .pdf, .jpeg a .skill súbory — assets alebo archívy podľa CLAUDE.md, zámerne neprehliadané"
+  ],
+  "subprojects": [
+    {
+      "path": "brand-site/aios-brand-site (2)/",
+      "purpose": "Brand web AiOS; CLAUDE.md uvádza Vite SPA so SSR fallbackom, segmentové stránky a data-driven obsah pre osem sektorov.",
+      "technology": "React 19 + Vite + TypeScript + Tailwind CSS v4 + Express; Radix UI, wouter, next-themes, Framer Motion, Recharts; pnpm",
+      "evidence": "CLAUDE.md riadky 25–68; package.json riadky 1–12, 42–65, 67–99; tsconfig.json riadky 1–21; vite.config.ts riadky 1–7 a 71–104"
+    }
+  ],
+  "observed_state": "Pozorované sú zdrojové a dokumentačné súbory a deklarácie v CLAUDE.md/manifeste. Projekt nebol nainštalovaný, buildovaný, testovaný ani spustený; funkčnosť, aktuálnosť, deploy stav a aktívnosť nie sú overené. README.md, pyproject.toml a requirements.txt na kontrolovaných cestách neexistovali.",
+  "relationships": [
+    "CLAUDE.md priamo prepája brand-site/aios-brand-site (2)/ s webovou vrstvou a prompt-pack Markdown súbory s vizuálnym systémom.",
+    "Brand-site používa aliasy @/* → client/src/* a @shared/* → shared/* podľa tsconfig.json.",
+    "CLAUDE.md uvádza stránky Home, Segment a NotFound; Segment.tsx má obsah pre service, realty, guest, legal, furniture, studio, visual a restore.",
+    "Top-level priečinky Code_Projects, Weby a JarvisProjects sa v dostupnom výpise AiOS nenachádzali; ich podprojekty preto nebolo možné zahrnúť."
+  ],
+  "cautions": [
+    "Obsah .claude/, archívov, PDF/Word materiálov, ZIP súborov, credentials a bulk business dát nebol čítaný.",
+    "Podobné názvy alebo suffix (2) sú iba kandidátmi na duplicitu; identita ani duplicita nebola overovaná.",
+    "CLAUDE.md obsahuje deklarované príkazy a architektúru, nie dôkaz, že príkazy alebo funkcionalita fungujú.",
+    "Vite konfigurácia obsahuje vývojový debug collector zapisujúci browser/network/session logy do .manus-logs; nebolo overované jeho používanie ani bezpečnostné vlastnosti.",
+    "Toto je plytký prehľad, nie bezpečnostný, kvalitatívny ani produkčný audit."
+  ],
+  "sources": [
+    "CLAUDE.md",
+    "brand-site/aios-brand-site (2)/package.json",
+    "brand-site/aios-brand-site (2)/tsconfig.json",
+    "brand-site/aios-brand-site (2)/vite.config.ts",
+    "AiOS_prompt_pack_v2_modelove_parametre.md",
+    "AiOS_prompt_pack_obrazky_a_videa.md"
+  ],
+  "notes_path": "/home/ubuntu/aios-overview/reviews/01.json"
+}

@@ -1,0 +1,37 @@
+{
+  "name": "AI-REELS-GENERATOR-master",
+  "purpose": "Python pipeline na automatizovaný výber AI/tech video obsahu, tvorbu voiceoveru, kompozíciu Instagram Reels a e-mailové upozornenie.",
+  "kind": "Lokálny Python projekt / automatizačný mediálny generátor",
+  "technologies": ["Python", "Edge TTS", "MoviePy", "Pillow", "NumPy", "YouTube Transcript API", "Google API/Gmail SMTP", "ffmpeg (deklarované v README)"],
+  "structure": [
+    "scripts/ — hlavné moduly pipeline: generate_reels.py, content_selector.py, audio_generator.py, video_composer.py, notify.py (README.md:60–65; overené čítaním týchto súborov)",
+    "assets/fonts/ — deklarované fonty Montserrat (README.md:66; video_composer.py:43–67 používa tento adresár a fallback fonty)",
+    "output/ — deklarovaný dátumovo triedený výstup MP4 a caption súborov (README.md:67; generate_reels.py:47, 89–113)",
+    "state.json — stav použitého obsahu (README.md:68; generate_reels.py:45, 115–117)",
+    ".env.example — šablóna premenných pre YouTube, Pexels, Gmail a radar cesty (.env nebol čítaný)",
+    "package.json a pyproject.toml neboli pozorované/čítané; závislosti sú v requirements.txt"
+  ],
+  "subprojects": [
+    {"path":"scripts/content_selector.py","purpose":"Načíta Markdown videá z dvoch radar repozitárov, parsuje metadáta, skóruje viralitu a vytvára skripty/hooks/CTA/caption.","technology":"Python; pathlib, regex, JSON; YouTubeTranscriptApi voliteľne","evidence":"content_selector.py:148–166 načítava videos/*.md; :181–217 skórovanie; README.md:9 uvádza výber top 3."},
+    {"path":"scripts/audio_generator.py","purpose":"Generuje MP3 voiceover a časovanie zobrazovaných fráz/subtitulkov.","technology":"Python asyncio; edge_tts; JSON časovanie","evidence":"audio_generator.py:27–59 Edge TTS stream; :135–175 ukladá audio a subs JSON."},
+    {"path":"scripts/video_composer.py","purpose":"Skladá vertikálne video s gradientným pozadím, textovými overlaymi, captionmi a progress barom.","technology":"Python; MoviePy, NumPy, Pillow","evidence":"video_composer.py:4–9 a :28–30 deklarujú 1080x1920/30 FPS; :188–205 začína kompozíciu."},
+    {"path":"scripts/generate_reels.py","purpose":"Orchestruje celý beh: výber obsahu, audio, video, captiony, stav a notifikáciu.","technology":"Python; dotenv; interné moduly","evidence":"generate_reels.py:34–134; README.md:7–13."},
+    {"path":"scripts/notify.py","purpose":"Posiela informačný e-mail o pripravených reels.","technology":"Python smtplib; Gmail SMTP SSL; MIME HTML/plain text","evidence":"notify.py:108–136; .env.example:7–10."},
+    {"path":"requirements.txt","purpose":"Deklaruje runtime závislosti projektu.","technology":"Python packages","evidence":"requirements.txt:1–10."}
+  ],
+  "observed_state": "Pozorované zdrojové súbory a dokumentácia podporujú návrh pipeline; funkcionalita nebola spustená, testovaná ani overená na reálnych vstupoch. README tvrdí generovanie 3 reels denne, no to je deklarácia, nie potvrdený beh.",
+  "relationships": [
+    "generate_reels.py volá content_selector.py, audio_generator.py, video_composer.py a notify.py (generate_reels.py:28–31).",
+    "content_selector.py očakáva susedné radar repozitáre LATEST-AI-RADAR a NATE-HERK-RADAR s podadresárom videos/ (content_selector.py:148–166; .env.example:12–14).",
+    "audio_generator.py vytvára časovanie, ktoré video_composer.py používa na synchronizáciu textu/captionov (audio_generator.py:155–175; video_composer.py:200–228).",
+    "Výstupná väzba je output/YYYY-MM-DD/ s reel_*.mp4, caption a subtitle súbormi (generate_reels.py:47, 89–113; README.md:34)."
+  ],
+  "cautions": [
+    "Súbor .env ani žiadne credential/archívne/business dáta neboli čítané.",
+    "README odkazuje aj na Pexels a OpenAI/DALL-E v contributors časti, ale v prečítaných moduloch nebola overená aktívna implementácia týchto integrácií.",
+    "Nebolo možné vykonať požadovaný shallow listing cez Mac exec session: dostupné exec prostredie nemá cestu /Users/jarvis/Desktop/AiOS-SYSTEMS; obsah bol čítaný iba cez povolený mounted read nástroj.",
+    "Názov priečinka ani deklarované výstupy nedokazujú, že projekt je aktívny, najnovší alebo nasadený."
+  ],
+  "sources": ["README.md", "requirements.txt", ".env.example", "scripts/generate_reels.py", "scripts/content_selector.py", "scripts/audio_generator.py", "scripts/video_composer.py", "scripts/notify.py"],
+  "notes_path": "/home/ubuntu/aios-overview/reviews/08.json"
+}

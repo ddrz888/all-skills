@@ -1,0 +1,2794 @@
+<!DOCTYPE html>
+<html lang="sk" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>AiOS Control Room — Riadiace centrum pre firemnú inteligenciu</title>
+  <meta name="description" content="AiOS Control Room — Riadiace centrum a klientsky portál zladený s vizuálnou identitou aios.macaly.app. Plne responzívne pre desktop aj smartfóny.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ================= AIOS SIGNATURE DESIGN TOKENS ================= */
+    :root {
+      --aios-bg: #07080b;
+      --aios-panel: rgba(255, 255, 255, 0.045);
+      --aios-panel-solid: #0e1117;
+      --aios-panel-2: #141822;
+      --aios-panel-3: #1c2230;
+      --aios-line: rgba(184, 194, 204, 0.16);
+      --aios-line-subtle: rgba(184, 194, 204, 0.08);
+      --aios-text: #f4f7fa;
+      --aios-muted: #8995a3;
+      --aios-muted-dark: #586370;
+      --aios-copper: #b06d50;
+      --aios-copper-2: #d9a184;
+      --aios-copper-dark: #8a5238;
+      --aios-copper-glow: rgba(176, 109, 80, 0.35);
+      --aios-cyan: #25d9ff;
+      --aios-cyan-glow: rgba(37, 217, 255, 0.25);
+      --aios-violet: #756bff;
+      --aios-radius: 18px;
+      --aios-radius-sm: 8px;
+      --aios-radius-pill: 999px;
+
+      /* STATUS COLORS */
+      --status-ok: #6fe3a1;
+      --status-ok-bg: rgba(74, 222, 128, 0.12);
+      --status-ok-border: rgba(74, 222, 128, 0.4);
+      --status-warn: #f4c08a;
+      --status-warn-bg: rgba(255, 150, 50, 0.1);
+      --status-warn-border: rgba(255, 160, 60, 0.5);
+      --status-crit: #f0a091;
+      --status-crit-bg: rgba(248, 113, 113, 0.12);
+      --status-crit-border: rgba(255, 110, 90, 0.4);
+
+      --font-head: 'Archivo', sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --header-h: 70px;
+      --sidebar-w: 260px;
+      --bottom-nav-h: 64px;
+    }
+
+    [data-theme="light"] {
+      --aios-bg: #F4F5F8;
+      --aios-panel: #FFFFFF;
+      --aios-panel-solid: #FFFFFF;
+      --aios-panel-2: #EBEEF2;
+      --aios-panel-3: #E0E4EB;
+      --aios-line: #D3D8E2;
+      --aios-line-subtle: #E2E6EE;
+      --aios-text: #0E1217;
+      --aios-muted: #54606E;
+      --aios-muted-dark: #828E9E;
+      --aios-copper: #9A5B40;
+      --aios-copper-2: #B87355;
+      --aios-copper-dark: #7A422B;
+      --aios-copper-glow: rgba(154, 91, 64, 0.2);
+      --aios-cyan: #0E8DA6;
+      --aios-cyan-glow: rgba(14, 141, 166, 0.15);
+      --status-ok: #15803D;
+      --status-ok-bg: #DCFCE7;
+      --status-ok-border: #86EFAC;
+      --status-warn: #9A5B40;
+      --status-warn-bg: #FFEDD5;
+      --status-warn-border: #FDBA74;
+      --status-crit: #B91C1C;
+      --status-crit-bg: #FEE2E2;
+      --status-crit-border: #FCA5A5;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+      font-family: var(--font-body);
+      background-color: var(--aios-bg);
+      color: var(--aios-text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      background-image: 
+        radial-gradient(ellipse at 85% 0%, rgba(176, 109, 80, 0.16) 0%, transparent 60%),
+        radial-gradient(ellipse at 15% 100%, rgba(37, 217, 255, 0.08) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='1000' viewBox='0 0 1000 1000' fill='none'%3E%3Cpath d='M150 200 L350 90 L580 160 L480 380 L150 200 Z' stroke='rgba(176,109,80,0.18)' stroke-width='1.2'/%3E%3Cpath d='M580 160 L800 110 L900 320 L700 440 L480 380 Z' stroke='rgba(176,109,80,0.14)' stroke-width='1.2'/%3E%3Cpath d='M150 200 L90 500 L290 640 L480 380 Z' stroke='rgba(37,217,255,0.11)' stroke-width='1.2'/%3E%3Cpath d='M480 380 L700 440 L650 720 L400 800 L290 640 Z' stroke='rgba(176,109,80,0.16)' stroke-width='1.2'/%3E%3Cpath d='M700 440 L900 320 L960 600 L840 820 L650 720 Z' stroke='rgba(176,109,80,0.13)' stroke-width='1.2'/%3E%3Cpath d='M290 640 L400 800 L220 900 L100 740 L90 500 Z' stroke='rgba(176,109,80,0.15)' stroke-width='1.2'/%3E%3Cpath d='M350 90 L480 380 L800 110' stroke='rgba(176,109,80,0.12)' stroke-width='0.8'/%3E%3Cpath d='M480 380 L650 720' stroke='rgba(37,217,255,0.08)' stroke-width='0.8'/%3E%3Ccircle cx='350' cy='90' r='2.5' fill='%23d9a184' opacity='0.75'/%3E%3Ccircle cx='580' cy='160' r='3' fill='%2325d9ff' opacity='0.85'/%3E%3Ccircle cx='480' cy='380' r='3.5' fill='%23b06d50' opacity='0.95'/%3E%3Ccircle cx='700' cy='440' r='2.5' fill='%23d9a184' opacity='0.75'/%3E%3Ccircle cx='290' cy='640' r='3' fill='%2325d9ff' opacity='0.85'/%3E%3Ccircle cx='650' cy='720' r='2.5' fill='%23b06d50' opacity='0.75'/%3E%3Ccircle cx='800' cy='110' r='2' fill='%23d9a184' opacity='0.6'/%3E%3Ccircle cx='90' cy='500' r='2' fill='%23d9a184' opacity='0.6'/%3E%3C/svg%3E");
+      background-size: cover, cover, 1000px 1000px;
+      background-repeat: no-repeat, no-repeat, repeat;
+      background-attachment: fixed;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--aios-bg); }
+    ::-webkit-scrollbar-thumb { background: var(--aios-line); border-radius: var(--aios-radius-pill); }
+
+    .app-root {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      height: var(--header-h);
+      background: rgba(10, 12, 16, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--aios-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      gap: 12px;
+      z-index: 30;
+      flex-shrink: 0;
+    }
+
+    [data-theme="light"] .topbar { background: rgba(255, 255, 255, 0.92); }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--aios-radius-sm);
+      border: 1px solid var(--aios-line);
+      background: var(--aios-panel);
+      color: var(--aios-text);
+      place-items: center;
+      cursor: pointer;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+    .mobile-menu-btn:hover {
+      border-color: var(--aios-copper-2);
+      color: var(--aios-copper-2);
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .brand-wordmark-wrap {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand-wordmark {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1.55rem;
+      letter-spacing: -0.04em;
+      background: linear-gradient(135deg, #ffffff 0%, #edd3c7 35%, #d9a184 70%, #9a5b40 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+    }
+
+    .brand-tagline {
+      font-family: var(--font-mono);
+      font-size: 6px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--aios-muted);
+      text-transform: uppercase;
+      margin-top: 3px;
+      -webkit-text-fill-color: var(--aios-muted);
+      display: block;
+    }
+
+    /* KICKER EYEBROW BADGE (.png style) */
+    .kicker-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--aios-copper-2);
+      margin-bottom: 10px;
+    }
+    .kicker-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--aios-cyan);
+      box-shadow: 0 0 10px var(--aios-cyan);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    /* PIPELINE FLOW BANNER (.png style) */
+    .pipeline-flow-box {
+      background: rgba(37, 217, 255, 0.03);
+      border: 1px solid rgba(37, 217, 255, 0.24);
+      border-radius: var(--aios-radius-sm);
+      padding: 12px 18px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--aios-text);
+      box-shadow: 0 0 24px rgba(37, 217, 255, 0.06);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pipeline-flow-box .arr {
+      color: var(--aios-copper-2);
+      font-weight: bold;
+    }
+
+    .tag-env {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--aios-panel);
+      border: 1px solid var(--aios-line);
+      padding: 4px 12px;
+      border-radius: var(--aios-radius-pill);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--aios-muted);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .pulse-dot-copper {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f0a24c;
+      box-shadow: 0 0 12px 2px #ff9632bf;
+      animation: dotPulse 1.4s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes dotPulse {
+      0%, 100% { opacity: 0.75; transform: scale(0.85); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .role-switcher-box {
+      display: flex;
+      align-items: center;
+      background: var(--aios-panel-2);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius-pill);
+      padding: 4px 12px;
+      gap: 6px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .role-switcher-box:hover {
+      border-color: var(--aios-copper-2);
+    }
+
+    .role-select {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: 600;
+      color: var(--aios-text);
+      cursor: pointer;
+    }
+
+    .role-select option {
+      background: var(--aios-panel-solid);
+      color: var(--aios-text);
+    }
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--aios-radius-pill);
+      border: 1px solid var(--aios-line);
+      background: var(--aios-panel);
+      color: var(--aios-muted);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-icon:hover {
+      background: var(--aios-panel-2);
+      color: var(--aios-text);
+    }
+
+    /* BUTTONS */
+    .button {
+      color: var(--aios-text);
+      letter-spacing: 0.02em;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: var(--font-head);
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: var(--aios-radius-pill);
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      display: inline-flex;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .button:hover { transform: translateY(-1.5px); }
+
+    .button-copper {
+      background: linear-gradient(135deg, #a5623f, var(--aios-copper-2) 48%, #8a5238);
+      color: #120904 !important;
+      font-weight: 700;
+      box-shadow: 0 4px 18px var(--aios-copper-glow);
+    }
+
+    .button-copper:hover {
+      box-shadow: 0 10px 28px rgba(176, 109, 80, 0.55);
+      color: #070301 !important;
+    }
+
+    .button-ghost {
+      border: 1px solid rgba(184, 194, 204, 0.22);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--aios-text);
+    }
+
+    .button-ghost:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--aios-copper-2);
+    }
+
+    .button-small {
+      padding: 7px 14px;
+      font-size: 11.5px;
+    }
+
+    /* MAIN CONTAINER */
+    .main-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* SIDEBAR (DESKTOP & DRAWER ON MOBILE) */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: rgba(14, 17, 23, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-right: 1px solid var(--aios-line);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      padding: 18px 12px;
+      gap: 6px;
+      overflow-y: auto;
+      z-index: 40;
+    }
+
+    [data-theme="light"] .sidebar { background: rgba(255, 255, 255, 0.88); }
+
+    .sidebar-mobile-head {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 8px 12px;
+      border-bottom: 1px solid var(--aios-line);
+      margin-bottom: 6px;
+    }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 5, 8, 0.75);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 95;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .sidebar-overlay.open {
+      display: block;
+      opacity: 1;
+    }
+
+    .nav-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--aios-muted-dark);
+      padding: 12px 14px 4px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: var(--aios-radius-sm);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--aios-muted);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+      border: 1px solid transparent;
+    }
+
+    .nav-link:hover {
+      background: var(--aios-panel);
+      color: var(--aios-text);
+      border-color: var(--aios-line-subtle);
+    }
+
+    .nav-link.active {
+      background: rgba(176, 109, 80, 0.12);
+      color: var(--aios-copper-2);
+      border-color: rgba(217, 161, 132, 0.3);
+      box-shadow: inset 0 0 12px rgba(176, 109, 80, 0.1);
+    }
+
+    .nav-link-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-badge {
+      background: var(--aios-panel-2);
+      color: var(--aios-muted);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: var(--aios-radius-pill);
+      font-weight: 600;
+      border: 1px solid var(--aios-line);
+    }
+
+    .nav-link.active .nav-badge {
+      background: var(--aios-copper);
+      color: #180e09;
+      border-color: var(--aios-copper-2);
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--aios-line);
+      font-size: 0.75rem;
+      color: var(--aios-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .system-status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      background: var(--aios-panel-2);
+      border-radius: var(--aios-radius-sm);
+      border: 1px solid var(--aios-line);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+    }
+
+    /* CONTENT AREA */
+    .content-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* CLIENT ISOLATION BANNER */
+    .client-mode-banner {
+      display: none;
+      background: rgba(37, 217, 255, 0.08);
+      border-bottom: 1px solid rgba(37, 217, 255, 0.3);
+      color: var(--aios-cyan);
+      padding: 10px 24px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .client-mode-banner.show { display: flex; }
+
+    /* VIEW CONTAINERS */
+    .view-container {
+      display: none;
+      padding: 30px 36px 60px;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .view-container.active {
+      display: block;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .page-title {
+      font-family: var(--font-head);
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--aios-text);
+      line-height: 1.2;
+    }
+
+    .page-subtitle {
+      color: var(--aios-muted);
+      font-size: 0.92rem;
+      margin-top: 4px;
+    }
+
+    /* KPI CARDS */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .kpi-card {
+      background: var(--aios-panel-solid);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius);
+      padding: 18px 20px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(217, 161, 132, 0.4);
+    }
+
+    .kpi-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--aios-muted);
+    }
+
+    .kpi-value {
+      font-family: var(--font-head);
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--aios-text);
+      margin: 6px 0 2px;
+      line-height: 1.1;
+    }
+
+    .kpi-note {
+      font-size: 0.76rem;
+      color: var(--aios-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .kpi-note.green { color: var(--status-ok); }
+    .kpi-note.copper { color: var(--aios-copper-2); }
+
+    /* CARDS */
+    .card {
+      background: var(--aios-panel-solid);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius);
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .card-header {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--aios-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    .card-title {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--aios-text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-body { padding: 22px; }
+
+    /* STEPPER */
+    .process-bar {
+      display: flex;
+      align-items: center;
+      background: var(--aios-panel-2);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius-pill);
+      padding: 8px 14px;
+      margin-bottom: 24px;
+      overflow-x: auto;
+      gap: 8px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .process-bar::-webkit-scrollbar { display: none; }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: var(--aios-radius-pill);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--aios-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      flex-shrink: 0;
+    }
+
+    .step-item.active {
+      background: linear-gradient(135deg, rgba(165, 98, 63, 0.25), rgba(217, 161, 132, 0.2));
+      color: var(--aios-copper-2);
+      border-color: rgba(217, 161, 132, 0.4);
+    }
+
+    .step-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--aios-panel-3);
+      color: var(--aios-muted);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .step-item.active .step-num {
+      background: var(--aios-copper);
+      color: #180e09;
+    }
+
+    .step-arrow {
+      color: var(--aios-muted-dark);
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    /* BADGES */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--aios-radius-pill);
+      font-size: 0.73rem;
+      font-weight: 600;
+      line-height: 1;
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .badge-copper {
+      color: #f4c08a;
+      background: #ff963217;
+      border: 1px solid #ffa03c80;
+    }
+
+    .badge-cyan {
+      color: var(--aios-cyan);
+      background: rgba(37, 217, 255, 0.12);
+      border: 1px solid rgba(37, 217, 255, 0.4);
+    }
+
+    .badge-ok {
+      color: #6fe3a1;
+      background: var(--status-ok-bg);
+      border: 1px solid var(--status-ok-border);
+    }
+
+    .badge-warn {
+      color: var(--status-warn);
+      background: var(--status-warn-bg);
+      border: 1px solid var(--status-warn-border);
+    }
+
+    .badge-crit {
+      color: var(--status-crit);
+      background: var(--status-crit-bg);
+      border: 1px solid var(--status-crit-border);
+    }
+
+    .badge-neutral {
+      color: var(--aios-muted);
+      background: var(--aios-panel-2);
+      border: 1px solid var(--aios-line);
+    }
+
+    /* DATA TABLES */
+    .data-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    .data-table th {
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--aios-muted);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--aios-line);
+      white-space: nowrap;
+    }
+
+    .data-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--aios-line);
+      color: var(--aios-text);
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .data-table tr:hover td { background: rgba(255, 255, 255, 0.025); }
+
+    .split-2 {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 22px;
+    }
+
+    /* AI WORKBENCH */
+    .ai-assist-box {
+      background: rgba(176, 109, 80, 0.07);
+      border: 1px solid rgba(217, 161, 132, 0.3);
+      border-radius: var(--aios-radius);
+      padding: 18px 20px;
+      margin-bottom: 20px;
+    }
+
+    .ai-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ai-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--aios-copper-2);
+    }
+
+    .ai-guardrail-tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: var(--aios-radius-pill);
+      background: rgba(255, 150, 50, 0.12);
+      border: 1px solid rgba(255, 160, 60, 0.5);
+      color: #f4c08a;
+    }
+
+    .ai-body {
+      font-size: 0.86rem;
+      color: var(--aios-text);
+      line-height: 1.6;
+    }
+
+    .ai-actions-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .code-box {
+      background: #08080c99;
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius-sm);
+      padding: 12px 14px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--aios-text);
+      line-height: 1.55;
+      overflow-x: auto;
+    }
+
+    /* FORMS */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .form-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--aios-muted);
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: var(--aios-radius-sm);
+      border: 1px solid var(--aios-line);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--aios-text);
+      font-family: inherit;
+      font-size: 16px; /* Prevents auto-zoom on iOS Safari */
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--aios-cyan);
+      box-shadow: 0 0 0 2px var(--aios-cyan-glow);
+    }
+
+    .form-select option {
+      background: var(--aios-panel-solid);
+      color: var(--aios-text);
+    }
+
+    /* READINESS SCORE STYLES (.png) */
+    .aios-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: var(--aios-panel-3);
+      border-radius: var(--aios-radius-pill);
+      outline: none;
+      margin: 12px 0 6px;
+      cursor: pointer;
+    }
+    .aios-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--aios-copper-2);
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(176, 109, 80, 0.6);
+      border: 2px solid #ffffff;
+      transition: transform 0.15s ease;
+    }
+    .aios-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+    .readiness-row {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--aios-line-subtle);
+    }
+    .readiness-row:last-child {
+      border-bottom: none;
+    }
+    .readiness-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .readiness-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--aios-text);
+    }
+    .readiness-score-val {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--aios-cyan);
+      font-size: 0.9rem;
+    }
+    .readiness-desc {
+      font-size: 0.76rem;
+      color: var(--aios-muted);
+      line-height: 1.4;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 5, 8, 0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 200;
+      display: none;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open { display: grid; }
+
+    .modal-card {
+      background: var(--aios-panel-solid);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius);
+      width: 100%;
+      max-width: 620px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      animation: modalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalPop {
+      from { opacity: 0; transform: scale(0.96) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-head {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--aios-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-body {
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .modal-foot {
+      padding: 14px 24px;
+      border-top: 1px solid var(--aios-line);
+      background: var(--aios-panel-2);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* TIMELINE */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      padding-left: 22px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: var(--aios-line);
+    }
+
+    .timeline-item {
+      position: relative;
+      font-size: 0.86rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -22px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--aios-panel-solid);
+      border: 2px solid var(--aios-copper);
+      box-shadow: 0 0 8px var(--aios-copper-glow);
+    }
+
+    .timeline-time {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--aios-muted);
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      color: var(--aios-text);
+      margin-top: 2px;
+    }
+
+    /* TOAST */
+    .toast-container {
+      position: fixed;
+      bottom: 74px; /* Above mobile bottom nav */
+      right: 20px;
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      background: var(--aios-panel-2);
+      border: 1px solid var(--aios-line);
+      color: var(--aios-text);
+      padding: 12px 18px;
+      border-radius: var(--aios-radius-pill);
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toastIn 0.25s ease forwards;
+    }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* MOBILE BOTTOM NAVIGATION BAR */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--bottom-nav-h);
+      background: rgba(14, 17, 23, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--aios-line);
+      z-index: 90;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    [data-theme="light"] .mobile-bottom-nav {
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .bottom-nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      color: var(--aios-muted);
+      cursor: pointer;
+      padding: 6px 0;
+      gap: 3px;
+      font-family: inherit;
+      transition: color 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .bottom-nav-item.active {
+      color: var(--aios-copper-2);
+    }
+
+    .bottom-nav-icon {
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .bottom-nav-label {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    /* ================= RESPONSIVE MEDIA QUERIES (MOBILE OPTIMIZATION) ================= */
+    @media (max-width: 860px) {
+      .mobile-menu-btn { display: grid; }
+      .tag-env { display: none; }
+      
+      .topbar {
+        padding: 0 14px;
+        height: 60px;
+      }
+
+      .brand-logo {
+        font-size: 1.05rem;
+      }
+
+      .brand-badge {
+        width: 30px;
+        height: 30px;
+        font-size: 0.85rem;
+      }
+
+      .role-switcher-box {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+        max-width: 140px;
+      }
+
+      .role-select {
+        max-width: 105px;
+        text-overflow: ellipsis;
+      }
+
+      .button-small {
+        padding: 6px 10px;
+        font-size: 11px;
+      }
+
+      /* SIDEBAR AS DRAWER */
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 280px;
+        z-index: 100;
+        transform: translateX(-100%);
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+        background: var(--aios-panel-solid);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .sidebar-mobile-head {
+        display: flex;
+      }
+
+      /* BOTTOM NAV VISIBLE */
+      .mobile-bottom-nav {
+        display: flex;
+      }
+
+      .view-container {
+        padding: 16px 14px 85px; /* Room for bottom nav bar */
+      }
+
+      .page-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .page-title {
+        font-size: 1.35rem;
+      }
+
+      .page-subtitle {
+        font-size: 0.82rem;
+      }
+
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .kpi-card {
+        padding: 14px;
+      }
+
+      .kpi-value {
+        font-size: 1.65rem;
+      }
+
+      .split-2 {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .card-header {
+        padding: 14px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .card-body {
+        padding: 16px;
+      }
+
+      /* BOTTOM SHEET MODAL ON MOBILE */
+      .modal-overlay {
+        align-items: flex-end;
+        padding: 0;
+      }
+
+      .modal-card {
+        max-width: 100%;
+        border-radius: 20px 20px 0 0;
+        max-height: 85vh;
+      }
+
+      .modal-head { padding: 16px 20px; }
+      .modal-body { padding: 18px 20px; }
+      .modal-foot { padding: 14px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .brand-logo span:last-child {
+        display: none; /* Just show AiOS on very small screens */
+      }
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-root">
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="brand-section">
+      <!-- HAMBURGER BUTTON (MOBILE) -->
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+
+      <a href="#" class="brand-logo" onclick="navigate('dashboard'); return false;">
+        <div class="brand-wordmark-wrap">
+          <div class="brand-wordmark">AiOS</div>
+          <div class="brand-tagline">ADVANCED INTELLIGENCE OPERATING SYSTEM</div>
+        </div>
+        <span class="badge badge-copper" style="font-size:10px; padding:3px 8px; font-weight:700;">Control Room</span>
+      </a>
+
+      <div class="tag-env" id="envIndicator">
+        <span class="pulse-dot-copper"></span>
+        <span>PILOT v2.4 · LIVE INFRASTRUCTURE</span>
+      </div>
+    </div>
+
+    <div class="topbar-actions">
+      <!-- ROLE SWITCHER -->
+      <div class="role-switcher-box" title="Prepínanie rolí overuje izoláciu zákazníckych dát">
+        <span style="color:var(--aios-copper-2);">👤</span>
+        <select class="role-select" id="roleSelector" onchange="switchRole(this.value)">
+          <option value="admin">👑 Správca (AiOS)</option>
+          <option value="client">🏢 Jana Kováčová (Klient: Meridian)</option>
+          <option value="internal">🔧 Interný špecialista</option>
+        </select>
+      </div>
+
+      <!-- THEME TOGGLE -->
+      <button class="btn-icon" id="themeToggle" onclick="toggleTheme()" title="Prepnúť tmavý/svetlý motív">🌓</button>
+      
+      <!-- QUICK ACTION (COPPER BUTTON .png) -->
+      <button class="button button-copper button-small" id="btnQuickLead" onclick="openNewLeadModal()">Dohodnúť audit ↗</button>
+    </div>
+  </header>
+
+  <!-- BANNER FOR CLIENT ROLE ISOLATION -->
+  <div class="client-mode-banner" id="clientBanner">
+    <span>🔒 <strong>Klientsky portál:</strong> Zobrazujú sa iba zmluvne schválené výstupy pre <em>Meridian Trade s.r.o.</em> Interné marže a iní klienti sú skrytí.</span>
+    <button class="button button-ghost button-small" onclick="switchRole('admin')">Správca</button>
+  </div>
+
+  <div class="main-body">
+    <!-- MOBILE BACKDROP OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMobileMenu()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="appSidebar">
+      <!-- MOBILE DRAWER HEADER (.png style) -->
+      <div class="sidebar-mobile-head">
+        <div class="brand-wordmark-wrap">
+          <div class="brand-wordmark" style="font-size:1.3rem;">AiOS</div>
+          <div class="brand-tagline">ADVANCED INTELLIGENCE</div>
+        </div>
+        <button class="btn-icon" style="width:34px; height:34px;" onclick="closeMobileMenu()">✕</button>
+      </div>
+
+      <div class="nav-label">Firemná architektúra</div>
+      
+      <a class="nav-link active" data-view="dashboard" onclick="navigate('dashboard')">
+        <span class="nav-link-content">📊 Prehľad (Dashboard)</span>
+      </a>
+
+      <a class="nav-link" data-view="readiness" id="navReadiness" onclick="navigate('readiness')">
+        <span class="nav-link-content">🎯 Readiness Score</span>
+        <span class="nav-badge" style="background:rgba(37,217,255,0.15); color:var(--aios-cyan);">S08</span>
+      </a>
+
+      <div class="nav-label">Operatívne riadenie</div>
+
+      <a class="nav-link" data-view="leads" id="navLeads" onclick="navigate('leads')">
+        <span class="nav-link-content">📥 Dopyty & CRM</span>
+        <span class="nav-badge" id="badgeLeadsCount">3</span>
+      </a>
+
+      <a class="nav-link" data-view="audit" id="navAudit" onclick="navigate('audit')">
+        <span class="nav-link-content">🔍 Procesný Audit</span>
+      </a>
+
+      <a class="nav-link" data-view="proposals" id="navProposals" onclick="navigate('proposals')">
+        <span class="nav-link-content">📑 Blueprint & Ponuky</span>
+      </a>
+
+      <a class="nav-link" data-view="projects" id="navProjects" onclick="navigate('projects')">
+        <span class="nav-link-content">🚀 Realizácia projektu</span>
+        <span class="nav-badge" style="background:var(--status-ok-bg); color:var(--status-ok);">Live</span>
+      </a>
+
+      <div class="nav-label" id="lblGovernance">Správa a bezpečnosť</div>
+
+      <a class="nav-link" data-view="ai-hub" id="navAiHub" onclick="navigate('ai-hub')">
+        <span class="nav-link-content">🤖 AI Asistent & Firewall</span>
+      </a>
+
+      <a class="nav-link" data-view="settings" id="navSettings" onclick="navigate('settings')">
+        <span class="nav-link-content">⚙️ Oprávnenia & Audit Log</span>
+      </a>
+
+      <div class="nav-label">Odvetvové moduly</div>
+      <a class="nav-link" href="aios-realty-demo.html" style="font-size:0.8rem;">
+        <span class="nav-link-content">🏡 AiOS Reality</span>
+        <span style="font-size:10px; color:var(--aios-muted);">↗</span>
+      </a>
+      <a class="nav-link" href="aios-legal-demo.html" style="font-size:0.8rem;">
+        <span class="nav-link-content">⚖️ AiOS Právny systém</span>
+        <span style="font-size:10px; color:var(--aios-muted);">↗</span>
+      </a>
+
+      <div style="padding:12px 6px 0;">
+        <button class="button button-copper" style="width:100%; justify-content:center; padding:10px;" onclick="openNewLeadModal(); closeMobileMenu();">Dohodnúť audit ↗</button>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="system-status-indicator">
+          <span style="color:var(--status-ok);">●</span>
+          <span>Dátový model: <strong>v1.4 Supabase</strong></span>
+        </div>
+        <div style="padding:0 4px; font-size:0.7rem; color:var(--aios-muted);">AiOS Systems © 2026 · aios.macaly.app</div>
+      </div>
+    </aside>
+
+    <!-- CONTENT VIEWS -->
+    <main class="content-area">
+
+      <!-- ================= 1. DASHBOARD VIEW ================= -->
+      <section class="view-container active" id="view-dashboard">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title" id="dashGreeting">Riadiace centrum AiOS</h1>
+            <p class="page-subtitle">Sledovanie zákaziek od prvotného webového dopytu cez audit až po odovzdanie.</p>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="button button-ghost button-small" onclick="showToast('Export auditnej správy pripravený')">Export reportu</button>
+            <button class="button button-copper button-small" onclick="navigate('leads')">Zobraziť dopyty →</button>
+          </div>
+        </div>
+
+        <!-- HERO SHOWCASE FROM aios.macaly.app (.png) -->
+        <div class="card" style="margin-bottom:24px; background:linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(176,109,80,0.07) 100%); border-color:rgba(176,109,80,0.22); position:relative; overflow:hidden;">
+          <div class="card-body" style="padding:26px 22px;">
+            <div class="split-2" style="align-items:center;">
+              <div>
+                <div class="kicker-tag">
+                  <span class="kicker-dot"></span>
+                  <span>AIOS / AI INFRAŠTRUKTÚRA PRE PRÁCU</span>
+                </div>
+                <h2 style="font-family:var(--font-head); font-size:clamp(1.4rem, 3.2vw, 2.1rem); font-weight:800; line-height:1.2; margin-bottom:12px; letter-spacing:-0.03em;">
+                  AI infra<span style="color:var(--aios-copper-2);">štruktúra</span>, ktorá sa stane súčasťou vašej práce.
+                </h2>
+                <p style="color:var(--aios-muted); font-size:0.92rem; line-height:1.6; margin-bottom:18px; max-width:520px;">
+                  AiOS prepája firemné dáta, procesy, ľudí a umelú inteligenciu do pracovných systémov, ktoré tím vie používať a vedenie vie merať.
+                </p>
+                <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+                  <button class="button button-copper button-small" onclick="openNewLeadModal()">Dohodnúť vstupný audit ↗</button>
+                  <button class="button button-ghost button-small" onclick="navigate('audit')">Pozrieť architektúru systému ↓</button>
+                  <button class="button button-ghost button-small" onclick="navigate('readiness')">Readiness Score 🎯</button>
+                </div>
+                <div style="font-size:0.75rem; color:var(--aios-muted);">
+                  Od prvého procesu po merateľný pilot — s jasným vlastníkom, ľudským schválením a plánom adopcie.
+                </div>
+              </div>
+
+              <!-- FEATURE CARD WITH BADGE & VISUAL (.png) -->
+              <div style="background:var(--aios-panel-solid); border:1px solid var(--aios-line); border-radius:var(--aios-radius); padding:14px; position:relative; box-shadow:0 12px 35px rgba(0,0,0,0.5);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                  <span class="kicker-tag" style="margin-bottom:0;">
+                    <span class="kicker-dot"></span>
+                    <span>Real-time · Ľudské schválenie</span>
+                  </span>
+                  <span class="badge badge-ok" style="font-size:10px;">100% PASS</span>
+                </div>
+                <div style="border-radius:8px; overflow:hidden; border:1px solid var(--aios-line); background:#05070a; margin-bottom:10px; text-align:center;">
+                  <img src="../aios-desktop-hero.png" alt="AiOS Dashboard Architecture" style="width:100%; height:auto; display:block; max-height:190px; object-fit:cover; object-position:center right;">
+                </div>
+                <div style="background:rgba(255,255,255,0.02); border-left:3px solid var(--aios-copper); padding:8px 12px; border-radius:4px; font-size:0.76rem; color:var(--aios-muted); line-height:1.45;">
+                  <strong style="color:var(--aios-text);">Pre majiteľa firmy:</strong> Z e-mailov, správ, dokumentov a tabuliek vytvoríme jasný pracovný postup s vlastníkom, ďalším krokom a kontrolou výsledku.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI GRID -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-title">Aktívne dopyty v riešení</div>
+            <div class="kpi-value" id="kpiActiveLeads">3</div>
+            <div class="kpi-note green">↑ 1 nový z aios.macaly.app</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-title">Schválené ponuky (Q3)</div>
+            <div class="kpi-value" id="kpiApproved">€14,800</div>
+            <div class="kpi-note copper">Záväzné položky bez halucinácií</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-title">Čas prípravy auditu</div>
+            <div class="kpi-value">2.4 d</div>
+            <div class="kpi-note green">↓ o 42% rýchlejšie s Blueprintom</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-title">Miera zásahu AI odpovedí</div>
+            <div class="kpi-value">100%</div>
+            <div class="kpi-note copper">Overené človekom pred odoslaním</div>
+          </div>
+        </div>
+
+        <!-- PROCESS MAP BANNER -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Životný cyklus zákazky v AiOS Control Room</div>
+              <div style="font-size:0.8rem; color:var(--aios-muted);">Každý stav má konkrétneho vlastníka, schvaľovací hash a striktné oprávnenia.</div>
+            </div>
+            <span class="badge badge-copper">1 úplný proces</span>
+          </div>
+          <div class="card-body" style="padding:14px 20px;">
+            <div class="process-bar" style="margin-bottom:0; border:none; padding:0; background:transparent;">
+              <div class="step-item active" onclick="navigate('leads')">
+                <span class="step-num">1</span>
+                <span>Dopyt & Kvalifikácia</span>
+              </div>
+              <span class="step-arrow">→</span>
+              <div class="step-item" onclick="navigate('audit')">
+                <span class="step-num">2</span>
+                <span>Procesný Audit</span>
+              </div>
+              <span class="step-arrow">→</span>
+              <div class="step-item" onclick="navigate('proposals')">
+                <span class="step-num">3</span>
+                <span>Blueprint & Ponuka</span>
+              </div>
+              <span class="step-arrow">→</span>
+              <div class="step-item" onclick="navigate('proposals')">
+                <span class="step-num">4</span>
+                <span>Klientske schválenie</span>
+              </div>
+              <span class="step-arrow">→</span>
+              <div class="step-item" onclick="navigate('projects')">
+                <span class="step-num">5</span>
+                <span>Realizácia & Odovzdanie</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TWO COLUMNS -->
+        <div class="split-2">
+          <!-- ACTIVE PIPELINE TABLE -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Aktuálne zákazky v lieviku</span>
+              <button class="button button-ghost button-small" onclick="navigate('leads')">Všetky</button>
+            </div>
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Firma / Zákazka</th>
+                    <th>Segment</th>
+                    <th>Stav</th>
+                    <th>Vlastník</th>
+                    <th>Akcia</th>
+                  </tr>
+                </thead>
+                <tbody id="dashTableBody">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- SYSTEM AUDIT & EVENTS -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Nedávne udalosti & Audit Trail</span>
+              <span class="badge badge-neutral">Nemenný log</span>
+            </div>
+            <div class="card-body">
+              <div class="timeline" id="dashTimeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-time">Dnes 03:45 · Peter AiOS</div>
+                  <div class="timeline-title">Schválený rozsah v1.2 pre Meridian Trade s.r.o.</div>
+                  <div style="font-size:0.75rem; color:var(--aios-muted); font-family:var(--font-mono);">Podpis zmeny: #sha256-8f92a1d04</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-time">Včera 16:20 · AI Service Worker</div>
+                  <div class="timeline-title">Prijatý dopyt z webového formulára aios.macaly.app</div>
+                  <div style="font-size:0.75rem; color:var(--aios-muted);">Generovaný súhrn & detekované 2 chýbajúce polia</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-time">23. 9. 2026 · Klient: Jana Kováčová</div>
+                  <div class="timeline-title">Nahrané podklady: export_crm_schema.csv</div>
+                  <div style="font-size:0.75rem; color:var(--aios-muted);">Uložené v privátnom úložisku (karanténa overená)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 2. LEADS & CRM VIEW ================= -->
+      <section class="view-container" id="view-leads">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Dopyty & CRM register</h1>
+            <p class="page-subtitle">Centralizovaný register prichádzajúcich požiadaviek s ochranou proti duplicite a AI sumarizáciou.</p>
+          </div>
+          <button class="button button-copper" onclick="openNewLeadModal()">+ Zaevidovať dopyt</button>
+        </div>
+
+        <!-- FILTER TOOLBAR -->
+        <div style="display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap;">
+          <input type="text" id="leadSearch" class="form-input" style="max-width:280px;" placeholder="Hľadať firmu, kontakt..." oninput="filterLeads()">
+          <select id="leadFilterSegment" class="form-select" style="max-width:220px;" onchange="filterLeads()">
+            <option value="all">Všetky segmenty</option>
+            <option value="B2B Obchod & Distribúcia">B2B Obchod & Distribúcia</option>
+            <option value="Autoservis & Dielňa">Autoservis & Dielňa</option>
+            <option value="Reality & Reality CRM">Reality & Reality CRM</option>
+            <option value="Ubytovanie & Gastronómia">Ubytovanie & Gastronómia</option>
+          </select>
+        </div>
+
+        <div class="card">
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Kód prípadu</th>
+                  <th>Spoločnosť</th>
+                  <th>Kontaktná osoba</th>
+                  <th>Segmentový modul</th>
+                  <th>Zdroj</th>
+                  <th>Stav</th>
+                  <th>Vlastník</th>
+                  <th>Detail / Riadenie</th>
+                </tr>
+              </thead>
+              <tbody id="leadsTableFull">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SELECTED LEAD DETAIL CARD -->
+        <div class="card" id="leadDetailCard" style="display:none; border-left: 4px solid var(--aios-copper);">
+          <div class="card-header">
+            <div>
+              <span class="badge badge-copper" id="detailId">MRD-2026-014</span>
+              <h3 style="margin-top:6px; font-family:var(--font-head);" id="detailCompany">Meridian Trade s.r.o.</h3>
+            </div>
+            <div style="display:flex; gap:10px;">
+              <button class="button button-copper button-small" onclick="advanceLeadToAudit()">Preklopiť do Auditu →</button>
+              <button class="button button-ghost button-small" onclick="document.getElementById('leadDetailCard').style.display='none'">Zavrieť</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="split-2">
+              <div>
+                <h4 style="font-size:0.9rem; margin-bottom:8px; color:var(--aios-muted);">Popis požiadavky (vstup od klienta):</h4>
+                <div class="code-box" id="detailRawInput" style="white-space:pre-wrap; font-family:inherit;">
+                  "Máme 4 obchodníkov, dopyty nám padajú do e-mailu a nikto nevie, kto na čom robí. Potrebujeme systém na triedenie dopytov, automatický návrh odpovede a zákaznícky portál na schvaľovanie objednávok."
+                </div>
+
+                <div style="margin-top:16px;">
+                  <h4 style="font-size:0.9rem; margin-bottom:8px; color:var(--aios-muted);">Kontaktné údaje:</h4>
+                  <div style="font-size:0.88rem; color:var(--aios-text);">
+                    <strong>Meno:</strong> <span id="detailContact">Jana Kováčová</span> (<span id="detailRole">obchodná riaditeľka</span>)<br>
+                    <strong>E-mail:</strong> <span id="detailEmail" style="color:var(--aios-cyan);">kovacova@meridiantrade.sk</span><br>
+                    <strong>Telefón:</strong> +421 905 123 456
+                  </div>
+                </div>
+              </div>
+
+              <!-- AI SUMMARY COLUMN -->
+              <div>
+                <div class="ai-assist-box">
+                  <div class="ai-header">
+                    <span class="ai-title">🤖 AI Syntéza & Chýbajúce údaje</span>
+                    <span class="ai-guardrail-tag">Human-In-The-Loop</span>
+                  </div>
+                  <div class="ai-body" id="detailAiSummary">
+                    <strong style="color:var(--aios-copper-2);">Kľúčový problém:</strong> Chýbajúci centralizovaný dispatching dopytov, nejasné vlastníctvo.<br>
+                    <strong style="color:var(--aios-copper-2);">Odporúčaný modul:</strong> <code>modules/b2b-sales</code><br>
+                    <strong style="color:var(--aios-copper-2);">Chýbajúce podklady od klienta:</strong>
+                    <ul style="margin-left:18px; margin-top:4px; color:var(--aios-muted);">
+                      <li>Aktuálny počet vybavených dopytov za týždeň (baseline)</li>
+                      <li>Export štruktúry zákazníkov z existujúceho ERP</li>
+                    </ul>
+                  </div>
+                  <div class="ai-actions-row">
+                    <button class="button button-copper button-small" onclick="generateReplyDraft()">Pripraviť koncept e-mailu pre klienta</button>
+                    <button class="button button-ghost button-small" onclick="showToast('Kontext uložený do auditu')">Uložiť do auditu</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 3. AUDIT VIEW ================= -->
+      <section class="view-container" id="view-audit">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Procesný Audit: Meridian Trade s.r.o.</h1>
+            <p class="page-subtitle">Zmapovanie súčasného stavu (AS-IS), systémov a definícia merateľného cieľa (TO-BE).</p>
+          </div>
+          <button class="button button-copper button-small" onclick="navigate('proposals')">Generovať Blueprint & Ponuku →</button>
+        </div>
+
+        <div class="split-2">
+          <!-- AUDIT CARDS -->
+          <div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">1. Súčasné systémy & Zdroje pravdy</span>
+                <span class="badge badge-warn">Roztrieštené dáta</span>
+              </div>
+              <div class="card-body">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Objekt</th>
+                      <th>Súčasný nástroj</th>
+                      <th>Cieľový stav v AiOS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="table-strong">Dopyty & Lead</td>
+                      <td>Zdieľaná schránka (info@)</td>
+                      <td>AiOS Control Room karta s vlastníkom</td>
+                    </tr>
+                    <tr>
+                      <td class="table-strong">Fakturácia</td>
+                      <td>Pohoda ERP</td>
+                      <td>Zachovať (AiOS iba odkaz a stav)</td>
+                    </tr>
+                    <tr>
+                      <td class="table-strong">Súbory a ponuky</td>
+                      <td>Disky obchodníkov (PDF)</td>
+                      <td>Súkromný klientsky portál s verziovaním</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">2. Tri overené príležitosti pre automatizáciu</span>
+                <span class="badge badge-ok">Potvrdené</span>
+              </div>
+              <div class="card-body">
+                <div style="display:flex; flex-direction:column; gap:12px;">
+                  <div style="padding:14px; background:var(--aios-panel-2); border-radius:var(--aios-radius-sm); border:1px solid var(--aios-line);">
+                    <strong style="color:var(--aios-copper-2);">A. Okamžité zaradenie dopytu do 2 minút</strong>
+                    <p style="font-size:0.83rem; color:var(--aios-muted); margin-top:4px;">Návštevník dostane overené potvrdenie a interný tím notifikáciu s priradeným zodpovedným človekom.</p>
+                  </div>
+                  <div style="padding:14px; background:var(--aios-panel-2); border-radius:var(--aios-radius-sm); border:1px solid var(--aios-line);">
+                    <strong style="color:var(--aios-copper-2);">B. AI asistent na extrakciu požiadaviek</strong>
+                    <p style="font-size:0.83rem; color:var(--aios-muted); margin-top:4px;">Z voľného textu automaticky pripraví návrh položiek do objednávky bez rizika vymýšľania cien.</p>
+                  </div>
+                  <div style="padding:14px; background:var(--aios-panel-2); border-radius:var(--aios-radius-sm); border:1px solid var(--aios-line);">
+                    <strong style="color:var(--aios-copper-2);">C. Klientsky portál so schvaľovaním</strong>
+                    <p style="font-size:0.83rem; color:var(--aios-muted); margin-top:4px;">Klient potvrdzuje verzie priamo v portáli; eliminácia stratených e-mailových súhlasov.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BASELINE METRICS -->
+          <div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Merateľný Baseline & KPI</span>
+              </div>
+              <div class="card-body">
+                <div style="display:flex; flex-direction:column; gap:16px;">
+                  <div>
+                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:6px;">
+                      <span>Čas reakcie na nový dopyt</span>
+                      <strong style="color:var(--status-warn);">28 hodín → cieľ 15 min</strong>
+                    </div>
+                    <div style="height:6px; background:var(--aios-panel-3); border-radius:3px; overflow:hidden;">
+                      <div style="width:30%; height:100%; background:var(--aios-copper);"></div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:6px;">
+                      <span>Dopyty bez určeného ďalšieho kroku</span>
+                      <strong style="color:var(--status-crit);">35% → cieľ 0%</strong>
+                    </div>
+                    <div style="height:6px; background:var(--aios-panel-3); border-radius:3px; overflow:hidden;">
+                      <div style="width:65%; height:100%; background:var(--status-crit);"></div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:6px;">
+                      <span>Čas schválenia ponuky klientom</span>
+                      <strong style="color:var(--aios-cyan);">6 dní → cieľ 1.5 dňa</strong>
+                    </div>
+                    <div style="height:6px; background:var(--aios-panel-3); border-radius:3px; overflow:hidden;">
+                      <div style="width:40%; height:100%; background:var(--aios-cyan);"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ai-assist-box" style="margin-top:20px;">
+                  <div class="ai-header">
+                    <span class="ai-title">💡 Bezpečnostné pravidlo AiOS</span>
+                  </div>
+                  <div class="ai-body">
+                    "AI nevymýšľa zmluvné ceny ani termíny. Všetky výpočty vykonáva deterministický kód na základe cenníka schváleného človekom."
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 4. BLUEPRINT & PROPOSALS VIEW ================= -->
+      <section class="view-container" id="view-proposals">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Blueprint & Cenová Ponuka: Meridian Trade</h1>
+            <p class="page-subtitle">Verziovaný rozsah v1.2 · Schválený klientskym portálom dňa 24. 9. 2026</p>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="button button-ghost button-small" onclick="showToast('Verzia v1.1 vs v1.2: pridaná integrácia s Pohoda ERP')">Porovnať verzie</button>
+            <button class="button button-copper button-small" onclick="showToast('Ponuka uzamknutá a podpísaná')">🔒 Záväzný stav</button>
+          </div>
+        </div>
+
+        <div class="split-2">
+          <!-- SCOPE OF DELIVERY -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Rozsah dodávky (In-Scope vs Out-of-Scope)</span>
+              <span class="badge badge-copper">Verzia 1.2</span>
+            </div>
+            <div class="card-body">
+              <div style="margin-bottom:18px;">
+                <h4 style="font-size:0.85rem; color:var(--status-ok); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;">✓ V cene a rozsahu (In-Scope):</h4>
+                <ul style="font-size:0.88rem; color:var(--aios-muted); margin-left:18px; line-height:1.7;">
+                  <li>Nasadenie AiOS Core s oddelenou klientskou databázou na Supabase</li>
+                  <li>Modul dopytov s prideľovaním zodpovednej osoby</li>
+                  <li>Klientsky portál pre nahrávanie podkladov a schvaľovanie</li>
+                  <li>AI asistent pre rekapituláciu objednávok s ľudským schvaľovacím tlačidlom</li>
+                  <li>Odovzdanie plného zdrojového kódu (TypeScript + React)</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 style="font-size:0.85rem; color:var(--status-crit); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;">✗ Vylúčené z prvej fázy (Out-of-Scope):</h4>
+                <ul style="font-size:0.88rem; color:var(--aios-muted); margin-left:18px; line-height:1.7;">
+                  <li>Obojsmerná live synchronizácia skladu s Pohoda ERP</li>
+                  <li>Mobilná natívna iOS/Android aplikácia (používa sa responzívny web)</li>
+                  <li>Automatické odosielanie e-mailov klientom bez kontroly pracovníkom</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRICING & CALCULATION (DETERMINISTIC) -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Kalkulácia rozpočtu</span>
+              <span class="badge badge-ok">Pevná cena</span>
+            </div>
+            <div class="card-body">
+              <div class="data-table-wrap">
+                <table class="data-table" style="margin-bottom:18px;">
+                  <thead>
+                    <tr>
+                      <th>Položka</th>
+                      <th>Hodiny</th>
+                      <th>Cena bez DPH</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Architektúra & Supabase prostredie</td>
+                      <td>14 h</td>
+                      <td class="table-strong">€1,120</td>
+                    </tr>
+                    <tr>
+                      <td>Dopytový modul & Dispatching</td>
+                      <td>26 h</td>
+                      <td class="table-strong">€2,080</td>
+                    </tr>
+                    <tr>
+                      <td>Klientsky portál so zabezpečením</td>
+                      <td>24 h</td>
+                      <td class="table-strong">€1,920</td>
+                    </tr>
+                    <tr>
+                      <td>AI asistencia s bezpečnostným firewallom</td>
+                      <td>16 h</td>
+                      <td class="table-strong">€1,280</td>
+                    </tr>
+                    <tr>
+                      <td>E2E testy, školenie a odovzdanie</td>
+                      <td>12 h</td>
+                      <td class="table-strong">€960</td>
+                    </tr>
+                    <tr style="background:var(--aios-panel-2); font-weight:700;">
+                      <td>Spolu (Jednorazová realizácia):</td>
+                      <td>92 h</td>
+                      <td style="color:var(--aios-copper-2); font-size:1.15rem;">€7,360</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div style="font-size:0.75rem; color:var(--aios-muted); padding:12px; background:var(--aios-panel-2); border-radius:var(--aios-radius-sm); border:1px solid var(--aios-line);">
+                🔐 <strong>Auditný overovací hash:</strong> <code style="color:var(--aios-cyan);">sha256:d8c2e9177a28b0f44e1</code><br>
+                Schválil: <em>Jana Kováčová (Klient) dňa 24. 9. 2026, 14:15 CET</em>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 5. PROJECTS / IMPLEMENTATION VIEW ================= -->
+      <section class="view-container" id="view-projects">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Projekt: Implementácia AiOS Meridian</h1>
+            <p class="page-subtitle">Sledovanie míľnikov, akceptačných kritérií a odovzdávacieho protokolu.</p>
+          </div>
+          <button class="button button-copper button-small" onclick="showToast('Akceptačný protokol je pripravený na podpis')">📜 Protokol o odovzdaní</button>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-title">Stav míľnikov</div>
+            <div class="kpi-value">3 / 5</div>
+            <div class="kpi-note green">Míľnik 3 v predstihu</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Plánovaný termín odovzdania</div>
+            <div class="kpi-value">14. 10.</div>
+            <div class="kpi-note green">Žiadne zdržanie na strane klienta</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Zmenové požiadavky (CR)</div>
+            <div class="kpi-value">0 aktívnych</div>
+            <div class="kpi-note copper">Rozsah bez nekontrolovaných zmien</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Míľniky projektu & Akceptačné kritériá</span>
+            <span class="badge badge-copper">Prebieha fáza 3</span>
+          </div>
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Míľnik</th>
+                  <th>Akceptačné kritérium</th>
+                  <th>Termín</th>
+                  <th>Zodpovedný</th>
+                  <th>Stav</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="table-strong">M1: Bezpečné prostredie</td>
+                  <td>Oddelená DB, RLS politiky, funkčné prihlásenie klienta</td>
+                  <td>28. 9. 2026</td>
+                  <td>Peter AiOS</td>
+                  <td><span class="badge badge-ok">✓ Dokončené</span></td>
+                </tr>
+                <tr>
+                  <td class="table-strong">M2: Dopytový modul</td>
+                  <td>Formulár zapíše dopyt s generovaným request_id bez straty</td>
+                  <td>04. 10. 2026</td>
+                  <td>Peter AiOS</td>
+                  <td><span class="badge badge-ok">✓ Dokončené</span></td>
+                </tr>
+                <tr>
+                  <td class="table-strong">M3: Klientsky portál</td>
+                  <td>Klient nahráva súbory a vidí iba vlastné projekty</td>
+                  <td>08. 10. 2026</td>
+                  <td>Peter AiOS + Jana K.</td>
+                  <td><span class="badge badge-cyan">Prebieha testovanie</span></td>
+                </tr>
+                <tr>
+                  <td class="table-strong">M4: AI Asistencia s filtrom</td>
+                  <td>Evaluačná sada 30 scenárov; nulový únik dát iných firiem</td>
+                  <td>11. 10. 2026</td>
+                  <td>Peter AiOS</td>
+                  <td><span class="badge badge-neutral">Čaká na rad</span></td>
+                </tr>
+                <tr>
+                  <td class="table-strong">M5: Odovzdanie & Školenie</td>
+                  <td>Podpísaný akceptačný protokol a odovzdaný Git repozitár</td>
+                  <td>14. 10. 2026</td>
+                  <td>Zakladateľ AiOS</td>
+                  <td><span class="badge badge-neutral">Čaká na rad</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 6. AI HUB VIEW ================= -->
+      <section class="view-container" id="view-ai-hub">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">AI Asistent & Bezpečnostná kontrola</h1>
+            <p class="page-subtitle">Demonštrácia deterministického riadenia: AI iba pripravuje koncepty, človek autorizuje každý výstup.</p>
+          </div>
+          <span class="badge badge-ok">Bezpečnostný filter aktívny</span>
+        </div>
+
+        <div class="split-2">
+          <!-- INTERACTIVE AI DRAFT WORKBENCH -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Interaktívna príprava odpovede pre dopyt</span>
+              <span class="badge badge-copper">Human-In-The-Loop</span>
+            </div>
+            <div class="card-body">
+              <div class="form-group" style="margin-bottom:14px;">
+                <label class="form-label">Kontext prípadu (Vstup od klienta):</label>
+                <div class="code-box">
+                  Klient: Meridian Trade s.r.o. | Jana Kováčová<br>
+                  Požiadavka: "Potrebujeme vedieť, či viete systém prepojiť s naším skladom a koľko to bude stáť."
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-bottom:14px;">
+                <label class="form-label">AI Návrh odpovede (Editor pre človeka):</label>
+                <textarea id="aiDraftText" class="form-textarea" rows="6">Dobrý deň pani Kováčová,
+
+ďakujeme za doplňujúcu otázku. Napojenie skladu sme v audite identifikovali ako voliteľnú zmenovú požiadavku (CR-01).
+
+Štandardná prvá fáza sa zameriava na spoľahlivý príjem dopytov a klientsky portál. Prepojenie so skladom si vyžiada špecifikáciu API vášho ERP, ktorú môžeme pripraviť v rámci nadväzujúceho míľnika.
+
+S pozdravom,
+Peter — AiOS</textarea>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <div style="font-size:0.75rem; color:var(--aios-muted);">
+                  🔒 <em>Overený hash obsahu:</em> <code id="draftHash" style="color:var(--aios-cyan);">#sha-44c1a82f...</code>
+                </div>
+                <button class="button button-copper" onclick="approveAiResponse()">Schváliť a odoslať</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- FIREWALL & EVALUATION SUITE -->
+          <div>
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Bezpečnostná evaluačná sada (30 testov)</span>
+                <span class="badge badge-ok">100% Úspešnosť</span>
+              </div>
+              <div class="card-body">
+                <div style="display:flex; flex-direction:column; gap:14px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.86rem;">
+                    <span>Ochrana proti prompt injection:</span>
+                    <span class="badge badge-ok">PASS (0 zlyhaní)</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.86rem;">
+                    <span>Cross-tenant únik dát (Klient A vs B):</span>
+                    <span class="badge badge-ok">PASS (Blokované RLS)</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.86rem;">
+                    <span>Vymýšľanie cien a záväzkov AI:</span>
+                    <span class="badge badge-ok">PASS (Deterministický kód)</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.86rem;">
+                    <span>Fallback pri výpadku AI modelu:</span>
+                    <span class="badge badge-ok">PASS (Ručný režim)</span>
+                  </div>
+                </div>
+
+                <div style="margin-top:22px; padding:14px; background:var(--aios-panel-2); border-radius:var(--aios-radius-sm); border:1px solid var(--aios-line); font-size:0.82rem; color:var(--aios-muted); line-height:1.6;">
+                  🛡️ <strong>Pravidlo architektúry:</strong> AI model nikdy nedostane prístup k SQL transakciám ani k platobným kľúčom. Výstupy sú striktne validované voči JSON schéme.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 7. SETTINGS VIEW ================= -->
+      <section class="view-container" id="view-settings">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Systémové nastavenia & Prístupy</h1>
+            <p class="page-subtitle">Oddelenie workspace_id a customer_org_id · Správa tímových oprávnení.</p>
+          </div>
+        </div>
+
+        <div class="split-2">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Aktívne role a oprávnenia v systéme</span>
+            </div>
+            <div class="card-body">
+              <div class="data-table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Rola</th>
+                      <th>Používateľ</th>
+                      <th>Rozsah prístupu</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="table-strong">Správca AiOS</td>
+                      <td>peter@aios.sk</td>
+                      <td>Plný prístup (všetky firmy a marže)</td>
+                    </tr>
+                    <tr>
+                      <td class="table-strong">Klientsky kontakt</td>
+                      <td>kovacova@meridiantrade.sk</td>
+                      <td>Výhradne organizácia Meridian Trade</td>
+                    </tr>
+                    <tr>
+                      <td class="table-strong">Technický servis</td>
+                      <td>servis@aios.sk</td>
+                      <td>Realizácia a tikety</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Prevádzkové parametre</span>
+            </div>
+            <div class="card-body">
+              <div style="font-size:0.86rem; line-height:1.75; color:var(--aios-muted);">
+                <strong style="color:var(--aios-text);">Databáza:</strong> PostgreSQL 16 (Supabase EU Frankfurt)<br>
+                <strong style="color:var(--aios-text);">Row Level Security:</strong> Zapnuté a vynútené pre všetky tabuľky<br>
+                <strong style="color:var(--aios-text);">Zálohovanie:</strong> Automatické denné snímky + Point-In-Time Recovery<br>
+                <strong style="color:var(--aios-text);">Notifikačný front:</strong> Idempotentný perzistentný outbox s automatickým opakovaním
+              </div>
+              <button class="button button-ghost button-small" style="margin-top:18px;" onclick="showToast('Záložný snapshot úspešne otestovaný')">Test obnovy zo zálohy</button>
+            </div>
+          </div>
+        </div>
+      <!-- ================= 8. READINESS SCORE VIEW (SEKCIA 08 .png) ================= -->
+      <section class="view-container" id="view-readiness">
+        <div class="page-header">
+          <div>
+            <div class="kicker-tag">
+              <span class="kicker-dot"></span>
+              <span>SEKCIA 08 // READINESS SCORE</span>
+            </div>
+            <h1 class="page-title">Je vaša firma pripravená na AiOS?</h1>
+            <p class="page-subtitle">Orientačný samoohodnocovací nástroj. Nenahrádza procesný, technický ani bezpečnostný audit.</p>
+          </div>
+          <button class="button button-copper button-small" onclick="openNewLeadModal()">Dohodnúť audit na základe skóre ↗</button>
+        </div>
+
+        <div class="split-2">
+          <!-- SLIDERS CARD -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Hodnotenie 5 pilierov pripravenosti</span>
+              <button class="button button-ghost button-small" onclick="resetReadiness()">Resetovať hodnoty</button>
+            </div>
+            <div class="card-body">
+              <div class="readiness-row">
+                <div class="readiness-label-row">
+                  <span class="readiness-name">Procesy</span>
+                  <span class="readiness-score-val" id="valProcess">0 / 5</span>
+                </div>
+                <input type="range" min="0" max="5" value="0" class="aios-slider" id="slideProcess" oninput="updateReadiness()">
+                <div class="readiness-desc">Zmapované pracovné toky, jasné vstupy a zodpovednosti tímu.</div>
+              </div>
+
+              <div class="readiness-row">
+                <div class="readiness-label-row">
+                  <span class="readiness-name">Dáta</span>
+                  <span class="readiness-score-val" id="valData">0 / 5</span>
+                </div>
+                <input type="range" min="0" max="5" value="0" class="aios-slider" id="slideData" oninput="updateReadiness()">
+                <div class="readiness-desc">Dostupnosť tabuliek, dokumentov a história prípadov.</div>
+              </div>
+
+              <div class="readiness-row">
+                <div class="readiness-label-row">
+                  <span class="readiness-name">Ľudia</span>
+                  <span class="readiness-score-val" id="valPeople">0 / 5</span>
+                </div>
+                <input type="range" min="0" max="5" value="0" class="aios-slider" id="slidePeople" oninput="updateReadiness()">
+                <div class="readiness-desc">Ochota tímu prijať nové overovacie postupy a nástroje.</div>
+              </div>
+
+              <div class="readiness-row">
+                <div class="readiness-label-row">
+                  <span class="readiness-name">Technológia</span>
+                  <span class="readiness-score-val" id="valTech">0 / 5</span>
+                </div>
+                <input type="range" min="0" max="5" value="0" class="aios-slider" id="slideTech" oninput="updateReadiness()">
+                <div class="readiness-desc">Používaný softvér, API možnosti a zabezpečenie.</div>
+              </div>
+
+              <div class="readiness-row">
+                <div class="readiness-label-row">
+                  <span class="readiness-name">Meranie</span>
+                  <span class="readiness-score-val" id="valMetrics">0 / 5</span>
+                </div>
+                <input type="range" min="0" max="5" value="0" class="aios-slider" id="slideMetrics" oninput="updateReadiness()">
+                <div class="readiness-desc">Sledovanie časov vybavenia, nákladov a chybovosti.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RESULT SCORE DISPLAY CARD (.png style) -->
+          <div class="card" style="display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:32px 24px; background:radial-gradient(circle at center, rgba(176,109,80,0.08) 0%, var(--aios-panel-solid) 80%);">
+            <div style="font-family:var(--font-mono); font-size:0.75rem; font-weight:700; letter-spacing:0.18em; color:var(--aios-muted); text-transform:uppercase; margin-bottom:12px;">
+              ORIENTAČNÉ READINESS SKÓRE
+            </div>
+
+            <div id="bigReadinessNumber" style="font-family:var(--font-head); font-size:clamp(5rem, 10vw, 7.5rem); font-weight:900; line-height:1; letter-spacing:-0.05em; background:linear-gradient(180deg, #ffffff 10%, #d9a184 70%, #9a5b40 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:16px;">
+              0
+            </div>
+
+            <div id="readinessStatusBadge" class="badge badge-warn" style="font-size:0.85rem; padding:6px 16px; margin-bottom:20px;">
+              Potrebný vstupný audit procesov
+            </div>
+
+            <p id="readinessStatusDesc" style="color:var(--aios-muted); font-size:0.86rem; line-height:1.6; max-width:380px; margin-bottom:24px;">
+              Posuňte jednotlivé posuvníky podľa reálneho stavu vo vašej firme. Systém okamžite vyhodnotí pripravenosť na nasadenie AiOS.
+            </p>
+
+            <button class="button button-copper" onclick="openNewLeadModal()">Rezervovať vstupný AiOS audit ↗</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MOBILE BOTTOM NAVIGATION BAR -->
+  <nav class="mobile-bottom-nav">
+    <button class="bottom-nav-item active" data-bnav="dashboard" onclick="navigate('dashboard')">
+      <span class="bottom-nav-icon">📊</span>
+      <span class="bottom-nav-label">Prehľad</span>
+    </button>
+    <button class="bottom-nav-item" data-bnav="readiness" onclick="navigate('readiness')">
+      <span class="bottom-nav-icon">🎯</span>
+      <span class="bottom-nav-label">Skóre</span>
+    </button>
+    <button class="bottom-nav-item" data-bnav="leads" id="bnavLeads" onclick="navigate('leads')">
+      <span class="bottom-nav-icon">📥</span>
+      <span class="bottom-nav-label">Dopyty</span>
+    </button>
+    <button class="bottom-nav-item" data-bnav="proposals" onclick="navigate('proposals')">
+      <span class="bottom-nav-icon">📑</span>
+      <span class="bottom-nav-label">Ponuka</span>
+    </button>
+    <button class="bottom-nav-item" data-bnav="projects" onclick="navigate('projects')">
+      <span class="bottom-nav-icon">🚀</span>
+      <span class="bottom-nav-label">Projekt</span>
+    </button>
+    <button class="bottom-nav-item" onclick="toggleMobileMenu()">
+      <span class="bottom-nav-icon">☰</span>
+      <span class="bottom-nav-label">Menu</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ================= MODAL: NOVÝ DOPYT (aios-desktop-form.png style) ================= -->
+<div class="modal-overlay" id="newLeadModal">
+  <div class="modal-card" style="max-width:680px;">
+    <div class="modal-head">
+      <div>
+        <div class="kicker-tag" style="margin-bottom:4px;">
+          <span class="kicker-dot"></span>
+          <span>ZAČNITE S JASNÝM KROKOM</span>
+        </div>
+        <h3 style="font-family:var(--font-head); font-size:1.35rem; color:var(--aios-text); letter-spacing:-0.02em;">Začnime procesom, ktorý vás dnes brzdí najviac.</h3>
+        <p style="font-size:0.8rem; color:var(--aios-muted); margin-top:4px;">Na úvodnom audite zmapujeme konkrétny pracovný tok, pomenujeme straty a navrhneme ďalší krok bez záväzku k veľkému projektu.</p>
+      </div>
+      <button class="btn-icon" onclick="closeNewLeadModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- PIPELINE FLOW BANNER (.png) -->
+      <div class="pipeline-flow-box">
+        <span style="color:var(--aios-cyan); margin-right:4px;">⚡</span>
+        <span>Diagnostikujeme <span class="arr">→</span> Navrhneme <span class="arr">→</span> Vybudujeme <span class="arr">→</span> Naučíme používať <span class="arr">→</span> Zmeriame <span class="arr">→</span> Rozvíjame</span>
+      </div>
+
+      <div class="split-2">
+        <div class="form-group">
+          <label class="form-label">Meno a priezvisko *</label>
+          <input type="text" id="inpContact" class="form-input" placeholder="Ing. Peter Horváth">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Pracovný e-mail *</label>
+          <input type="email" id="inpEmail" class="form-input" placeholder="horvath@firma.sk">
+        </div>
+      </div>
+
+      <div class="split-2">
+        <div class="form-group">
+          <label class="form-label">Spoločnosť *</label>
+          <input type="text" id="inpCompany" class="form-input" placeholder="Vaša spoločnosť">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Odvetvie</label>
+          <select id="inpSegment" class="form-select">
+            <option value="Reality & Reality CRM">Reality & Makléri (AiOS Reality)</option>
+            <option value="Právne služby & Advokácia">Právne kancelárie (AiOS Legal)</option>
+            <option value="Autoservis & Dielňa">Autoservis & Dielňa (AiOS Servis)</option>
+            <option value="Ubytovanie & Gastronómia">Penzióny & Hostia (AiOS Guest)</option>
+            <option value="B2B Obchod & Distribúcia">B2B Obchod & Predaj (AiOS B2B)</option>
+            <option value="Iné / Zákazkový proces">Iné / Zákazkový proces</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Najväčší procesný problém *</label>
+        <textarea id="inpText" class="form-textarea" rows="3" placeholder="Opíšte proces, ktorý váš tím brzdí najviac..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Približná veľkosť tímu</label>
+        <select id="inpTeamSize" class="form-select">
+          <option value="1-5">1 – 5 osôb</option>
+          <option value="6-20" selected>6 – 20 osôb</option>
+          <option value="21-50">21 – 50 osôb</option>
+          <option value="50+">Viac ako 50 osôb</option>
+        </select>
+      </div>
+
+      <label style="display:flex; align-items:flex-start; gap:10px; font-size:0.78rem; color:var(--aios-muted); cursor:pointer; margin-top:8px;">
+        <input type="checkbox" id="chkConsent" checked style="accent-color:var(--aios-copper); margin-top:2px;">
+        <span>Súhlasím so spracovaním uvedených údajov na účel vybavenia tejto požiadavky. *</span>
+      </label>
+    </div>
+    <div class="modal-foot" style="flex-direction:column; align-items:stretch; gap:10px;">
+      <button class="button button-copper" style="width:100%; justify-content:center;" onclick="submitNewLead()">Rezervovať vstupný AiOS audit ↗</button>
+      <div style="font-size:0.72rem; color:var(--aios-muted); text-align:center;">Po odoslaní vám ozveme spätne na uvedený e-mail a dohodneme termín vstupného auditu.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastArea"></div>
+
+<script>
+// ================= DATA STORE =================
+const STATE = {
+  currentRole: 'admin',
+  currentView: 'dashboard',
+  theme: 'dark',
+  leads: [
+    {
+      id: 'MRD-2026-014',
+      company: 'Meridian Trade s.r.o.',
+      contact: 'Jana Kováčová',
+      role: 'obchodná riaditeľka',
+      email: 'kovacova@meridiantrade.sk',
+      phone: '+421 905 123 456',
+      segment: 'B2B Obchod & Distribúcia',
+      source: 'Web formulár aios.macaly.app',
+      status: 'Audit a návrh',
+      owner: 'Peter AiOS',
+      rawText: 'Máme 4 obchodníkov, dopyty nám padajú do e-mailu a nikto nevie, kto na čom robí. Potrebujeme systém na triedenie dopytov, automatický návrh odpovede a zákaznícky portál na schvaľovanie objednávok.'
+    },
+    {
+      id: 'OPT-2026-015',
+      company: 'AutoOptima Service s.r.o.',
+      contact: 'Marek Varga',
+      role: 'vedúci servisu',
+      email: 'varga@autooptima.sk',
+      phone: '+421 911 888 777',
+      segment: 'Autoservis & Dielňa',
+      source: 'Odporučenie',
+      status: 'Kvalifikácia',
+      owner: 'Peter AiOS',
+      rawText: 'Zákazníci volajú a píšu cez víkend. Potrebujeme formulár na obhliadku, kde nahrajú fotky poškodenia, VIN a vyberú orientačný termín.'
+    },
+    {
+      id: 'KRA-2026-016',
+      company: 'Penzión Krahule',
+      contact: 'Elena Horváthová',
+      role: 'majiteľka',
+      email: 'rezervacie@krahule.sk',
+      phone: '+421 903 555 444',
+      segment: 'Ubytovanie & Gastronómia',
+      source: 'Web formulár aios.macaly.app',
+      status: 'Nová',
+      owner: 'Čaká na priradenie',
+      rawText: 'Chceme automatizovať odpovede na otázky ohľadom parkovania, detských postieľok a neskorého príchodu, aby sme nemuseli v noci odpisovať.'
+    }
+  ]
+};
+
+// ================= INITIALIZATION =================
+window.addEventListener('DOMContentLoaded', () => {
+  renderLeadsTables();
+  renderDashboard();
+  updateRoleView();
+});
+
+// ================= MOBILE MENU HANDLERS =================
+function toggleMobileMenu() {
+  const sidebar = document.getElementById('appSidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('open');
+}
+
+function closeMobileMenu() {
+  const sidebar = document.getElementById('appSidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  if (sidebar) sidebar.classList.remove('open');
+  if (overlay) overlay.classList.remove('open');
+}
+
+// ================= NAVIGATION =================
+function navigate(viewId) {
+  STATE.currentView = viewId;
+  closeMobileMenu();
+
+  // Update nav links in sidebar
+  document.querySelectorAll('.nav-link').forEach(link => {
+    if (link.getAttribute('data-view') === viewId) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+
+  // Update bottom navigation bar
+  document.querySelectorAll('.bottom-nav-item').forEach(btn => {
+    if (btn.getAttribute('data-bnav') === viewId) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  // Update views
+  document.querySelectorAll('.view-container').forEach(view => {
+    view.classList.remove('active');
+  });
+
+  const target = document.getElementById('view-' + viewId);
+  if (target) {
+    target.classList.add('active');
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ================= READINESS SCORE LOGIC (.png) =================
+function updateReadiness() {
+  const p = parseInt(document.getElementById('slideProcess').value) || 0;
+  const d = parseInt(document.getElementById('slideData').value) || 0;
+  const l = parseInt(document.getElementById('slidePeople').value) || 0;
+  const t = parseInt(document.getElementById('slideTech').value) || 0;
+  const m = parseInt(document.getElementById('slideMetrics').value) || 0;
+
+  const valP = document.getElementById('valProcess');
+  const valD = document.getElementById('valData');
+  const valL = document.getElementById('valPeople');
+  const valT = document.getElementById('valTech');
+  const valM = document.getElementById('valMetrics');
+
+  if (valP) valP.innerText = p + ' / 5';
+  if (valD) valD.innerText = d + ' / 5';
+  if (valL) valL.innerText = l + ' / 5';
+  if (valT) valT.innerText = t + ' / 5';
+  if (valM) valM.innerText = m + ' / 5';
+
+  const sum = p + d + l + t + m;
+  const scorePercent = Math.round((sum / 25) * 100);
+
+  const numEl = document.getElementById('bigReadinessNumber');
+  const badgeEl = document.getElementById('readinessStatusBadge');
+  const descEl = document.getElementById('readinessStatusDesc');
+
+  if (numEl) numEl.innerText = scorePercent + (scorePercent > 0 ? '%' : '');
+
+  if (badgeEl && descEl) {
+    if (scorePercent === 0) {
+      badgeEl.className = 'badge badge-warn';
+      badgeEl.innerText = 'Potrebný vstupný audit procesov';
+      descEl.innerText = 'Posuňte jednotlivé posuvníky podľa reálneho stavu vo vašej firme. Systém okamžite vyhodnotí pripravenosť na nasadenie AiOS.';
+    } else if (scorePercent < 45) {
+      badgeEl.className = 'badge badge-warn';
+      badgeEl.innerText = 'Počiatočná pripravenosť · Odporúčaný procesný audit';
+      descEl.innerText = 'Firma má potenciál na automatizáciu, ale najprv je potrebné zjednotiť formáty dát a jasne zadefinovať zodpovedné osoby za schvaľovanie.';
+    } else if (scorePercent < 75) {
+      badgeEl.className = 'badge badge-ok';
+      badgeEl.innerText = 'Optimálna pripravenosť · Pripravené na pilotný projekt';
+      descEl.innerText = 'Máte dostatočne zrelé dáta aj tím. Odporúčame začať 1 konkrétnym procesom s merateľným pilotom do 3 týždňov.';
+    } else {
+      badgeEl.className = 'badge badge-copper';
+      badgeEl.innerText = 'Vysoká pripravenosť · Plná autonómia s dohľadom';
+      descEl.innerText = 'Vaša infraštruktúra a procesná disciplína umožňujú okamžité nasadenie komplexného AiOS systému so zákazníckym portálom a AI firewallom.';
+    }
+  }
+}
+
+function resetReadiness() {
+  const sp = document.getElementById('slideProcess');
+  const sd = document.getElementById('slideData');
+  const sl = document.getElementById('slidePeople');
+  const st = document.getElementById('slideTech');
+  const sm = document.getElementById('slideMetrics');
+  if (sp) sp.value = 0;
+  if (sd) sd.value = 0;
+  if (sl) sl.value = 0;
+  if (st) st.value = 0;
+  if (sm) sm.value = 0;
+  updateReadiness();
+  showToast('Hodnoty Readiness Score boli vynulované');
+}
+
+// ================= ROLE SWITCHING =================
+function switchRole(role) {
+  STATE.currentRole = role;
+  document.getElementById('roleSelector').value = role;
+
+  const banner = document.getElementById('clientBanner');
+  const btnLead = document.getElementById('btnQuickLead');
+  const navLeads = document.getElementById('navLeads');
+  const bnavLeads = document.getElementById('bnavLeads');
+  const navSettings = document.getElementById('navSettings');
+  const navAiHub = document.getElementById('navAiHub');
+  const lblGov = document.getElementById('lblGovernance');
+
+  if (role === 'client') {
+    banner.classList.add('show');
+    if (btnLead) btnLead.style.display = 'none';
+    if (navLeads) navLeads.style.display = 'none';
+    if (bnavLeads) bnavLeads.style.display = 'none';
+    if (navSettings) navSettings.style.display = 'none';
+    if (navAiHub) navAiHub.style.display = 'none';
+    if (lblGov) lblGov.style.display = 'none';
+
+    document.getElementById('dashGreeting').innerText = 'Klientsky portál: Meridian Trade s.r.o.';
+    showToast('Prepnuté do klientskeho zobrazenia');
+    navigate('proposals');
+  } else {
+    banner.classList.remove('show');
+    if (btnLead) btnLead.style.display = 'inline-flex';
+    if (navLeads) navLeads.style.display = 'flex';
+    if (bnavLeads) bnavLeads.style.display = 'flex';
+    if (navSettings) navSettings.style.display = 'flex';
+    if (navAiHub) navAiHub.style.display = 'flex';
+    if (lblGov) lblGov.style.display = 'block';
+
+    document.getElementById('dashGreeting').innerText = 'Riadiace centrum AiOS';
+    showToast('Prepnuté na rolu: ' + (role === 'admin' ? 'Správca AiOS' : 'Interný špecialista'));
+  }
+
+  renderDashboard();
+}
+
+function updateRoleView() {
+  switchRole(STATE.currentRole);
+}
+
+// ================= THEME TOGGLE =================
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  STATE.theme = next;
+  showToast(next === 'dark' ? 'Zapnutý tmavý motív' : 'Zapnutý svetlý motív');
+}
+
+// ================= DASHBOARD RENDER =================
+function renderDashboard() {
+  const tbody = document.getElementById('dashTableBody');
+  tbody.innerHTML = '';
+
+  let list = STATE.leads;
+  if (STATE.currentRole === 'client') {
+    list = STATE.leads.filter(l => l.company.includes('Meridian'));
+  }
+
+  list.forEach(lead => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="table-strong">
+        <div>${lead.company}</div>
+        <div style="font-size:0.75rem; color:var(--aios-muted); font-family:var(--font-mono);">${lead.id}</div>
+      </td>
+      <td>${lead.segment}</td>
+      <td><span class="badge ${getStatusBadgeClass(lead.status)}">${lead.status}</span></td>
+      <td>${lead.owner}</td>
+      <td>
+        <button class="button button-ghost button-small" onclick="showLeadDetail('${lead.id}')">Otvoriť</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('kpiActiveLeads').innerText = list.length;
+}
+
+// ================= LEADS LIST RENDER =================
+function renderLeadsTables() {
+  const tbody = document.getElementById('leadsTableFull');
+  tbody.innerHTML = '';
+
+  const segmentFilter = document.getElementById('leadFilterSegment').value;
+  const searchFilter = document.getElementById('leadSearch').value.toLowerCase();
+
+  const filtered = STATE.leads.filter(l => {
+    const matchSegment = segmentFilter === 'all' || l.segment === segmentFilter;
+    const matchSearch = l.company.toLowerCase().includes(searchFilter) ||
+                        l.contact.toLowerCase().includes(searchFilter) ||
+                        l.id.toLowerCase().includes(searchFilter);
+    return matchSegment && matchSearch;
+  });
+
+  document.getElementById('badgeLeadsCount').innerText = STATE.leads.length;
+
+  filtered.forEach(lead => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="font-family:var(--font-mono); font-size:0.8rem; font-weight:600; color:var(--aios-cyan);">${lead.id}</td>
+      <td class="table-strong">${lead.company}</td>
+      <td>
+        <div>${lead.contact}</div>
+        <div style="font-size:0.75rem; color:var(--aios-muted);">${lead.email}</div>
+      </td>
+      <td>${lead.segment}</td>
+      <td><span class="badge badge-neutral">${lead.source}</span></td>
+      <td><span class="badge ${getStatusBadgeClass(lead.status)}">${lead.status}</span></td>
+      <td>${lead.owner}</td>
+      <td>
+        <button class="button button-ghost button-small" onclick="showLeadDetail('${lead.id}')">Karta prípadu</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function filterLeads() {
+  renderLeadsTables();
+}
+
+function getStatusBadgeClass(status) {
+  switch (status) {
+    case 'Nová': return 'badge-warn';
+    case 'Kvalifikácia': return 'badge-neutral';
+    case 'Audit a návrh': return 'badge-copper';
+    case 'Schválené':
+    case 'Realizácia': return 'badge-ok';
+    default: return 'badge-neutral';
+  }
+}
+
+// ================= LEAD DETAIL =================
+function showLeadDetail(id) {
+  const lead = STATE.leads.find(l => l.id === id);
+  if (!lead) return;
+
+  document.getElementById('detailId').innerText = lead.id;
+  document.getElementById('detailCompany').innerText = lead.company;
+  document.getElementById('detailContact').innerText = lead.contact;
+  document.getElementById('detailRole').innerText = lead.role || 'vedúci zástupca';
+  document.getElementById('detailEmail').innerText = lead.email;
+  document.getElementById('detailRawInput').innerText = lead.rawText;
+
+  const card = document.getElementById('leadDetailCard');
+  card.style.display = 'block';
+
+  navigate('leads');
+  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function advanceLeadToAudit() {
+  showToast('Dopyt prevedený do fázy Procesného Auditu');
+  navigate('audit');
+}
+
+// ================= AI FEATURES =================
+function generateReplyDraft() {
+  navigate('ai-hub');
+  showToast('Koncept odpovede pripravený v AI Workbench');
+}
+
+function approveAiResponse() {
+  const text = document.getElementById('aiDraftText').value;
+  showToast('✓ Odpoveď bola schválená človekom a odoslaná');
+  document.getElementById('draftHash').innerText = '#sha-99b2e04 (Autorizované)';
+}
+
+// ================= NEW LEAD MODAL =================
+function openNewLeadModal() {
+  document.getElementById('newLeadModal').classList.add('open');
+}
+
+function closeNewLeadModal() {
+  document.getElementById('newLeadModal').classList.remove('open');
+}
+
+function submitNewLead() {
+  const company = document.getElementById('inpCompany').value.trim();
+  const contact = document.getElementById('inpContact').value.trim();
+  const email = document.getElementById('inpEmail').value.trim();
+  const segment = document.getElementById('inpSegment').value;
+  const text = document.getElementById('inpText').value.trim();
+
+  if (!company || !contact || !email) {
+    alert('Prosím, vyplňte názov firmy, kontakt a e-mail.');
+    return;
+  }
+
+  const newId = 'AIOS-' + new Date().getFullYear() + '-0' + (STATE.leads.length + 14);
+
+  const newLead = {
+    id: newId,
+    company: company,
+    contact: contact,
+    role: 'zástupca',
+    email: email,
+    phone: '+421 900 000 000',
+    segment: segment,
+    source: 'Formulár aios.macaly.app',
+    status: 'Nová',
+    owner: 'Peter AiOS',
+    rawText: text || 'Požiadavka odoslaná z webového rozhrania.'
+  };
+
+  STATE.leads.unshift(newLead);
+  closeNewLeadModal();
+
+  document.getElementById('inpCompany').value = '';
+  document.getElementById('inpContact').value = '';
+  document.getElementById('inpEmail').value = '';
+  document.getElementById('inpText').value = '';
+
+  renderLeadsTables();
+  renderDashboard();
+
+  showToast(`Dopyt pre firmu ${company} úspešne zaevidovaný (#${newId})`);
+  showLeadDetail(newId);
+}
+
+// ================= TOAST NOTIFICATION =================
+function showToast(msg) {
+  const area = document.getElementById('toastArea');
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = `<span style="color:var(--aios-copper-2);">⚡</span> <span>${msg}</span>`;
+  area.appendChild(t);
+
+  setTimeout(() => {
+    t.style.opacity = '0';
+    t.style.transform = 'translateY(8px)';
+    t.style.transition = 'all 0.25s ease';
+    setTimeout(() => t.remove(), 250);
+  }, 3200);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+ŠTRUKTÚRA AIOS-SYSTEMS — stav pri kontrole 24. 9. 2026
+
+Koreň: /Users/jarvis/Desktop/AiOS-SYSTEMS
+Prehľad zachytáva všetky koreňové položky a vybrané ďalšie úrovne.
+Nie je to úplný výpis každého súboru. Závislosti, buildy a obsah archívov sú vynechané.
+Existencia priečinka neznamená, že jeho projekt bol spustený alebo je aktívny.
+
+AiOS-SYSTEMS/
+├── .DS_Store                              [systémový súbor macOS]
+├── CLAUDE.md                              [pokyny a opis pracovného priečinka]
+├── .claude/                               [obsah nekontrolovaný]
+├── AI-REELS-GENERATOR-master/
+│   ├── scripts/
+│   └── assets/
+├── AIS-OS-main/
+│   ├── .agents/
+│   ├── context/
+│   ├── references/
+│   ├── decisions/
+│   ├── docs/
+│   ├── scripts/
+│   └── archives/                          [obsah nekontrolovaný]
+├── AiOS/
+│   ├── brand-site/
+│   │   └── aios-brand-site (2)/           [overený manifest webového projektu]
+│   ├── docs/
+│   ├── branding/
+│   ├── presentation/
+│   ├── AiOS - prezentácia/
+│   ├── Analyzuj dokument pre spustenie projektu AiOS/
+│   ├── scripts/
+│   ├── misc/
+│   └── archives/                          [obsah nekontrolovaný]
+├── AiOS_Visuals/
+│   ├── references/
+│   └── aios-platform/
+├── Archives/                              [obsah nekontrolovaný]
+├── Claude-20250520-nateherk-main/
+├── Code_Projects/                         [16 priamych podpriečinkov]
+│   ├── claude-seo-prompt-pack-main/
+│   ├── Ai-Website-Builder-main/
+│   ├── aios-brand-site/
+│   ├── Mark-LII-main/
+│   ├── AIS-OS-main/
+│   ├── aios-permanent (1)/
+│   ├── scroll-craft-main/
+│   ├── a-bunch-of-skills-master/
+│   ├── GenWebScraper-master/
+│   ├── aios-landing/
+│   ├── scroll-craft-main 2/
+│   ├── ottomator-agents-main/
+│   ├── awesome-web-prompts-main/
+│   ├── agentskills-main/
+│   ├── hyperframes-student-kit-main/
+│   └── local-ai-care-package/
+├── Documents/                             [obsah nekontrolovaný]
+├── JarvisProjects/
+│   ├── AIS-OS-main/
+│   └── aios_app/
+├── MasterClassn8n-main/
+├── NEROZBALENE␠/                          [obsah nekontrolovaný; medzera na konci názvu]
+├── Obrazky/                               [obsah nekontrolovaný]
+├── Organized/                             [zaznamenané len názvy kategórií]
+│   ├── Video/
+│   ├── Design_Assets/
+│   ├── Images/
+│   └── Audio/
+├── RAVID/                                 [strategické Markdown podklady]
+├── Ravid AI - _Plan_/
+│   ├── 1_ SLUŽBY KRÁSY & WELLNESS/
+│   ├── 2_ REALITY/
+│   ├── 3_ GASTRONÓMIA & HOTELIERSTVO/
+│   ├── Agent Ravido␠/
+│   └── Tipy-Triky/
+├── Weby/
+│   ├── aios-platform/
+│   ├── demo-auto-detailing/
+│   └── aios-webhosting/
+├── a-bunch-of-skills-master/
+│   ├── brand-assets/
+│   ├── projects/
+│   ├── decisions/
+│   ├── scripts/
+│   └── assets/
+├── aios-main/
+│   ├── utils/
+│   ├── docs/
+│   ├── scripts/
+│   ├── i18n/
+│   └── src/
+├── promptimizer-main/
+│   ├── evals/
+│   └── promptimizer/
+└── snagtime-main/
+    ├── .github/
+    ├── apps/
+    ├── prisma/
+    ├── tests/
+    ├── docs/
+    ├── scripts/
+    └── infrastructure/
+
+POZNÁMKY
+
+Počet koreňových priečinkov: 21 vrátane skrytého .claude, teda 20 viditeľných.
+Nejde o počet samostatných aplikácií: niektoré priečinky sú kolekcie alebo podklady.
+
+Znak ␠ iba zviditeľňuje záverečnú medzeru. Reálny názov je napríklad
+'NEROZBALENE ' alebo 'Agent Ravido '. Pri práci v shelli použite úvodzovky.
+Diakritika je v tomto orientačnom výpise normalizovaná pre čitateľnosť.
+
+Skryté konfiguračné podpriečinky nie sú vypísané vyčerpávajúco. Strom neobsahuje
+priečinky, ktoré iba predpisuje README, ale neboli pozorované v adresárovom výpise
+alebo potvrdené čítaním súboru na danej ceste. Napríklad output/ generátora videí
+sa tu zámerne neuvádza ako existujúci priečinok.
+
+Kontrola nemenila existujúce projektové súbory a nespúšťala ich kód.

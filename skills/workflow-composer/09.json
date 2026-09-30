@@ -1,0 +1,42 @@
+{
+  "name": "AIS-OS-main",
+  "purpose": "Starter kit AI Operating System pre Claude Code a Codex; podľa README slúži na personalizovaný kontext, prepojenia, schopnosti a opakované automatizácie.",
+  "kind": "Dokumentačno-konfiguračný AIOS starter kit s Markdown manuálmi a skill balíkmi; deklarované MIT licencovanie.",
+  "technologies": ["Markdown", "Claude Code skills", "Codex skills", "Bash (deklarovaný synchronizačný skript)", "Node.js 22+ pre voliteľný 3D Brain podľa README"],
+  "structure": [
+    "Koreňové manuály a onboarding: CLAUDE.md, AGENTS.md, aios-intake.md, EXPANSIONS.md.",
+    "Kontext a znalosti: context/, references/, decisions/log.md, brainstorms/, audits/, archives/.",
+    "Prepojenia: connections.md ako register systémov a mechanizmov.",
+    "Skill zdroje: .claude/skills/; Codex kópie: .agents/skills/.",
+    "Pomocná automatizácia podľa README: scripts/sync-codex-skills.sh; voliteľná aplikácia 3d-brain vzniká až po použití skillu."
+  ],
+  "subprojects": [
+    {"path":"Code_Projects/","purpose":"V tejto kontrole nebolo možné potvrdiť obsah ani priame deti bez požadovaného macOS listing prístupu.","technology":"Neznáme.","evidence":"README.md opisuje všeobecné rozšírenie cez projects/, ale neuvádza Code_Projects/ ako súčasť deklarovaného layoutu (README.md:134-166)."},
+    {"path":"Weby/","purpose":"V tejto kontrole nebolo možné potvrdiť obsah ani priame deti bez požadovaného macOS listing prístupu.","technology":"Neznáme.","evidence":"Nie je uvedené v deklarovanom layout-e README.md:134-166; nebola nájdená čitateľná README.md na očakávanej ceste."},
+    {"path":"JarvisProjects/","purpose":"V tejto kontrole nebolo možné potvrdiť obsah ani priame deti bez požadovaného macOS listing prístupu.","technology":"Neznáme.","evidence":"Nie je uvedené v deklarovanom layout-e README.md:134-166; nebola nájdená čitateľná README.md na očakávanej ceste."},
+    {"path":"RAVID/ a Ravid AI - _Plan_/","purpose":"Neboli extrahované obchodné, finančné ani zákaznícke údaje; priečinky nebolo možné bezpečne plytko vypísať v dostupnom prostredí.","technology":"Neznáme.","evidence":"Bez overeného listing-u a bez čítania citlivého obsahu; ide len o názvami naznačených kandidátov, nie potvrdené identity."}
+  ],
+  "observed_state": "Pozorované sú šablónové placeholdery (napr. {{Your Name}}, {{stated priority}}, [Your answer here]) v CLAUDE.md, AGENTS.md a aios-intake.md. connections.md obsahuje doménové riadky označené ako not yet connected. To svedčí o nevyplnenom alebo neoverenom onboarding stave; funkcionalita nebola spustená, testovaná ani auditovaná.",
+  "relationships": [
+    "CLAUDE.md a AGENTS.md majú podľa vlastného textu zdieľané pokyny a majú sa aktualizovať spolu (CLAUDE.md:5; AGENTS.md:5).",
+    "aios-intake.md je zdroj pravdy pre /onboard a má napĺňať context/, references/voice.md, connections.md a CLAUDE.md (aios-intake.md:85-86).",
+    ".claude/skills/ je autorský zdroj a .agents/skills/ sú Codex kópie; synchronizácia je deklarovaná cez scripts/sync-codex-skills.sh (README.md:117-121).",
+    "Context je v rámci Four Cs nepreskočiteľná vrstva; Connections a Capabilities môžu ísť paralelne; Cadence má nasledovať neskôr (README.md:57-70)."
+  ],
+  "cautions": [
+    "Požadovaný macOS shell listing so session názvom desktop:overview-8 nebol v tomto runtime vykonateľný, preto top-level priečinky a priame deti mimo čítaných súborov nemožno potvrdiť.",
+    "Nebolo čítané .env, credentials, .claude config, archívy/zálohy ani osobné PDF/Word dáta.",
+    "README tvrdenia o skilloch, 3D Brain a Node.js neboli spustením overené.",
+    "Podobné názvy priečinkov sú iba kandidáti duplicít, nie dôkaz identity alebo aktuálnosti; názvy/timestamps neboli použité na tvrdenia o deploymente či najnovšej kópii."
+  ],
+  "sources": [
+    "README.md:1-7, 41-70, 74-95, 109-121, 134-166",
+    "CLAUDE.md:5-32, 42-54",
+    "AGENTS.md:5-32, 42-54",
+    "EXPANSIONS.md:9-36, 53-78",
+    "connections.md:1-18",
+    "aios-intake.md:1-5, 75-86",
+    "LICENSE:1-25"
+  ],
+  "notes_path": "/home/ubuntu/aios-overview/reviews/09.json"
+}

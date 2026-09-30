@@ -1,0 +1,20 @@
+# Common draft mistakes and the fix
+
+Check every draft against this table in Step 1. Apply the fix without asking the user to diagnose it.
+
+| Pattern in the draft | Why it hurts | Fix in the upgraded prompt |
+|---|---|---|
+| Task list: "research X, then pick Y, then build Z, then deploy" | Dictates the route before the model inspects the problem; the model finishes the list, not the goal | Collapse to one Outcome plus a Definition of Done. Keep a step only if it is a real dependency or a required tool |
+| Vague quality words: "good", "professional", "clean", "polished", "compelling" | Not checkable; the model reports confidence instead of evidence | Convert each to an observable condition in Definition of Done and a criterion in Verification |
+| Topic only: "research competitor pricing", "look into caching" | No deliverable, so the run ends with a wall of text or a question | Ask the Outcome shape question with two or three concrete deliverables (memo, table, decision, PR) |
+| Question form: "can you help me with X?" | Not a task; the model answers the question and stops | Treat as Outcome shape. Ask what artifact should exist at the end |
+| Too big: "build me a SaaS", "migrate everything to Postgres" | Cannot be finished and verified in one run; the model either plans forever or ships something unverifiable | Ask the First slice question. Offer slices that each produce a checkable result. The prompt covers one slice; note the next |
+| Bundled unrelated asks: "fix the login bug, also write the newsletter, also update the pricing page" | Split attention, no single done state, verification gets skipped on the easy ones | Pick the primary ask for this prompt. List the others in one line after the block as separate prompts. If the user wants them in one run, sequence them in Definition of Done with a done condition each |
+| "Give me a plan first" or "check with me before you start" | Fine when the user wants a plan; harmful when the user wants the work and says this out of habit | If the deliverable is the plan, make the plan the Outcome and finish it. If the user wants the work done, remove the pause and rely on stop conditions for the risky steps |
+| Risky action with no stop condition: "send the email", "deploy it", "delete the old records", "buy the domain" | The model either stops for everything or stops for nothing | Ask the Stop conditions question, or default to stopping before the risky action and say so |
+| Effort mismatch: "think really hard" on a rename job, or a one-line ask for a consequential analysis | Overspend on routine work; underthink on hard work, and low effort skips retrieval | Set the level the task needs in the Effort line and give the reason. Raise it for any turn needing current sources |
+| "Double check your work", "make sure it's right", "be careful" | Not a verification method; the model re-reads its own output and agrees with itself | Replace with the concrete reviewer action for the task type and require the pass/fail/fixed/unverified report |
+| Micromanaged method for a capable model: exact search queries, exact file order, exact function names when none of it is a real constraint | Wastes the model's judgment; prescriptions written for weaker models over-script | Keep only constraints that are real. Move the rest out. Say what must be true, not how to get there |
+| No audience: a deck, page, or doc with no reader named | The model picks a generic reader and the tone, depth, and examples miss | Name the reader in Goal. If not inferable, fold it into the Definition of done question rather than adding a fourth question |
+| Already sharp draft with Goal and done criteria written well | The upgrade bloats it and the user loses trust in the tool | Keep the user's words. Add only Effort, Verification, Execution, Session Style, and a Completion line |
+| Verbosity never mentioned | Long runs narrate every step; the user reads narration instead of results | Add the lite Session Style block. Verbose only when asked |

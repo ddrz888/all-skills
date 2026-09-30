@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="sk" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>AiOS Právny systém — Bezpečný zber podnetov a spisová agenda</title>
+  <meta name="description" content="AiOS Právny systém — Overený odvetvový modul pre advokátske kancelárie: bezpečný prvotný intake podkladov, matter-level prístupy a oddelenie klientskych tvrdení od posúdenia advokátom. Plne responzívne.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ================= AIOS LEGAL DESIGN SYSTEM (aios.macaly.app identity) ================= */
+    :root {
+      --aios-bg: #07080b;
+      --aios-panel: rgba(255, 255, 255, 0.045);
+      --aios-panel-solid: #0e1117;
+      --aios-panel-2: #141822;
+      --aios-panel-3: #1c2230;
+      --aios-line: rgba(184, 194, 204, 0.16);
+      --aios-line-subtle: rgba(184, 194, 204, 0.08);
+      --aios-text: #f4f7fa;
+      --aios-muted: #8995a3;
+      --aios-muted-dark: #586370;
+      --aios-copper: #b06d50;
+      --aios-copper-2: #d9a184;
+      --aios-copper-dark: #8a5238;
+      --aios-copper-glow: rgba(176, 109, 80, 0.35);
+      --aios-cyan: #25d9ff;
+      --aios-cyan-glow: rgba(37, 217, 255, 0.25);
+      --aios-violet: #756bff;
+      --aios-radius: 18px;
+      --aios-radius-sm: 8px;
+      --aios-radius-pill: 999px;
+
+      /* STATUS COLORS */
+      --status-ok: #6fe3a1;
+      --status-ok-bg: rgba(74, 222, 128, 0.12);
+      --status-ok-border: rgba(74, 222, 128, 0.4);
+      --status-warn: #f4c08a;
+      --status-warn-bg: rgba(255, 150, 50, 0.1);
+      --status-warn-border: rgba(255, 160, 60, 0.5);
+      --status-crit: #f0a091;
+      --status-crit-bg: rgba(248, 113, 113, 0.12);
+      --status-crit-border: rgba(255, 110, 90, 0.4);
+
+      --font-head: 'Archivo', sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --header-h: 70px;
+      --sidebar-w: 260px;
+      --bottom-nav-h: 64px;
+    }
+
+    [data-theme="light"] {
+      --aios-bg: #F4F5F8;
+      --aios-panel: #FFFFFF;
+      --aios-panel-solid: #FFFFFF;
+      --aios-panel-2: #EBEEF2;
+      --aios-panel-3: #E0E4EB;
+      --aios-line: #D3D8E2;
+      --aios-line-subtle: #E2E6EE;
+      --aios-text: #0E1217;
+      --aios-muted: #54606E;
+      --aios-muted-dark: #828E9E;
+      --aios-copper: #9A5B40;
+      --aios-copper-2: #B87355;
+      --aios-copper-dark: #7A422B;
+      --aios-copper-glow: rgba(154, 91, 64, 0.2);
+      --aios-cyan: #0E8DA6;
+      --aios-cyan-glow: rgba(14, 141, 166, 0.15);
+      --status-ok: #15803D;
+      --status-ok-bg: #DCFCE7;
+      --status-ok-border: #86EFAC;
+      --status-warn: #9A5B40;
+      --status-warn-bg: #FFEDD5;
+      --status-warn-border: #FDBA74;
+      --status-crit: #B91C1C;
+      --status-crit-bg: #FEE2E2;
+      --status-crit-border: #FCA5A5;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+      font-family: var(--font-body);
+      background-color: var(--aios-bg);
+      color: var(--aios-text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      background-image: 
+        radial-gradient(ellipse at 85% 0%, rgba(176, 109, 80, 0.16) 0%, transparent 60%),
+        radial-gradient(ellipse at 15% 100%, rgba(37, 217, 255, 0.08) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='1000' viewBox='0 0 1000 1000' fill='none'%3E%3Cpath d='M150 200 L350 90 L580 160 L480 380 L150 200 Z' stroke='rgba(176,109,80,0.18)' stroke-width='1.2'/%3E%3Cpath d='M580 160 L800 110 L900 320 L700 440 L480 380 Z' stroke='rgba(176,109,80,0.14)' stroke-width='1.2'/%3E%3Cpath d='M150 200 L90 500 L290 640 L480 380 Z' stroke='rgba(37,217,255,0.11)' stroke-width='1.2'/%3E%3Cpath d='M480 380 L700 440 L650 720 L400 800 L290 640 Z' stroke='rgba(176,109,80,0.16)' stroke-width='1.2'/%3E%3Cpath d='M700 440 L900 320 L960 600 L840 820 L650 720 Z' stroke='rgba(176,109,80,0.13)' stroke-width='1.2'/%3E%3Cpath d='M290 640 L400 800 L220 900 L100 740 L90 500 Z' stroke='rgba(176,109,80,0.15)' stroke-width='1.2'/%3E%3Ccircle cx='350' cy='90' r='2.5' fill='%23d9a184' opacity='0.75'/%3E%3Ccircle cx='580' cy='160' r='3' fill='%2325d9ff' opacity='0.85'/%3E%3Ccircle cx='480' cy='380' r='3.5' fill='%23b06d50' opacity='0.95'/%3E%3Ccircle cx='700' cy='440' r='2.5' fill='%23d9a184' opacity='0.75'/%3E%3Ccircle cx='290' cy='640' r='3' fill='%2325d9ff' opacity='0.85'/%3E%3Ccircle cx='650' cy='720' r='2.5' fill='%23b06d50' opacity='0.75'/%3E%3C/svg%3E");
+      background-size: cover, cover, 1000px 1000px;
+      background-repeat: no-repeat, no-repeat, repeat;
+      background-attachment: fixed;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--aios-bg); }
+    ::-webkit-scrollbar-thumb { background: var(--aios-line); border-radius: var(--aios-radius-pill); }
+
+    .app-root {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      height: var(--header-h);
+      background: rgba(10, 12, 16, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--aios-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      gap: 12px;
+      z-index: 30;
+      flex-shrink: 0;
+    }
+
+    [data-theme="light"] .topbar { background: rgba(255, 255, 255, 0.92); }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--aios-radius-sm);
+      border: 1px solid var(--aios-line);
+      background: var(--aios-panel);
+      color: var(--aios-text);
+      place-items: center;
+      cursor: pointer;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+    .mobile-menu-btn:hover {
+      border-color: var(--aios-copper-2);
+      color: var(--aios-copper-2);
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .brand-wordmark-wrap {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand-wordmark {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1.55rem;
+      letter-spacing: -0.04em;
+      background: linear-gradient(135deg, #ffffff 0%, #edd3c7 35%, #d9a184 70%, #9a5b40 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+    }
+
+    .brand-tagline {
+      font-family: var(--font-mono);
+      font-size: 6px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--aios-muted);
+      text-transform: uppercase;
+      margin-top: 3px;
+      -webkit-text-fill-color: var(--aios-muted);
+      display: block;
+    }
+
+    /* KICKER EYEBROW BADGE (.png style) */
+    .kicker-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--aios-copper-2);
+      margin-bottom: 8px;
+    }
+    .kicker-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--aios-cyan);
+      box-shadow: 0 0 10px var(--aios-cyan);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .tag-env {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--aios-panel);
+      border: 1px solid var(--aios-line);
+      padding: 4px 12px;
+      border-radius: var(--aios-radius-pill);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--aios-muted);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .pulse-dot-copper {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f0a24c;
+      box-shadow: 0 0 12px 2px #ff9632bf;
+      animation: dotPulse 1.4s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes dotPulse {
+      0%, 100% { opacity: 0.75; transform: scale(0.85); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .role-switcher-box {
+      display: flex;
+      align-items: center;
+      background: var(--aios-panel-2);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius-pill);
+      padding: 4px 12px;
+      gap: 6px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .role-switcher-box:hover {
+      border-color: var(--aios-copper-2);
+    }
+
+    .role-select {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: 600;
+      color: var(--aios-text);
+      cursor: pointer;
+    }
+
+    .role-select option {
+      background: var(--aios-panel-solid);
+      color: var(--aios-text);
+    }
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--aios-radius-pill);
+      border: 1px solid var(--aios-line);
+      background: var(--aios-panel);
+      color: var(--aios-muted);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-icon:hover {
+      background: var(--aios-panel-2);
+      color: var(--aios-text);
+    }
+
+    /* BUTTONS */
+    .button {
+      color: var(--aios-text);
+      letter-spacing: 0.02em;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: var(--font-head);
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: var(--aios-radius-pill);
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      display: inline-flex;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .button:hover { transform: translateY(-1.5px); }
+
+    .button-copper {
+      background: linear-gradient(135deg, #a5623f, var(--aios-copper-2) 48%, #8a5238);
+      color: #120904 !important;
+      font-weight: 700;
+      box-shadow: 0 4px 18px var(--aios-copper-glow);
+    }
+
+    .button-copper:hover {
+      box-shadow: 0 10px 28px rgba(176, 109, 80, 0.55);
+      color: #070301 !important;
+    }
+
+    .button-ghost {
+      border: 1px solid rgba(184, 194, 204, 0.22);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--aios-text);
+    }
+
+    .button-ghost:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--aios-copper-2);
+    }
+
+    .button-small {
+      padding: 7px 14px;
+      font-size: 11.5px;
+    }
+
+    /* MAIN CONTAINER */
+    .main-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* SIDEBAR (DESKTOP & DRAWER ON MOBILE) */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: rgba(14, 17, 23, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-right: 1px solid var(--aios-line);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      padding: 18px 12px;
+      gap: 6px;
+      overflow-y: auto;
+      z-index: 40;
+    }
+
+    [data-theme="light"] .sidebar { background: rgba(255, 255, 255, 0.88); }
+
+    .sidebar-mobile-head {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 8px 12px;
+      border-bottom: 1px solid var(--aios-line);
+      margin-bottom: 6px;
+    }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 5, 8, 0.75);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 95;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .sidebar-overlay.open { display: block; opacity: 1; }
+
+    .nav-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--aios-muted-dark);
+      padding: 12px 14px 4px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: var(--aios-radius-sm);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--aios-muted);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+      border: 1px solid transparent;
+    }
+
+    .nav-link:hover {
+      background: var(--aios-panel);
+      color: var(--aios-text);
+      border-color: var(--aios-line-subtle);
+    }
+
+    .nav-link.active {
+      background: rgba(176, 109, 80, 0.12);
+      color: var(--aios-copper-2);
+      border-color: rgba(217, 161, 132, 0.3);
+      box-shadow: inset 0 0 12px rgba(176, 109, 80, 0.1);
+    }
+
+    .nav-link-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-badge {
+      background: var(--aios-panel-2);
+      color: var(--aios-muted);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: var(--aios-radius-pill);
+      font-weight: 600;
+      border: 1px solid var(--aios-line);
+    }
+
+    .nav-link.active .nav-badge {
+      background: var(--aios-copper);
+      color: #180e09;
+      border-color: var(--aios-copper-2);
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--aios-line);
+      font-size: 0.75rem;
+      color: var(--aios-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .system-status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      background: var(--aios-panel-2);
+      border-radius: var(--aios-radius-sm);
+      border: 1px solid var(--aios-line);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+    }
+
+    /* CONTENT AREA */
+    .content-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* CLIENT ISOLATION BANNER */
+    .client-mode-banner {
+      display: none;
+      background: rgba(37, 217, 255, 0.08);
+      border-bottom: 1px solid rgba(37, 217, 255, 0.3);
+      color: var(--aios-cyan);
+      padding: 10px 24px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .client-mode-banner.show { display: flex; }
+
+    /* VIEW CONTAINERS */
+    .view-container {
+      display: none;
+      padding: 30px 36px 60px;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .view-container.active {
+      display: block;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .page-title {
+      font-family: var(--font-head);
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--aios-text);
+      line-height: 1.2;
+    }
+
+    .page-subtitle {
+      color: var(--aios-muted);
+      font-size: 0.92rem;
+      margin-top: 4px;
+    }
+
+    /* KPI CARDS */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .kpi-card {
+      background: var(--aios-panel-solid);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius);
+      padding: 18px 20px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(217, 161, 132, 0.4);
+    }
+
+    .kpi-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--aios-muted);
+    }
+
+    .kpi-value {
+      font-family: var(--font-head);
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--aios-text);
+      margin: 6px 0 2px;
+      line-height: 1.1;
+    }
+
+    .kpi-note {
+      font-size: 0.76rem;
+      color: var(--aios-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .kpi-note.green { color: var(--status-ok); }
+    .kpi-note.copper { color: var(--aios-copper-2); }
+
+    /* CARDS */
+    .card {
+      background: var(--aios-panel-solid);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius);
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .card-header {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--aios-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    .card-title {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--aios-text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-body { padding: 22px; }
+
+    /* BADGES */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--aios-radius-pill);
+      font-size: 0.73rem;
+      font-weight: 600;
+      line-height: 1;
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .badge-copper {
+      color: #f4c08a;
+      background: #ff963217;
+      border: 1px solid #ffa03c80;
+    }
+
+    .badge-cyan {
+      color: var(--aios-cyan);
+      background: rgba(37, 217, 255, 0.12);
+      border: 1px solid rgba(37, 217, 255, 0.4);
+    }
+
+    .badge-ok {
+      color: #6fe3a1;
+      background: var(--status-ok-bg);
+      border: 1px solid var(--status-ok-border);
+    }
+
+    .badge-warn {
+      color: var(--status-warn);
+      background: var(--status-warn-bg);
+      border: 1px solid var(--status-warn-border);
+    }
+
+    .badge-crit {
+      color: var(--status-crit);
+      background: var(--status-crit-bg);
+      border: 1px solid var(--status-crit-border);
+    }
+
+    .badge-neutral {
+      color: var(--aios-muted);
+      background: var(--aios-panel-2);
+      border: 1px solid var(--aios-line);
+    }
+
+    /* DATA TABLES */
+    .data-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    .data-table th {
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--aios-muted);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--aios-line);
+      white-space: nowrap;
+    }
+
+    .data-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--aios-line);
+      color: var(--aios-text);
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .data-table tr:hover td { background: rgba(255, 255, 255, 0.025); }
+
+    .split-2 {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 22px;
+    }
+
+    /* DUAL INTAKE COMPARISON BOX */
+    .intake-dual-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .intake-column {
+      background: var(--aios-panel-2);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius-sm);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .intake-col-head {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--aios-line);
+    }
+
+    .head-client { color: var(--aios-cyan); }
+    .head-advocate { color: var(--aios-copper-2); }
+
+    /* DOCUMENT ROWS */
+    .doc-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: var(--aios-panel-2);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius-sm);
+      font-size: 0.85rem;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .doc-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* GUARDRAIL ALERT */
+    .guardrail-alert {
+      background: rgba(255, 150, 50, 0.08);
+      border: 1px solid rgba(255, 160, 60, 0.4);
+      border-radius: var(--aios-radius);
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .guardrail-icon {
+      font-size: 1.25rem;
+      color: var(--aios-copper-2);
+      flex-shrink: 0;
+    }
+
+    .guardrail-content {
+      font-size: 0.85rem;
+      color: var(--aios-text);
+      line-height: 1.55;
+    }
+
+    /* FORMS */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .form-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--aios-muted);
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: var(--aios-radius-sm);
+      border: 1px solid var(--aios-line);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--aios-text);
+      font-family: inherit;
+      font-size: 16px; /* Prevents auto-zoom on iOS */
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--aios-cyan);
+      box-shadow: 0 0 0 2px var(--aios-cyan-glow);
+    }
+
+    .form-select option {
+      background: var(--aios-panel-solid);
+      color: var(--aios-text);
+    }
+
+    .code-box {
+      background: #08080c99;
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius-sm);
+      padding: 12px 14px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--aios-text);
+      line-height: 1.55;
+      overflow-x: auto;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 5, 8, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: none;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open { display: grid; }
+
+    .modal-card {
+      background: var(--aios-panel-solid);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius);
+      width: 100%;
+      max-width: 640px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      animation: modalPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalPop {
+      from { opacity: 0; transform: scale(0.96) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-head {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--aios-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-body {
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .modal-foot {
+      padding: 14px 24px;
+      border-top: 1px solid var(--aios-line);
+      background: var(--aios-panel-2);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* TIMELINE */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      padding-left: 22px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: var(--aios-line);
+    }
+
+    .timeline-item {
+      position: relative;
+      font-size: 0.86rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -22px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--aios-panel-solid);
+      border: 2px solid var(--aios-copper);
+      box-shadow: 0 0 8px var(--aios-copper-glow);
+    }
+
+    .timeline-time {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--aios-muted);
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      color: var(--aios-text);
+      margin-top: 2px;
+    }
+
+    /* TOAST */
+    .toast-container {
+      position: fixed;
+      bottom: 74px;
+      right: 20px;
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      background: var(--aios-panel-2);
+      border: 1px solid var(--aios-line);
+      color: var(--aios-text);
+      padding: 12px 18px;
+      border-radius: var(--aios-radius-pill);
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toastIn 0.25s ease forwards;
+    }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* MOBILE BOTTOM NAVIGATION BAR */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--bottom-nav-h);
+      background: rgba(14, 17, 23, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--aios-line);
+      z-index: 90;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    [data-theme="light"] .mobile-bottom-nav {
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .bottom-nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      color: var(--aios-muted);
+      cursor: pointer;
+      padding: 6px 0;
+      gap: 3px;
+      font-family: inherit;
+      transition: color 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .bottom-nav-item.active { color: var(--aios-copper-2); }
+    .bottom-nav-icon { font-size: 1.15rem; line-height: 1; }
+    .bottom-nav-label { font-size: 0.66rem; font-weight: 600; }
+
+    /* ================= RESPONSIVE MEDIA QUERIES (MOBILE) ================= */
+    @media (max-width: 860px) {
+      .mobile-menu-btn { display: grid; }
+      .tag-env { display: none; }
+
+      .topbar {
+        padding: 0 14px;
+        height: 60px;
+      }
+
+      .brand-logo { font-size: 1.05rem; }
+      .brand-badge { width: 30px; height: 30px; font-size: 0.85rem; }
+
+      .role-switcher-box {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+        max-width: 140px;
+      }
+
+      .role-select { max-width: 105px; text-overflow: ellipsis; }
+
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 280px;
+        z-index: 100;
+        transform: translateX(-100%);
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+        background: var(--aios-panel-solid);
+      }
+
+      .sidebar.open { transform: translateX(0); }
+      .sidebar-mobile-head { display: flex; }
+
+      .mobile-bottom-nav { display: flex; }
+
+      .view-container {
+        padding: 16px 14px 85px;
+      }
+
+      .page-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .page-title { font-size: 1.35rem; }
+      .page-subtitle { font-size: 0.82rem; }
+
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .kpi-card { padding: 14px; }
+      .kpi-value { font-size: 1.65rem; }
+
+      .split-2 {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .intake-dual-box {
+        grid-template-columns: 1fr;
+      }
+
+      .card-header {
+        padding: 14px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .card-body { padding: 16px; }
+
+      .modal-overlay {
+        align-items: flex-end;
+        padding: 0;
+      }
+
+      .modal-card {
+        max-width: 100%;
+        border-radius: 20px 20px 0 0;
+        max-height: 85vh;
+      }
+
+      .modal-head { padding: 16px 20px; }
+      .modal-body { padding: 18px 20px; }
+      .modal-foot { padding: 14px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .brand-logo span:last-child { display: none; }
+      .kpi-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-root">
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="brand-section">
+      <!-- HAMBURGER BUTTON -->
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+
+      <a href="#" class="brand-logo" onclick="navigate('dashboard'); return false;">
+        <div class="brand-wordmark-wrap">
+          <div class="brand-wordmark">AiOS</div>
+          <div class="brand-tagline">ADVANCED INTELLIGENCE OPERATING SYSTEM</div>
+        </div>
+        <span class="badge badge-copper" style="font-size:10px; padding:3px 8px; font-weight:700;">Legal</span>
+      </a>
+
+      <div class="tag-env">
+        <span class="pulse-dot-copper"></span>
+        <span>LEGAL · MOBILE READY</span>
+      </div>
+    </div>
+
+    <div class="topbar-actions">
+      <!-- ROLE SWITCHER -->
+      <div class="role-switcher-box" title="Prepínanie rolí: Advokát vs Klient">
+        <span style="color:var(--aios-copper-2);">👤</span>
+        <select class="role-select" id="roleSelector" onchange="switchRole(this.value)">
+          <option value="advocate">⚖️ Advokát (JUDr. Martin Králik)</option>
+          <option value="client">🏢 Klient (Mgr. Peter Sýkora)</option>
+        </select>
+      </div>
+
+      <button class="btn-icon" onclick="toggleTheme()" title="Prepnúť motív">🌓</button>
+      <button class="button button-copper button-small" id="btnNewMatter" onclick="openNewMatterModal()">+ Spis</button>
+    </div>
+  </header>
+
+  <!-- CLIENT PORTAL BANNER -->
+  <div class="client-mode-banner" id="clientBanner">
+    <span>🔒 <strong>Klientsky portál:</strong> Spis MAT-2026-042. Interné poznámky advokáta a iné spisy sú striktne skryté.</span>
+    <button class="button button-ghost button-small" onclick="switchRole('advocate')">Advokát</button>
+  </div>
+
+  <div class="main-body">
+    <!-- MOBILE OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMobileMenu()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="appSidebar">
+      <!-- MOBILE DRAWER HEAD -->
+      <div class="sidebar-mobile-head">
+        <div class="brand-wordmark-wrap">
+          <div class="brand-wordmark" style="font-size:1.3rem;">AiOS</div>
+          <div class="brand-tagline">ADVANCED INTELLIGENCE</div>
+        </div>
+        <button class="btn-icon" style="width:34px; height:34px;" onclick="closeMobileMenu()">✕</button>
+      </div>
+
+      <div class="nav-label">Spisová agenda</div>
+
+      <a class="nav-link active" data-view="dashboard" onclick="navigate('dashboard')">
+        <span class="nav-link-content">📊 Prehľad spisov</span>
+      </a>
+
+      <a class="nav-link" data-view="matters" id="navMatters" onclick="navigate('matters')">
+        <span class="nav-link-content">📂 Spisy & Podnety</span>
+        <span class="nav-badge" id="badgeMattersCount">3</span>
+      </a>
+
+      <a class="nav-link" data-view="intake" onclick="navigate('intake')">
+        <span class="nav-link-content">📝 Intake & Checklist</span>
+      </a>
+
+      <a class="nav-link" data-view="docs" onclick="navigate('docs')">
+        <span class="nav-link-content">📑 Dôkazné dokumenty</span>
+        <span class="nav-badge" style="background:var(--status-ok-bg); color:var(--status-ok);">6 overených</span>
+      </a>
+
+      <div class="nav-label" id="lblGovernance">Bezpečnosť & Etika</div>
+
+      <a class="nav-link" data-view="guardrails" id="navGuardrails" onclick="navigate('guardrails')">
+        <span class="nav-link-content">🛡️ Hranice AI & Konflikty</span>
+      </a>
+
+      <div class="sidebar-footer">
+        <div class="system-status-indicator">
+          <span style="color:var(--status-ok);">●</span>
+          <span>Dôvernosť: <strong>Matter-level RLS</strong></span>
+        </div>
+        <div style="font-size:0.7rem; color:var(--aios-muted);">AiOS Legal Module © 2026</div>
+      </div>
+    </aside>
+
+    <!-- CONTENT VIEWS -->
+    <main class="content-area">
+
+      <!-- ================= 1. DASHBOARD ================= -->
+      <section class="view-container active" id="view-dashboard">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title" id="dashTitle">Spisový dispečing & Prvotný príjem</h1>
+            <p class="page-subtitle">Bezpečný zber skutkových tvrdení a dokumentácie pred odborným posúdením advokátom.</p>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="button button-ghost button-small" onclick="showToast('Export zoznamu spisov pripravený')">Export registra</button>
+            <button class="button button-copper button-small" onclick="navigate('matters')">Zobraziť spisy →</button>
+          </div>
+        </div>
+
+        <!-- STRIKTNÉ PRAVIDLO AIOS LEGAL -->
+        <div class="guardrail-alert" id="guardrailNotice">
+          <div class="guardrail-icon">⚖️</div>
+          <div class="guardrail-content">
+            <strong>Zákonná a etická hranica AiOS Legal:</strong> Modul <u>nevytvára autonómne právne závery</u>, neposkytuje právnu radu, nevypočítava premlčacie či procesné lehoty a nerobí automatické rozhodnutie o prevzatí veci. AI iba triedi podklady a detekuje chýbajúce dokumenty. Výhradne advokát rozhoduje a podpisuje.
+          </div>
+        </div>
+
+        <!-- KPI GRID -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-title">Nové podnety na intake</div>
+            <div class="kpi-value">3</div>
+            <div class="kpi-note green">Spracované do 4 hodín</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Schválené checklisty</div>
+            <div class="kpi-value">100%</div>
+            <div class="kpi-note copper">Doplnené pred poradou</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Konfliktné incidenty</div>
+            <div class="kpi-value">0</div>
+            <div class="kpi-note green">Žiadny konflikt záujmov</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Neoprávnené zdieľanie</div>
+            <div class="kpi-value">0</div>
+            <div class="kpi-note green">Plné oddelenie spisov</div>
+          </div>
+        </div>
+
+        <div class="split-2">
+          <!-- MATTERS TABLE -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Aktívne právne spisy (Matters)</span>
+              <button class="button button-ghost button-small" onclick="navigate('matters')">Všetky</button>
+            </div>
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Spis / Klient</th>
+                    <th>Protistrana</th>
+                    <th>Oblasť</th>
+                    <th>Naliehavosť</th>
+                    <th>Stav</th>
+                    <th>Akcia</th>
+                  </tr>
+                </thead>
+                <tbody id="dashMattersTable">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- AUDIT TRAIL -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Auditná stopa spisovej agendy</span>
+              <span class="badge badge-neutral">Nemenný log</span>
+            </div>
+            <div class="card-body">
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-time">Dnes 03:20 · Advokát JUDr. Králik</div>
+                  <div class="timeline-title">Schválený intake checklist: Slovak Tech s.r.o.</div>
+                  <div style="font-size:0.75rem; color:var(--aios-muted);">Vec: Vymáhanie faktúry za vývoj softvéru (€45,200)</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-time">Dnes 01:10 · AI Document Parser</div>
+                  <div class="timeline-title">Detekované 2 chýbajúce prílohy v MAT-2026-042</div>
+                  <div style="font-size:0.75rem; color:var(--status-warn);">Chýba akceptačný protokol a doručenka upomienky</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-time">Včera 17:45 · Bezpečnostný filter</div>
+                  <div class="timeline-title">Zablokované vyhľadávanie cross-matter</div>
+                  <div style="font-size:0.75rem; color:var(--status-ok);">Spis MAT-2026-043 bol izolovaný pred nepovolanými</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 2. MATTERS ================= -->
+      <section class="view-container" id="view-matters">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Register právnych prípadov & Podnetov</h1>
+            <p class="page-subtitle">Každý spis má striktne oddelené oprávnenia, overenie konfliktu a priradeného advokáta.</p>
+          </div>
+          <button class="button button-copper" onclick="openNewMatterModal()">+ Nový právny spis</button>
+        </div>
+
+        <div class="card">
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Značka</th>
+                  <th>Klient</th>
+                  <th>Protistrana</th>
+                  <th>Agenda</th>
+                  <th>Hodnota</th>
+                  <th>Advokát</th>
+                  <th>Stav</th>
+                  <th>Detail</th>
+                </tr>
+              </thead>
+              <tbody id="mattersTableFull">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SELECTED MATTER DETAIL CARD -->
+        <div class="card" id="matterDetailCard" style="display:none; border-left: 4px solid var(--aios-copper);">
+          <div class="card-header">
+            <div>
+              <span class="badge badge-copper" id="mDetId">MAT-2026-042</span>
+              <h3 style="margin-top:6px; font-family:var(--font-head);" id="mDetTitle">Slovak Tech s.r.o. vs. Alpha Logistics a.s.</h3>
+            </div>
+            <div style="display:flex; gap:10px;">
+              <button class="button button-copper button-small" onclick="navigate('intake')">Otvoriť Intake →</button>
+              <button class="button button-ghost button-small" onclick="document.getElementById('matterDetailCard').style.display='none'">Zavrieť</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="split-2">
+              <div>
+                <h4 style="font-size:0.9rem; color:var(--aios-muted); margin-bottom:8px;">Základné parametre veci:</h4>
+                <div style="font-size:0.88rem; line-height:1.7;">
+                  <strong>Klient:</strong> <span id="mDetClient">Slovak Tech s.r.o.</span><br>
+                  <strong>Protistrana:</strong> <span id="mDetOpponent" style="color:var(--status-crit);">Alpha Logistics a.s.</span><br>
+                  <strong>Právna kvalifikácia:</strong> <span id="mDetArea">Zmluva o dielo</span><br>
+                  <strong>Uplatňovaný nárok:</strong> <span id="mDetClaim" style="color:var(--aios-copper-2); font-weight:700;">€45,200</span><br>
+                  <strong>Naliehavosť:</strong> <span id="mDetUrgency" style="color:var(--status-warn);">Stredná (po splatnosti 45 dní)</span>
+                </div>
+
+                <div style="margin-top:16px;">
+                  <h4 style="font-size:0.9rem; color:var(--aios-muted); margin-bottom:6px;">Skutkový opis od klienta:</h4>
+                  <div class="code-box" id="mDetRawText">
+                    "Dodali sme softvér pre sledovanie zásielok v dohodnutom termíne. Klient softvér nasadil a používa ho, no odmieta zaplatiť záverečnú faktúru s odôvodnením, že chýba písomný akceptačný protokol."
+                  </div>
+                </div>
+              </div>
+
+              <!-- AI INTAKE SYNTHESIS -->
+              <div>
+                <div style="background:rgba(176,109,80,0.08); border:1px solid rgba(217,161,132,0.3); border-radius:var(--aios-radius); padding:18px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <strong style="color:var(--aios-copper-2); font-family:var(--font-head);">🤖 AI Intake Analýza</strong>
+                    <span class="badge badge-ok">Conflict-Free</span>
+                  </div>
+                  <div style="font-size:0.85rem; color:var(--aios-text); line-height:1.6;">
+                    ✓ <strong>Overenie konfliktu záujmov:</strong> Protistrana nefiguruje v žiadnom inom spise.<br>
+                    ✓ <strong>Zmluvný základ:</strong> Zmluva o dielo zo dňa 12. 01. 2026.<br>
+                    ⚠ <strong>Procesná slabina:</strong> Chýba písomný podpis na akceptačnom protokole.<br>
+                    ✗ <strong>Chýbajúci podklad:</strong> Výpis logov dokazujúci reálne využívanie softvéru.
+                  </div>
+                  <button class="button button-ghost button-small" style="margin-top:14px; width:100%;" onclick="showToast('Výzva pripravená pre klienta')">Pripraviť výzvu na doplnenie logov</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 3. INTAKE (DUAL BOX) ================= -->
+      <section class="view-container" id="view-intake">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Intake & Checklist: MAT-2026-042</h1>
+            <p class="page-subtitle">Prísne oddelenie tvrdení klienta od právne overených faktov advokátom.</p>
+          </div>
+          <button class="button button-copper button-small" onclick="approveIntakeForAdvocateReview()">✓ Schváliť a prevziať na posúdenie</button>
+        </div>
+
+        <div class="intake-dual-box">
+          <!-- COLUMN 1: KLIENT UVÁDZA -->
+          <div class="intake-column">
+            <div class="intake-col-head head-client">
+              <span>📋 Klient uvádza (Neoverené tvrdenia)</span>
+            </div>
+            <div style="font-size:0.85rem; line-height:1.6;">
+              <p><strong>Dátum odovzdania:</strong> 15. august 2026 (klient tvrdí ústne odovzdanie na porade).</p>
+              <p><strong>Uhradené zálohy:</strong> €20,000 dňa 20. 1. 2026.</p>
+              <p><strong>Reakcia protistrany:</strong> E-mailom sľúbili úhradu, no potom prestali komunikovať.</p>
+            </div>
+          </div>
+
+          <!-- COLUMN 2: ADVOKÁT OVERIL -->
+          <div class="intake-column">
+            <div class="intake-col-head head-advocate">
+              <span>⚖️ Advokát overil (Právne overený stav)</span>
+            </div>
+            <div style="font-size:0.85rem; line-height:1.6;">
+              <p><strong>Zmluvný základ:</strong> Čl. VII bod 3 Zmluvy vyžaduje <u>písomný podpis oboch strán</u>.</p>
+              <p><strong>Zosúladenie platieb:</strong> Výpis z účtu overený — záloha €20k bola riadne pripísaná.</p>
+              <p><strong>Uznanie dlhu:</strong> E-mail projektového manažéra protistrany nepredstavuje formálne uznanie dlhu.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:20px;">
+          <div class="card-header">
+            <span class="card-title">Checklist povinných podkladov</span>
+            <span class="badge badge-copper">3 z 4 splnené</span>
+          </div>
+          <div class="card-body">
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <label style="display:flex; align-items:center; gap:12px; padding:12px; background:var(--aios-panel-2); border-radius:var(--aios-radius-sm); border:1px solid var(--aios-line);">
+                <input type="checkbox" checked disabled style="accent-color:var(--aios-copper);">
+                <div>
+                  <strong>Zmluva o dielo vrátane príloh</strong>
+                  <div style="font-size:0.75rem; color:var(--status-ok);">✓ Overené advokátom (zmluva_o_dielo_podpisana.pdf)</div>
+                </div>
+              </label>
+
+              <label style="display:flex; align-items:center; gap:12px; padding:12px; background:var(--aios-panel-2); border-radius:var(--aios-radius-sm); border:1px solid var(--aios-line);">
+                <input type="checkbox" checked disabled style="accent-color:var(--aios-copper);">
+                <div>
+                  <strong>Záverečná faktúra č. 2026089 (€45,200)</strong>
+                  <div style="font-size:0.75rem; color:var(--status-ok);">✓ Overené advokátom</div>
+                </div>
+              </label>
+
+              <label style="display:flex; align-items:center; gap:12px; padding:12px; background:var(--aios-panel-2); border-radius:var(--aios-radius-sm); border:1px solid var(--aios-line);">
+                <input type="checkbox" style="accent-color:var(--aios-copper);" onchange="toggleAuditLogItem(this)">
+                <div>
+                  <strong style="color:var(--status-crit);">Dôkaz o reálnom používaní diela (Server logy)</strong>
+                  <div style="font-size:0.75rem; color:var(--status-warn);">⚠ Chýba — klient vyzvaný na dodanie</div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 4. DOCS ================= -->
+      <section class="view-container" id="view-docs">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Spisová dokumentácia: MAT-2026-042</h1>
+            <p class="page-subtitle">Súkromné úložisko s auditom prístupov, kontrolou MIME typu a karanténou.</p>
+          </div>
+          <button class="button button-ghost button-small" onclick="showToast('Súbor pripravený na upload')">+ Priložiť súbor</button>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Zoznam doložených príloh</span>
+            <span class="badge badge-neutral">Súkromný trezor</span>
+          </div>
+          <div class="card-body" style="display:flex; flex-direction:column; gap:12px;">
+            <div class="doc-row">
+              <div class="doc-meta">
+                <span style="font-size:1.4rem;">📄</span>
+                <div>
+                  <strong>zmluva_o_dielo_podpisana.pdf</strong>
+                  <div style="font-size:0.75rem; color:var(--aios-muted);">Veľkosť: 2.4 MB · SHA-256 overený</div>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center; gap:10px;">
+                <span class="badge badge-ok">Čitateľnosť 100%</span>
+                <span class="badge badge-copper">Dôverné</span>
+                <button class="button button-ghost button-small" onclick="showToast('Sťahovanie...')">Stiahnuť</button>
+              </div>
+            </div>
+
+            <div class="doc-row">
+              <div class="doc-meta">
+                <span style="font-size:1.4rem;">🧾</span>
+                <div>
+                  <strong>faktura_2026089_final.pdf</strong>
+                  <div style="font-size:0.75rem; color:var(--aios-muted);">Veľkosť: 420 KB · Overený originál</div>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center; gap:10px;">
+                <span class="badge badge-ok">Overené</span>
+                <span class="badge badge-copper">Dôverné</span>
+                <button class="button button-ghost button-small" onclick="showToast('Sťahovanie...')">Stiahnuť</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 5. GUARDRAILS ================= -->
+      <section class="view-container" id="view-guardrails">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Hranice prevádzky & Ochrana tajomstva</h1>
+            <p class="page-subtitle">Verifikácia akceptačných testov podľa štandardov SAK a AiOS.</p>
+          </div>
+          <span class="badge badge-ok">SAK Compliant</span>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Matica negatívnych testov (AiOS Legal)</span>
+          </div>
+          <div class="card-body">
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Pravidlo</th>
+                    <th>Rizikový scenár</th>
+                    <th>Reakcia AiOS</th>
+                    <th>Výsledok</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="table-strong">Zákaz autonómnej právnej rady</td>
+                    <td>Klient píše: „Môžem okamžite odstúpiť?“</td>
+                    <td>Systém neodpovedá právnym posúdením; zaeviduje bod pre advokáta na poradu</td>
+                    <td><span class="badge badge-ok">PASS (Blokované)</span></td>
+                  </tr>
+                  <tr>
+                    <td class="table-strong">Zákaz autonómneho výpočtu lehôt</td>
+                    <td>AI má stanoviť presný posledný deň lehoty</td>
+                    <td>Dátum je označený ako neoverený; lehotu overí advokát voči kódexu</td>
+                    <td><span class="badge badge-ok">PASS (Človek overí)</span></td>
+                  </tr>
+                  <tr>
+                    <td class="table-strong">Matter-level izolácia spisu</td>
+                    <td>Pokus iného koncipienta otvoriť spis MAT-2026-042</td>
+                    <td>Postgres RLS vráti prázdny výsledok</td>
+                    <td><span class="badge badge-ok">PASS (Nulový únik)</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MOBILE BOTTOM NAVIGATION BAR -->
+  <nav class="mobile-bottom-nav">
+    <button class="bottom-nav-item active" data-bnav="dashboard" onclick="navigate('dashboard')">
+      <span class="bottom-nav-icon">📊</span>
+      <span class="bottom-nav-label">Prehľad</span>
+    </button>
+    <button class="bottom-nav-item" data-bnav="matters" id="bnavMatters" onclick="navigate('matters')">
+      <span class="bottom-nav-icon">📂</span>
+      <span class="bottom-nav-label">Spisy</span>
+    </button>
+    <button class="bottom-nav-item" data-bnav="intake" onclick="navigate('intake')">
+      <span class="bottom-nav-icon">📝</span>
+      <span class="bottom-nav-label">Intake</span>
+    </button>
+    <button class="bottom-nav-item" data-bnav="docs" onclick="navigate('docs')">
+      <span class="bottom-nav-icon">📑</span>
+      <span class="bottom-nav-label">Dôkazy</span>
+    </button>
+    <button class="bottom-nav-item" onclick="toggleMobileMenu()">
+      <span class="bottom-nav-icon">☰</span>
+      <span class="bottom-nav-label">Menu</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ================= MODAL: NOVÝ SPIS ================= -->
+<div class="modal-overlay" id="newMatterModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 style="font-family:var(--font-head); font-size:1.15rem; color:var(--aios-text);">Založenie nového právneho spisu</h3>
+      <button class="btn-icon" onclick="closeNewMatterModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Názov klienta *</label>
+        <input type="text" id="inpClient" class="form-input" placeholder="BioPharm Slovakia s.r.o.">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Protistrana (Conflict Check) *</label>
+        <input type="text" id="inpOpponent" class="form-input" placeholder="Medico Distribution a.s.">
+      </div>
+
+      <div class="split-2">
+        <div class="form-group">
+          <label class="form-label">Právne odvetvie</label>
+          <select id="inpArea" class="form-select">
+            <option value="Obchodné právo & Zmluvy">Obchodné právo & Zmluvy</option>
+            <option value="Pracovné právo & Výpovede">Pracovné právo & Výpovede</option>
+            <option value="Sporová agenda & Vymáhanie">Sporová agenda & Vymáhanie</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Naliehavosť</label>
+          <select id="inpUrgency" class="form-select">
+            <option value="Normálna">Normálna (> 30 dní)</option>
+            <option value="Vysoká">Vysoká (do 7 dní)</option>
+            <option value="Kritická">Kritická (do 48h)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Skutkový opis veci od klienta</label>
+        <textarea id="inpDesc" class="form-textarea" rows="3" placeholder="Zadajte zhrnutie skutkového stavu..."></textarea>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="button button-ghost button-small" onclick="closeNewMatterModal()">Zrušiť</button>
+      <button class="button button-copper button-small" onclick="submitNewMatter()">Conflict Check & Zaevidovať</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastArea"></div>
+
+<script>
+// ================= DATA STORE =================
+const LEGAL_STATE = {
+  currentRole: 'advocate',
+  currentView: 'dashboard',
+  theme: 'dark',
+  matters: [
+    {
+      id: 'MAT-2026-042',
+      client: 'Slovak Tech s.r.o.',
+      opponent: 'Alpha Logistics a.s.',
+      area: 'Obchodné právo — Zmluva o dielo',
+      claim: '€45,200',
+      urgency: 'Stredná',
+      advocate: 'JUDr. Martin Králik',
+      status: 'Intake schválený',
+      rawText: 'Dodali sme softvér pre sledovanie zásielok v dohodnutom termíne. Klient softvér nasadil a používa ho, no odmieta zaplatiť záverečnú faktúru s odôvodnením, že chýba písomný akceptačný protokol.'
+    },
+    {
+      id: 'MAT-2026-043',
+      client: 'Ing. arch. Tomáš Kováč',
+      opponent: 'Mestská časť Staré Mesto',
+      area: 'Stavebné právo',
+      claim: 'Zrušenie rozhodnutia',
+      urgency: 'Kritická (lehota 15 dní)',
+      advocate: 'Mgr. Lenka Vargová',
+      status: 'Dopĺňanie príloh',
+      rawText: 'Nesúhlasíme so zamietnutím povolenia zmeny stavby pred dokončením. Lehota na odvolanie uplynie 05. 10. 2026.'
+    },
+    {
+      id: 'MAT-2026-044',
+      client: 'Green Energy Solutions s.r.o.',
+      opponent: 'Bývalý konateľ (Ing. Radoslav B.)',
+      area: 'Škoda konateľa',
+      claim: '€112,000',
+      urgency: 'Normálna',
+      advocate: 'JUDr. Martin Králik',
+      status: 'Prvotný intake',
+      rawText: 'Bývalý konateľ uzatvoril nevýhodné nájomné zmluvy v rozpore so zákazom konkurencie.'
+    }
+  ]
+};
+
+// ================= INITIALIZATION =================
+window.addEventListener('DOMContentLoaded', () => {
+  renderMatters();
+  renderDashboard();
+});
+
+// ================= MOBILE MENU HANDLERS =================
+function toggleMobileMenu() {
+  const sidebar = document.getElementById('appSidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('open');
+}
+
+function closeMobileMenu() {
+  const sidebar = document.getElementById('appSidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  if (sidebar) sidebar.classList.remove('open');
+  if (overlay) overlay.classList.remove('open');
+}
+
+// ================= NAVIGATION =================
+function navigate(viewId) {
+  LEGAL_STATE.currentView = viewId;
+  closeMobileMenu();
+
+  document.querySelectorAll('.nav-link').forEach(link => {
+    if (link.getAttribute('data-view') === viewId) link.classList.add('active');
+    else link.classList.remove('active');
+  });
+
+  document.querySelectorAll('.bottom-nav-item').forEach(btn => {
+    if (btn.getAttribute('data-bnav') === viewId) btn.classList.add('active');
+    else btn.classList.remove('active');
+  });
+
+  document.querySelectorAll('.view-container').forEach(view => {
+    view.classList.remove('active');
+  });
+
+  const target = document.getElementById('view-' + viewId);
+  if (target) target.classList.add('active');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ================= ROLE SWITCHING =================
+function switchRole(role) {
+  LEGAL_STATE.currentRole = role;
+  document.getElementById('roleSelector').value = role;
+
+  const banner = document.getElementById('clientBanner');
+  const btnNewMatter = document.getElementById('btnNewMatter');
+  const navMatters = document.getElementById('navMatters');
+  const bnavMatters = document.getElementById('bnavMatters');
+  const navGuardrails = document.getElementById('navGuardrails');
+  const lblGov = document.getElementById('lblGovernance');
+  const guardNotice = document.getElementById('guardrailNotice');
+
+  if (role === 'client') {
+    banner.classList.add('show');
+    if (btnNewMatter) btnNewMatter.style.display = 'none';
+    if (navMatters) navMatters.style.display = 'none';
+    if (bnavMatters) bnavMatters.style.display = 'none';
+    if (navGuardrails) navGuardrails.style.display = 'none';
+    if (lblGov) lblGov.style.display = 'none';
+    if (guardNotice) guardNotice.style.display = 'none';
+
+    document.getElementById('dashTitle').innerText = 'Klientsky portál: Slovak Tech s.r.o.';
+    showToast('Prepnuté na zobrazenie klienta (interné poznámky skryté)');
+    navigate('intake');
+  } else {
+    banner.classList.remove('show');
+    if (btnNewMatter) btnNewMatter.style.display = 'inline-flex';
+    if (navMatters) navMatters.style.display = 'flex';
+    if (bnavMatters) bnavMatters.style.display = 'flex';
+    if (navGuardrails) navGuardrails.style.display = 'flex';
+    if (lblGov) lblGov.style.display = 'block';
+    if (guardNotice) guardNotice.style.display = 'flex';
+
+    document.getElementById('dashTitle').innerText = 'Spisový dispečing & Prvotný príjem';
+    showToast('Prepnuté na rolu: Advokát');
+    navigate('dashboard');
+  }
+}
+
+// ================= THEME TOGGLE =================
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  LEGAL_STATE.theme = next;
+  showToast(next === 'dark' ? 'Zapnutý tmavý motív' : 'Zapnutý svetlý motív');
+}
+
+// ================= RENDER FUNCTIONS =================
+function renderDashboard() {
+  const tbody = document.getElementById('dashMattersTable');
+  tbody.innerHTML = '';
+
+  LEGAL_STATE.matters.forEach(m => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="table-strong">
+        <div>${m.client}</div>
+        <div style="font-size:0.75rem; color:var(--aios-cyan); font-family:var(--font-mono);">${m.id}</div>
+      </td>
+      <td style="color:var(--status-crit);">${m.opponent}</td>
+      <td>${m.area}</td>
+      <td><span class="badge ${m.urgency.includes('Kritická') ? 'badge-crit' : 'badge-copper'}">${m.urgency}</span></td>
+      <td><span class="badge badge-neutral">${m.status}</span></td>
+      <td>
+        <button class="button button-ghost button-small" onclick="showMatterDetail('${m.id}')">Spis</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderMatters() {
+  const tbody = document.getElementById('mattersTableFull');
+  tbody.innerHTML = '';
+
+  document.getElementById('badgeMattersCount').innerText = LEGAL_STATE.matters.length;
+
+  LEGAL_STATE.matters.forEach(m => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="font-family:var(--font-mono); color:var(--aios-cyan); font-weight:600;">${m.id}</td>
+      <td class="table-strong">${m.client}</td>
+      <td style="color:var(--status-crit);">${m.opponent}</td>
+      <td>${m.area}</td>
+      <td style="color:var(--aios-copper-2); font-weight:700;">${m.claim}</td>
+      <td>${m.advocate}</td>
+      <td><span class="badge badge-neutral">${m.status}</span></td>
+      <td>
+        <button class="button button-ghost button-small" onclick="showMatterDetail('${m.id}')">Otvoriť</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function showMatterDetail(id) {
+  const m = LEGAL_STATE.matters.find(x => x.id === id);
+  if (!m) return;
+
+  document.getElementById('mDetId').innerText = m.id;
+  document.getElementById('mDetTitle').innerText = `${m.client} vs. ${m.opponent}`;
+  document.getElementById('mDetClient').innerText = m.client;
+  document.getElementById('mDetOpponent').innerText = m.opponent;
+  document.getElementById('mDetArea').innerText = m.area;
+  document.getElementById('mDetClaim').innerText = m.claim;
+  document.getElementById('mDetUrgency').innerText = m.urgency;
+  document.getElementById('mDetRawText').innerText = m.rawText;
+
+  const card = document.getElementById('matterDetailCard');
+  card.style.display = 'block';
+  navigate('matters');
+  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function approveIntakeForAdvocateReview() {
+  showToast('✓ Intake checklist schválený a postúpený na posúdenie');
+}
+
+function toggleAuditLogItem(cb) {
+  if (cb.checked) {
+    showToast('Príloha bola označená ako dodaná a overená');
+  }
+}
+
+// ================= MODAL =================
+function openNewMatterModal() {
+  document.getElementById('newMatterModal').classList.add('open');
+}
+
+function closeNewMatterModal() {
+  document.getElementById('newMatterModal').classList.remove('open');
+}
+
+function submitNewMatter() {
+  const client = document.getElementById('inpClient').value.trim();
+  const opponent = document.getElementById('inpOpponent').value.trim();
+  const area = document.getElementById('inpArea').value;
+  const urgency = document.getElementById('inpUrgency').value;
+  const desc = document.getElementById('inpDesc').value.trim();
+
+  if (!client || !opponent) {
+    alert('Vyplňte prosím klienta aj protistranu pre povinný Conflict Check.');
+    return;
+  }
+
+  const newId = 'MAT-2026-0' + (LEGAL_STATE.matters.length + 43);
+
+  const newMatter = {
+    id: newId,
+    client: client,
+    opponent: opponent,
+    area: area,
+    claim: 'Podľa zmluvy',
+    urgency: urgency,
+    advocate: 'JUDr. Martin Králik',
+    status: 'Nový podnet',
+    rawText: desc || 'Podnet zaevidovaný cez bezpečný intake portál.'
+  };
+
+  LEGAL_STATE.matters.unshift(newMatter);
+  closeNewMatterModal();
+  renderMatters();
+  renderDashboard();
+
+  showToast(`Conflict Check PASS: Spis ${newId} bol úspešne otvorený`);
+  showMatterDetail(newId);
+}
+
+// ================= TOAST =================
+function showToast(msg) {
+  const area = document.getElementById('toastArea');
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = `<span style="color:var(--aios-copper-2);">⚖️</span> <span>${msg}</span>`;
+  area.appendChild(t);
+
+  setTimeout(() => {
+    t.style.opacity = '0';
+    t.style.transform = 'translateY(8px)';
+    t.style.transition = 'all 0.25s ease';
+    setTimeout(() => t.remove(), 250);
+  }, 3200);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-24",
+  "local_root": "/Users/jarvis/Desktop/AiOS-SYSTEMS",
+  "mounted_root": "/mnt/a65d2a5a-10f0-4339-85c9-efaec5255f62/AiOS-SYSTEMS",
+  "top_level_directories": [".claude", "AI-REELS-GENERATOR-master", "AIS-OS-main", "AiOS", "AiOS_Visuals", "Archives", "Claude-20250520-nateherk-main", "Code_Projects", "Documents", "JarvisProjects", "MasterClassn8n-main", "NEROZBALENE ", "Obrazky", "Organized", "RAVID", "Ravid AI - _Plan_", "Weby", "a-bunch-of-skills-master", "aios-main", "promptimizer-main", "snagtime-main"],
+  "top_level_files": [".DS_Store", "CLAUDE.md"],
+  "container_directories": {
+    "Code_Projects": ["claude-seo-prompt-pack-main", "Ai-Website-Builder-main", "aios-brand-site", "Mark-LII-main", "AIS-OS-main", "aios-permanent (1)", "scroll-craft-main", "a-bunch-of-skills-master", "GenWebScraper-master", "aios-landing", "scroll-craft-main 2", "ottomator-agents-main", "awesome-web-prompts-main", "agentskills-main", "hyperframes-student-kit-main", "local-ai-care-package"],
+    "Weby": ["aios-platform", "demo-auto-detailing", "aios-webhosting"],
+    "JarvisProjects": ["AIS-OS-main", "aios_app"],
+    "Organized": ["Video", "Design_Assets", "Images", "Audio"]
+  },
+  "root_documentation": {
+    "source": "CLAUDE.md",
+    "claims": ["Workspace, not one codebase or one Git repository", "AiOS is the flagship SMB-AI brand for Slovakia", "Read AiOS/CLAUDE.md before inspecting AiOS", "No unified build or test command", "Multiple copies may exist; do not assume the first is active", "Do not index or summarize contents of Documents and Archives", "Do not change downloaded copies during this overview"]
+  },
+  "passive_folders": [".claude", "Archives", "Documents", "NEROZBALENE ", "Obrazky", "Organized"],
+  "scope": "Read-only overview of folder structure and README/manifests; no applications, builds, installs, network calls to project services, secret reads, archives extraction, or personal document contents. Organized category names observed only. NEROZBALENE has a literal trailing space. No assumption that similar names imply identical copies or successful deployment."
+}

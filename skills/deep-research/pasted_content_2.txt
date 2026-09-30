@@ -1,0 +1,57 @@
+Na základe dostupných dokumentov (**RAVID AI** a playbookov **Dan Martell**) máte vytvorený pevný strategický základ, no pre okamžité spustenie predaja a prvé tržby vám chýba niekoľko praktických podkladov.
+
+---
+
+### 🟢 ČO UŽ MÁTE HOTOVÉ (Tvoj základ)
+
+1. **Strategický plán RAVID AI v3.0**:
+   * Definovanú **5-vrstvovú architektúru AI infraštruktúry** (Používateľské rozhranie, Dáta, AI logika, Backend workflowy, Governance & KPI).
+   * Vybraných **8 cieľových segmentov** s navrhnutými nika modulmi (napr. `ServiceOS` pre autoservisy či `RestoreOS` pre renovácie nábytku).
+   * Nastavený **5-stupňový produktový rebrík** (Audit za 250–750 €, Blueprint za 750–2 500 €, Pilot za 1 500–4 000 €, Scale, Care za 350–1 500 €/mes.).
+   * Bezpečnostné pravidlá a princíp **Human-in-the-Loop** (človek v slučke).
+
+2. **Master Prompt a RCCF rámec**:
+   * Kompletne nastavenú "ústavu" firmy so 13 podmienkami kvality návrhu.
+   * Vzorovú **RCCF šablónu** na zadávanie úloh.
+
+3. **Správnu strategickú orientáciu**:
+   * Rozhodnutie nebudovať na začiatku zbytočne zložité agentické systémy (ako Paperclip.io) a namiesto vývoja sa sústrediť na **validáciu trhu rozhovormi**.
+
+---
+
+### 🔴 ČO POTREBUJETE EŠTE DOPLNIŤ (Tvoj 6-bodový checklist pre launch)
+
+Aby ste mohli spustiť firmu a zarobiť prvé tržby do 30 dní, musíte pripraviť tieto konkrétne podklady:
+
+#### 1. Zoznam 30–50 cieľových firiem (Akvizičná databáza)
+* **Čo spraviť**: Vyberte si **1 primárny štartovací segment** (v dokumente sa odporúčajú **autoservisy** alebo **renovácie nábytku**).
+* Zostavte si tabuľku 30–50 firiem v regióne (názov, meno majiteľa/prijímacieho technika, kontakt na Instagram/e-mail/telefón).
+
+#### 2. Akvizičné správy a Outreach SOP (Sell By Chat)
+* **Čo spraviť**: Pripravte si presné skripty pre správy:
+  * **Opener správa**: Krátke osobné oslovenie s otázkou "buď-alebo".
+  * **A-B kvalifikačné otázky**: Zistenie súčasného stavu (A) a želaného stavu (B).
+  * **Pozvánka na hovor**: Ponuka 20-minútového diagnostického rozhovoru a ukážky prototypu rozhrania.
+
+#### 3. Vizuálny prototyp dashboardu (1 obrazovka)
+* **Čo spraviť**: Vytvorte si 1 jednoduchú ukážkovú obrazovku rozhrania (napr. v nástroji Lovable, Bolt, Figma alebo Canva) pre vybraný segment.
+* Majiteľ servisu na nej musí vidieť prichádzajúci dopyt, spracovanie údajov pomocou AI, tlačidlo na schválenie človekom a stav zákazky.
+
+#### 4. Diagnostický dotazník pre Infrastructure Audit (10 otázok)
+* **Čo spraviť**: Pripravte si zoznam otázok pre 20-minútový rozhovor s majiteľom servisu:
+  * Kde vzniká najväčšie zdržanie pri spracovaní dopytu?
+  * Aké informácie musíte od zákazníka pracne vymáhať (fotky, VIN číslo, ročník)?
+  * Koľko času denne strávite odpovedaním na neúplné správy?
+
+#### 5. Šablónu ponuky a objednávky pre Audit / Blueprint
+* **Čo spraviť**: Pripravte si jednoduchý 1-stranový dokument s ponukou pre **AI Infrastructure Audit** (250 – 750 €) a **AI OS Blueprint** (750 – 2 500 €) s garanciou dodania do 5 až 14 dní.
+
+#### 6. Dennú rutinu zakladateľa (Founder OS)
+* **Čo spraviť**: Rozdeľte si pracovný čas na 3 jasné piliere:
+  * **Business Model** (1/3 času): Akvizícia, oslovovanie firiem, diagnostické rozhovory.
+  * **Personal Brand** (1/3 času): Zdieľanie ukážok dashboardu a myšlienok na sociálnych sieťach.
+  * **Deep Work** (1/3 času): Tvorba blueprintov a prototypov pre prvých klientov.
+
+---
+
+🎯 Chcete, aby som vám pomohol pripraviť **1-stranový diagnostický dotazník (10 otázok)** pre rozhovor s majiteľom autoservisu alebo **šablónu objednávky na AI Infrastructure Audit**?

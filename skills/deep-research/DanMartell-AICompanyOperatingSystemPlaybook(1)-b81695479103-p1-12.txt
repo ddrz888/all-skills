@@ -1,0 +1,646 @@
+        Dan Martell - AI Company …
+
+
+
+NOTE: This document is part of my Elite Coaching Program.
+
+
+This SOP can help you integrate AI across your business without needing to hire additional staff, learn
+technical skills, or build complex systems.
+
+
+Our approach is implementing AI in a simple, practical way that enhances your existing operations, team,
+and workflows.
+
+
+This process is not just about automation but creating an operating system where AI works alongside your
+team, driving results that feel effortless and sustainable, ultimately leading to growth without more cost or
+chaos.
+
+
+And that’s exactly what my Elite Coaching Program offers!
+
+
+Message me on Instagram “ELITE” if you’re interested in learning more:
+
+
+https://www.instagram.com/danmartell/
+
+
+
+
+THE AI OPERATING SYSTEM FOR BUSINESS
+OWNERS
+Roll out AI across every department without hiring or getting technical.
+
+
+Make this your playbook. It is simple, fast, and real. Copy, paste, ship.
+
+
+
+What you get
+       ● A 4-Part AI Deployment Playbook
+
+
+       ● A Master Prompt Template you can edit and use in your team.
+
+
+       ● The RCCF Prompt format I use for all my departments.
+
+       ● Prompts your team can reuse for every department.
+
+
+
+The 4-Part AI Deployment Playbook
+Remove Costs • Move Faster • Scale Without Adding Headcount
+
+Most founders buy AI like it’s a shiny object.
+Smart founders use AI like it’s a competitive weapon.
+
+
+If you want to scale without burning cash, this is the exact process I use with 8-figure operators.
+
+
+
+
+Step 1: Audit the Business & Expose the
+Opportunities
+Goal: Pinpoint where AI can immediately reclaim time, eliminate errors, and multiply
+output.
+
+AI only creates leverage when it’s applied to bottlenecks.
+So before you buy a single tool, you need a brutally honest operational audit.
+
+
+Start With a Full Process Sweep
+
+List out every recurring task in each department. Rank them by:
+
+
+        ● Time investment
+
+
+        ● Money investment
+
+
+Look for processes that are repetitive, rules-based, or rely on data that already exists.
+Those are your leverage points.
+
+
+Where AI Usually Delivers the Fastest Wins
+
+Sales
+
+        ● AI qualifies leads automatically (You can use tool like Revio to do this in your DM’s)
+
+
+        ● Predicts which prospects will close
+
+
+        ● Auto-summarizes calls into CRM-ready notes
+
+
+Customer Success
+
+        ● Automates onboarding
+
+
+        ● Create follow-up sequences
+       ● Auto-route customer support tickets
+
+
+
+
+Operations
+
+       ● Auto-generate schedules, assign tasks, and predict workload surges
+
+
+       ● Inventory automation + demand forecasting
+
+
+       ● Internal AI helpdesk answers team questions instantly
+
+
+Finance (you can use tools like Frank)
+
+       ● Scan invoices, categorize expenses, chase missing receipts
+
+
+       ● Detect anomalies or fraud patterns
+
+
+       ● Predict cash shortages before they happen
+
+
+HR & Recruiting
+
+       ● Automated resume filtering and candidate scoring
+
+
+       ● AI assistants handling interview scheduling
+
+
+       ● Sentiment analysis on employee feedback
+
+
+Marketing & Content
+
+       ● AI-written ads, posts, emails, blogs, video scripts
+
+
+       ● Predictive targeting for the highest-converting audiences
+
+
+       ● Automated content repurposing + scheduling
+
+
+
+Outcome
+
+Walk away with 3–5 high-ROI opportunities where AI will instantly save time or money.
+Step 2: Choose the Right Tools & Build the
+Workflow
+Goal: Integrate AI into your existing systems so it feels seamless—not chaotic.
+
+AI tools don’t create leverage… workflows do.
+
+
+Here’s how to build them like a pro.
+
+
+Recommended Tools by Function
+     Function                          Tools                                 What It Enables
+
+ Content Creation     ChatGPT, Copy.ai, Socialsweep.ai         High-quality content at scale
+
+
+ Automation           Zapier, Make.com, n8n.io                 Connect systems without code
+
+ CRM & Sales          HubSpot.com, GetRevio.com,               Lead scoring, auto-replies, call
+                      YourAtlas.com, HireAlli.com              summaries
+
+ Support &            Zendesk AI, Intercom, Chatbase,          24/7 FAQ bots + routing + customer
+ Success              Buddypro.ai                              delivery
+
+ Analytics            Precision.co, Hellofrank.ai              Predictive dashboards & insights
+
+ Voice/Video          ElevenLabs.io, Heygen                    AI voices, video generation, clipping
+
+ Hiring & HR          Herohire.ai, Trainual.com                Screening + candidate communication
+
+
+
+Map the Workflow
+
+Your AI system should follow this pattern:
+
+
+       1. Trigger: A lead opts in or a customer asks a question
+
+
+       2. Artificial Intelligence: AI labels, evaluates, drafts, or routes
+
+
+       3. Automation: Data moves into CRM, Slack, or task systems
+
+
+       4. Human in The Loop: Team reviews only the exceptions
+
+
+AI should take 80-90% of the repetitive work off your team’s plate.
+Outcome
+
+A clean, visual workflow showing exactly where AI steps in and where humans take over.
+
+
+
+
+Step 3: Test, Automate & Measure
+Goal: Prove ROI fast and scale only what works.
+
+Most companies over-engineer.
+You’re going to start tiny and scale up only after the data says yes.
+
+
+1. Start With One High-Value Process
+
+Examples: lead qualification, appointment setting, content repurposing.
+Document the before numbers:
+
+
+       ● Hours spent
+
+
+       ● Monthly cost
+
+
+       ● Output quality
+
+
+2. Automate the Repetitive Steps
+
+Example system:
+
+
+      Lead fills Typeform → AI drafts personalized email → CRM updates automatically → Slack
+      pings sales rep
+
+
+3. Weekly Feedback Loops
+
+       ● Review outputs
+
+
+       ● Fix tone issues
+
+
+       ● Improve prompts
+
+
+       ● Tighten logic
+
+
+4. Track These Core Metrics
+
+         Metric                              Measures
+ Time Saved                 Hours eliminated per task
+
+ Cost                       Labor vs automation cost
+
+ Output Consistency         Percentage approved without edits
+
+ ROI                        (Savings + Revenue Lift – AI Cost) ÷ AI Cost
+
+
+5. Scale What Works
+
+Once a workflow proves ROI, replicate it in other departments.
+
+
+Outcome
+
+A battle-tested AI system that runs reliably, improves over time, and prints operational efficiency.
+
+
+
+
+Step 4: Scale Your AI Deployment
+Goal: Turn AI from a tool into a company-wide operating system.
+
+This is how you go from “We’re trying AI” to “We’re an AI-driven company.”
+
+
+1. Standardize the Wins
+
+Turn successful workflows into SOPs.
+Document in Notion, Google Drive, or Asana.
+This makes AI scalable.
+
+
+2. Build a Team That Thinks in Automations
+
+        ● Run monthly AI “Show & Tell” sessions
+
+
+        ● Assign an AI Champion in each department
+
+
+        ● Encourage bottom-up automation ideas
+
+
+3. Measure Quarterly Gains & Reinvest
+
+Track savings, output gains, and speed improvements.
+Then reinvest those gains into more AI automation.
+
+
+AI is a flywheel - keep feeding it.
+Ready to Deploy Business Prompts
+Want AI to work like a top hire in every part of your business?
+
+Start with your Master Prompt - it tells ChatGPT exactly how to show up for you.
+
+Paste it once per chat and your voice, style, and priorities stay locked in.
+
+Then use the RCCF format to guide any task with role, context, command, and format.
+
+From there, this library gives you ready-to-run prompts for Marketing, Sales, Success, Product, etc.
+
+Each one is built to save time, cut waste, and drive revenue today.
+
+You get scripts, outlines, angles, call plans, playbooks, specs, tests, releases, and more.
+
+No fluff. No buzzwords. Just tools that help you act fast and act smart.
+
+Run these prompts to scale your business today.
+
+
+Company Master Prompt Template
+Paste this once per chat. Keep it at the top of your project chat.
+
+
+"Hey ChatGPT, here is how to show up for me every time:
+
+
+My name is [NAME]. I run [COMPANY], a [BUSINESS TYPE] that sells [OFFER] to [AUDIENCE]. I am an
+entrepreneur and operator. I like fast, clear answers that help me act today.
+
+
+Voice and style: energetic, motivational, casual. Short sentences. Punchy lines. Conversational flow. Keep
+it PG. Use American spelling. Use simple words. Grade 5 to 7 reading level.
+
+
+Hooks: use questions to pull me in. Highlight key ideas with caps, bold, or italics. End sections on a strong
+line that pushes action.
+
+
+Analogies: use restaurants, laundromats, grocery lines, airplanes, and sports teams when helpful.
+
+
+Formatting: lots of line breaks. Numbered steps. Bullets. Tables when we compare options. Straight
+quotes only. No em dashes.
+
+
+My priorities: grow revenue, cut waste, free up time. I value leverage, speed, and clarity. I prefer concrete
+examples over theory.
+
+
+When you write for me: give me 3 options when choosing. Push back if my ask is weak. Offer a better path
+and say why.
+
+
+Constraints: avoid buzzwords. Avoid vague claims. If a claim needs proof, cite a simple number or show a
+test to run.
+QA: before you finish, do a 3 point quality check. 1) Is it simple. 2) Is it useful today. 3) Is the next step
+clear.
+
+
+If info is missing, ask me up to 3 short questions. If you have enough to act, act. Do not stall.
+
+
+Remember this style for future chats. If you are unsure, ask clarifying questions first."
+
+
+
+RCCF Prompt Format:
+       ● Role: [ROLE]
+       ● Context: [GOAL]. Audience: [AUDIENCE]. Inputs: [NUMBERS/LINKS]. Constraints: [RULES].
+       ● Command: [ACTION]. Give 3 options and a better path if you see one.
+       ● Format: [OUTPUT FORMAT]. End with a CTA. Run the 3-point QA.
+
+
+MARKETING PROMPTS TO USE
+
+Setup
+       ● Create a shared Project named “Marketing”.
+       ● Paste the Master Prompt.
+       ● Edit the variables to match your business.
+       ● Start using prompts below to generate outputs.
+
+Prompts to Use
+       1. Short-Form Script Generator (Point • Story • Lesson)
+              a. Role: Act as a short-form video coach.
+              b. Context: Topic is [TOPIC]. Audience is [AUDIENCE]. Desired action is [CTA_LINK OR
+              DM].
+              c. Command: Write 3 scripts using PSL. Open with a sharp pain, add a true story, end with
+              1 actionable lesson and CTA.
+              d. Format: For each script: Hook (1 line), Story (3–5 lines), Lesson (3 steps).
+       2. YouTube Long-Form Outline (Open Loops + Proof)
+              a. Role: Act as a YouTube showrunner.
+              b. Context: Offer [OFFER]. Avatar [AVATAR]. Core promise [PROMISE].
+              c. Command: Outline a 10–12 minute video with a cold open hook, 3 loops, proof beats,
+              and a soft DM CTA. Include b-roll ideas.
+              d. Format: Sections: Cold Open, Big Promise, Loop 1, Loop 2, Loop 3, Proof Stack, CTA,
+              End Card.
+       3. Hook Bank from Customer Language
+              a. Role: Act as a voice-of-customer analyst.
+              b. Context: Inputs: call notes, reviews, comments at [LINKS].
+              c. Command: Extract 25 hooks in the customer’s own words. Tag each hook to a pain or
+              desire.
+              d. Format: Table with Hook, Pain/Desire, Source link, Use cases (Short, Email, Ad).
+       4. Ad Angles and Variations
+              a. Role: Act as a media buyer.
+              b. Context: Platform [META or YOUTUBE or GOOGLE]. Audience [AUDIENCE]. Budget
+              [BUDGET].
+              c. Command: Create 10 angles. Each angle includes 3 copy lines and 1 visual idea. Keep
+              claims grounded in proof.
+              d. Format: Table: Angle name, Lines (1–2 sentences each), Visual idea, Proof note.
+       5. Creator-CEO Newsletter (Story • Lesson • Offer)
+              a. Role: Act as a newsletter editor.
+              b. Context: List size [SIZE]. Topic [TOPIC]. Offer [OFFER]. Voice [TONE].
+              c. Command: Write a concise email using a personal story, one lesson, one CTA.
+              d. Format: Subject, Preview, Body (Story, Lesson, CTA link).
+SALES PROMPTS TO USE
+
+Setup
+     ● Create a shared Project named “Sales”.
+     ● Paste the Master Prompt.
+     ● Edit the variables to match your business.
+     ● Start using prompts below to generate outputs.
+
+Prompts to Use
+     1. Speed-to-Lead Callback Script
+             a. Role: Act as a sales responder.
+             b. Context: Offer [OFFER]. ICP [ICP]. Qual rules [QUAL_RULES]. Tool [VOICE_AGENT or
+             DIALER].
+             c. Command: Write a fast callback script that confirms need, qualifies lightly, and sets the
+             next step.
+             d. Format: Open (10s), Qual (3 points), Close (next step + time), Notes (CRM fields).
+     2. Sell-By-Chat DM Starters
+             a. Role: Act as a social seller.
+             b. Context: Platform [INSTAGRAM/LINKEDIN]. Audience [AUDIENCE]. Proof
+             [PROOF_LINKS].
+             c. Command: Write 10 human DM openers that invite a reply without pressure; include light
+             personalization tokens. Example: Hey [NAME], noticed you’re into cars as well. Wondering,
+             are you here for the vids are looking to grow your business?
+             d. Format: Bullets with Token, Opener, Follow-up nudge, “If no reply” line.
+     3. Discovery Call Prep
+             a. Role: Act as a sales coach.
+             b. Context: Prospect [NAME], company [COMPANY], pains [PAIN1/PAIN2], desired
+             outcome [OUTCOME].
+             c. Command: Draft a short discovery plan that confirms goals, budget fit, and decision
+             process.
+             d. Format: 2-min opener, 5 discovery questions, success criteria, red-flag checklist.
+     4. Objection Handling Playbook
+             a. Role: Act as an objection-handling strategist.
+             b. Context: Segment [SEGMENT]. Common objection “[OBJECTION]”. Proof
+             [PROOF_ASSET].
+             c. Command: Create 3 talk tracks using different frames (data, story, future-pace) that stay
+             empathetic and honest.
+             d. Format: Track name, When to use, Script (4–6 lines), Optional proof.
+
+
+CUSTOMER SUCCESS PROMPTS TO USE
+
+Setup
+     ● Create a shared Project named “Customer Success”.
+     ● Paste the Master Prompt.
+     ● Edit the variables to match your business.
+     ● Start using prompts below to generate outputs.
+
+Prompts to Use
+     1. Day-0 Quick-Start Plan
+             a. Role: Act as an onboarding lead.
+             b. Context: Account [ACCOUNT]. Goal [VALUE]. Deadline [DATE]. Tier [TIER].
+             c. Command: Build a simple plan that gets one meaningful win in week one.
+             d. Format: Checklist (3–5 steps), Owners, Acceptance criteria, Welcome note.
+     2. Risk Radar
+             a. Role: Act as a retention analyst.
+            b. Context: Usage [USAGE SIGNALS], tickets [TICKETS], sentiment [NOTES], health rules
+            [HEALTH_SCORE_RULES].
+            c. Command: Score risk and propose save plays that are specific and time-bound.
+            d. Format: Table with Risk level, Signal, Save play, Owner, Due date.
+     3. QBR Outline
+            a. Role: Act as a CSM.
+            b. Context: Account [ACCOUNT]. Last 90-day outcomes [METRICS]. Upcoming goals
+            [GOALS].
+            c. Command: Draft a QBR flow that highlights wins, insights, and a 90-day plan.
+            d. Format: Sections: Wins, Insights, Roadmap, Asks, Next steps.
+     4. Expansion Moment Script
+            a. Role: Act as a success-led seller.
+            b. Context: Milestone hit [MILESTONE]. Relevant offer [UPSELL].
+            c. Command: Create a brief outreach that anchors on earned results and proposes a next
+            step.
+            d. Format: 3-line message + calendar link line.
+
+
+PRODUCT PROMPTS TO USE
+
+Setup
+     ● Create a shared Project named “Product”.
+     ● Paste the Master Prompt.
+     ● Edit the variables to match your business.
+     ● Start using prompts below to generate outputs.
+
+Prompts to Use
+     1. Opportunity Ranking
+            a. Role: Act as a product strategist.
+            b. Context: Candidate ideas [LIST]. Constraints [RESOURCES]. Strategy
+            [THEMES/OKRs].
+            c. Command: Rank opportunities by impact, confidence, and effort with a one-line rationale.
+            d. Format: Table: Idea, Impact, Confidence, Effort, Rationale.
+     2. One-Page Product Management Sheet
+            a. Role: Act as a product manager.
+            b. Context: Problem [PROBLEM]. Users [USERS]. Success metric [METRIC].
+            c. Command: Write a one-page spec that is problem-first and minimal.
+            d. Format: Problem, Users, Scope, User stories, Acceptance, Risks, Success metric.
+     3. Experiment Design
+            a. Role: Act as a growth PM.
+            b. Context: Hypothesis [HYPOTHESIS], sample [SEGMENT], constraint [BUDGET/TIME].
+            c. Command: Design a simple test with pass/fail and decision rule.
+            d. Format: Hypothesis, Metric, Threshold, Steps, Decision rule, Next action.
+     4. Voice-of-Customer Digest
+            a. Role: Act as an insights analyst.
+            b. Context: Sources [CALLS/REVIEWS/TICKETS LINKS].
+            c. Command: Summarize top 5 themes with quotes and suggested product actions.
+            d. Format: Table: Theme, Quote, Source, Action idea.
+     5. Release Notes (Plain English)
+            a. Role: Act as a release editor.
+            b. Context: Feature [FEATURE]. Benefits [BENEFITS]. Affected users [SEGMENTS].
+            c. Command: Write short notes that explain what changed and why it matters.
+            d. Format: Title, What’s new, Why it matters, How to use it, Links.
+
+
+ENGINEERING PROMPTS TO USE
+
+Setup
+     ● Create a shared Project named “Engineering”.
+     ● Paste the Master Prompt.
+     ● Edit the variables to match your business.
+     ● Start using prompts below to generate outputs.
+
+Prompts to Use
+     1. PR Review Summary
+             a. Role: Act as a senior reviewer.
+             b. Context: Repo [REPO]. Stack [STACK]. PR title [TITLE]. Diff notes [NOTES].
+             c. Command: Produce a concise review that surfaces risks, tests to add, and merge
+             readiness.
+             d. Format: Risks, Suggestions, Tests, Merge checklist.
+     2. Bug Triage
+             a. Role: Act as a triage lead.
+             b. Context: Steps to reproduce [STEPS], expected [EXPECTED], actual [ACTUAL], severity
+             [SEV].
+             c. Command: Draft reproducible steps, likely root causes, and a minimal fix plan.
+             d. Format: Repro, Suspects, Fix plan, Acceptance test.
+     3. Doc Update
+             a. Role: Act as a docs scribe.
+             b. Context: Feature [FEATURE], entry points [FILES/LINKS].
+             c. Command: Update README/guide with setup, usage, and examples.
+             d. Format: Section headings with short instructions and example blocks.
+     4. Test Plan Scaffold
+             a. Role: Act as a QA lead.
+             b. Context: Component [COMPONENT], behavior [BEHAVIOR], edge cases [EDGES].
+             c. Command: Outline a pragmatic test plan that prevents regressions.
+             d. Format: Unit cases, Integration cases, Edge cases, Data/fixtures.
+     5. Release Checklist
+             a. Role: Act as a release manager.
+             b. Context: Version [VERSION], envs [ENVS], CI/CD [TOOL].
+             c. Command: Provide a pre-release checklist that is safe and fast.
+             d. Format: Pre-checks, Steps, Rollback notes, Owner.
+
+
+OPERATIONS PROMPTS TO USE
+
+Setup
+     ● Create a shared Project named “Ops & Finance Implementation”.
+     ● Paste the Master Prompt.
+     ● Edit the variables to match your business.
+     ● Start using prompts below to generate outputs.
+
+Prompts to Use
+     1. Weekly KPI Pack
+             a. Role: Act as an operator-analyst.
+             b. Context: Sources [CRM/ADS/BILLING]. Targets [TARGETS].
+             c. Command: Create a one-page scorecard with trends and red flags.
+             d. Format: Table: KPI, Current, Trend, Target, Note, Action.
+     2. Month-End Close Checklist
+             a. Role: Act as a finance ops lead.
+             b. Context: Accounts [ACCOUNTS], deadlines [DATES], tool [ACCOUNTING_TOOL].
+             c. Command: Draft a close checklist with dependencies and controls.
+             d. Format: Steps, Owner, Due date, Control, Evidence link.
+     3. Daily Cash & Anomalies
+             a. Role: Act as a finance sentinel.
+             b. Context: Data [BANKS/STRIPE], thresholds [ALERT_RULES].
+             c. Command: Generate a daily summary with anomalies and a simple next action.
+             d. Format: Cash by account, In/Out, Anomalies, Action.
+FINAL MESSAGE
+Pick one department.
+
+
+Deploy AI today.
+
+
+Paste the Master Prompt.
+
+
+Run one of the Role, Context, Command & Format Prompts.
+
+
+And ship one asset today.
+
+
+If you want more support implementing AI in your business…
+
+
+and scaling past $10M+
+
+
+apply for coaching here and I’ll see if I can help.
+
+
+DM
+
+
+
+P.S.
+
+If you’re looking for the tools I use to run my companies, here’s what I recommend:
+
+Sell by Chat AI Powered CRM www.getrevio.com
+AI Powered Recruiting https://herohire.ai
+AI CFO www.hellofrank.ai
+AI Clone for Clients or Team www.buddypro.ai
+
+AI Powered Social Search Engine www.socialsweep.ai
+

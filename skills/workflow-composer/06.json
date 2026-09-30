@@ -1,0 +1,39 @@
+{
+  "name": "RAVID",
+  "purpose": "RAVID AI je podľa projektových Markdown dokumentov koncept AI infraštruktúrnej agentúry pre malé a stredné firmy. Positioning smeruje od izolovaných automatizácií k AI operačným systémom spájajúcim pracovné rozhranie, firemné dáta, AI logiku, workflowy/integrácie a riadenie s KPI.",
+  "kind": "strategicko-obchodný a produktový dokumentačný balík; v kontrolovanom plytkom prehľade sa nepreukázal samostatný zdrojový kód ani produkčná aplikácia",
+  "technologies": [
+    "Markdown dokumentácia",
+    "V dokumentoch sa spomínajú n8n, Make, API, databáza a LLM ako možné technické vrstvy; ich použitie v tomto priečinku nebolo overené",
+    "Dashboard/pracovné rozhranie a integrácie sú navrhované koncepty, nie overená implementácia"
+  ],
+  "structure": [
+    "RAVID/ obsahuje 10 viditeľných položiek: 8 Markdown dokumentov, 1 PDF a 1 JPEG; zoznam bol získaný z adresára bez prechádzania do ďalšej hĺbky.",
+    "Markdown balík pokrýva strategický plán, v4 rozšírenie agentúry, 7-dňový launch/master plan, pracovný balík šablón, video launch kit, todo command center, readiness audit s checklistom a oficiálny master prompt.",
+    "RAVID_AI.pdf a JPEG boli zámerne nečítané; PDF/obrazový obsah nebol potrebný pre plytký ne-citlivý prehľad."
+  ],
+  "subprojects": [],
+  "observed_state": "Pozorované sú najmä plánovacie a strategické Markdown zdroje. Dokumenty deklarujú positioning, segmentové moduly, produktový rebrík a plán validácie, ale z prečítaných súborov nevyplýva dôkaz o funkčnej implementácii, testovaní, nasadení, aktuálnosti ani aktívnom používaní. Stav pripravenosti je v readiness dokumente sám označený ako strategický základ s chýbajúcimi praktickými obalovými a prevádzkovými prvkami.",
+  "relationships": [
+    "RAVID AI 3.0 definuje päť vrstiev AI infraštruktúry a segmentové AI OS koncepty; 7-dňový Master Launch Plan ich prevádza do validačných a predajných krokov.",
+    "RAVID AI v4 rozširuje základ o RAVID AI OS Standard, Readiness Score, Control Room, adopčný proces a Proof Engine.",
+    "Readiness audit funguje ako predprodukčný checklist a odporúča začať jednou landing page, jedným segmentom a plateným Infrastructure Audit namiesto vlastnej komplexnej SaaS platformy.",
+    "Oficiálny Master Prompt kodifikuje spôsob práce, QA otázky a ľudské schválenie/obmedzenia pre právne služby, autoservisy, ubytovanie, nábytok a renovácie."
+  ],
+  "cautions": [
+    "Podobné názvy/verzie dokumentov sú iba kandidáti na duplicitu alebo iteráciu; ich identita nebola dokazovaná.",
+    "Ciele, ceny, segmenty, KPI a deklarované výstupy sú README/Markdown tvrdenia alebo návrhy, nie výsledky overeného behu.",
+    "Neboli čítané .env/credential súbory, osobné PDF/Word súbory, archívy, .claude konfigurácia ani citlivé podnikové dáta.",
+    "Neboli spúšťané skripty, inštalácie, buildy, testy ani služby; funkčnosť a bezpečnosť preto zostávajú neoverené.",
+    "V zadanom desktop session nebola dostupná cesta /Users/jarvis/Desktop/AiOS-SYSTEMS, preto bola lokálna štruktúra overená iba dostupným read-only pripojeným adresárom; nebol vykonaný shell scan na /mnt."
+  ],
+  "sources": [
+    "RAVID/RAVID AI 3.0.md",
+    "RAVID/RAVID_AI_v4_ako_vybudovat_najlepsiu_AI_agenturu.md",
+    "RAVID/RAVID_AI_7_dnovy_master_plan.md",
+    "RAVID/RAVID_AI_kompletny_readiness_audit_a_asset_checklist.md",
+    "RAVID/Oficiálny Master Prompt pre aios - návrhár .md",
+    "RAVID/ (adresárový výpis poskytnutý read nástrojom)"
+  ],
+  "notes_path": "/home/ubuntu/aios-overview/reviews/06.json"
+}

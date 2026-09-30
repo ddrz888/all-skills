@@ -1,0 +1,27 @@
+{
+  "date": "2026-09-25",
+  "language": "Slovak",
+  "company": "AiOS — Advanced Intelligence Operating System",
+  "website": "https://aios.macaly.app",
+  "confirmed": {
+    "product": "Vlastná pracovná aplikácia pre firmu, spoločný opakovateľný základ + odvetvový modul + úpravy klienta, nie iba chatbot alebo web",
+    "first_customer": "Samotná firma AiOS; interný obchod, audit, ponuka, realizácia a klientsky portál",
+    "users": "Interný tím aj klienti; responzívna webová aplikácia",
+    "commercial": "Jednorazové vytvorenie a odovzdanie + voliteľná mesačná prevádzka, podpora a rozvoj",
+    "builder": "Jeden zakladateľ s Claude Code, Antigravity alebo Manus; bez potvrdeného rozpočtu alebo termínu",
+    "integration": "Nahradiť alebo prepájať existujúce nástroje podľa auditu; nepredpokladať automatickú migráciu všetkého"
+  },
+  "proposed_core": ["Identity a oprávnenia", "Organizácie a kontakty", "Pracovný prípad/karta a verziované stavy", "Vlastník, termíny a úlohy", "Súkromné dokumenty", "AI návrh so zdrojmi a schvaľovaním", "Klientsky portál s explicitným zdieľaním", "Auditná stopa", "Meranie priebehu", "Export a odovzdanie"],
+  "architectural_direction_for_planning": "Jeden zdrojový základ; pre prvých externých zákazníkov oddelené nasadenie a databáza, nie improvizovaný zdieľaný multi-tenant SaaS. Aj v internej aplikácii striktne oddeliť viditeľnosť klientov a interných poznámok. Konfigurácia polí a šablón nemá byť univerzálny no-code builder.",
+  "segment_order": [
+    {"id":"service","name":"AiOS Servisný systém","brief":"Autoservisy: zachytenie dopytu, doplnenie modelu, ročníka a popisu závady, servisná karta a návrh termínu."},
+    {"id":"realty","name":"AiOS Realitný systém","brief":"Reality: kvalifikácia záujemcu podľa rozpočtu, lokality a časového horizontu; triedenie a príprava obhliadok."},
+    {"id":"guest","name":"AiOS Systém pre hostí","brief":"Penzióny a ubytovanie: overené odpovede o parkovaní, raňajkách, check-ine a dostupnosti; výnimky majiteľovi."},
+    {"id":"studio","name":"AiOS Ateliér","brief":"Fotoateliéry: zjednotenie dopytu, balíka, inštrukcií a rezervácie termínu."},
+    {"id":"furniture","name":"AiOS Nábytkový systém","brief":"Nábytok a stolárstvo: dopyt a fotografie na zadanie s rozmermi, materiálom, štýlom a rozpočtom pred ponukou."},
+    {"id":"visual","name":"AiOS Vizuálny systém","brief":"Dekorácie interiéru/exteriéru: kontext priestoru, rozmery, štýl a materiály do projektového zadania."},
+    {"id":"restore","name":"AiOS Renovačný systém","brief":"Renovácie nábytku: fotografie, rozsah poškodenia, materiál a predstavy pred odborným posúdením."},
+    {"id":"legal","name":"AiOS Právny systém","brief":"Právnici: bezpečný prvotný zber údajov a dokumentácie, chýbajúce podklady pred odborným posúdením; človek rozhoduje."}
+  ],
+  "guardrails": ["Len plán, nič nevyvíjať, nenasadzovať, neobjednávať ani nemenit prístupy", "Rozpočty, ceny, hodiny a harmonogram sú odporúčané predpoklady, nie trhové fakty ani záväzok", "Neprisudzovať potvrdenú klientelu, tržby, účty, API prepojenia ani skúsenosti", "Nepredpokladať automatické bezpečné používanie AI na citlivých dátach", "Nesľubovať právny súlad, presnosť AI, výnosy ani percento úspory bez overenia"]
+}

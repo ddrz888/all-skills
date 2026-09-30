@@ -1,0 +1,38 @@
+{
+  "date": "2026-09-24",
+  "requested_url": "https://aios.macally.app",
+  "requested_url_result": "DNS lookup failed in fetch and curl",
+  "reviewed_url": "https://aios.macaly.app/",
+  "browser": "Firefox via Playwright",
+  "viewports_checked_for_horizontal_overflow": [375, 768, 1280, 1920],
+  "horizontal_overflow_found": false,
+  "visual_screenshots_reviewed": ["1280x900 desktop hero", "1280x900 desktop form", "375x812 mobile hero", "375x812 mobile menu", "375x812 mobile readiness"],
+  "tests": {
+    "architecture_tab": "Governance & KPI tab changed visible content",
+    "faq": "Ako dlho trva audit expanded with aria-expanded=true",
+    "readiness": "Five sliders present; End key on Processes changed 0/25 to 5/25 and recommendations; reset returned 0/25",
+    "demo": "Zamietnut opened reason-selection UI; reset restored the demo; rejection was not finalized",
+    "audit_cta": "Navigated to #audit",
+    "mobile_menu": "Opened with aria-expanded=true; clicking Readiness Score navigated to #readiness and closed menu",
+    "form": "Required fields are labelled; checkValidity reported missing required inputs; contact request was NOT submitted",
+    "images": "All six img elements had non-empty alt values and eventually loaded with naturalWidth > 0 after relevant scrolling"
+  },
+  "metadata": {
+    "title": "AiOS — AI infraštruktúra pre pracovné procesy",
+    "description_present": true,
+    "og_title_description_image_present": true,
+    "html_lang": "en",
+    "visible_content_language": "Slovak",
+    "canonical_found": false,
+    "json_ld_found": false
+  },
+  "form_source_review": {
+    "url": "https://aios.macaly.app/assets/routes-CV8CcSIK.js",
+    "calls": "emails.sendAuditRequest",
+    "noValidate": true,
+    "client_validation": "Checks non-empty name, email, company, problem and consent; no email-format check in inspected handler",
+    "error_fallback": "Asks visitor to contact directly by email, but reviewed page provides no visible email address or mailto link",
+    "backend_delivery_status": "Not tested; no claim that delivery works or is broken"
+  },
+  "scope": "Read-only analysis of public site and published client code; no production changes, customer messages or backend write operations. No Lighthouse score, formal WCAG audit, full GDPR audit or analytics/conversion data."
+}

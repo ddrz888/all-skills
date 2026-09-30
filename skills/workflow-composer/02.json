@@ -1,0 +1,68 @@
+{
+  "name": "Weby",
+  "purpose": "Top-level priečinok s webovými prezentáciami a jedným samostatným Vite prototypom v rámci AiOS-SYSTEMS.",
+  "kind": "Kolekcia statických webov a frontendových projektov; nejde o jeden identifikovaný repozitár.",
+  "technologies": [
+    "HTML/CSS/vanilla JavaScript",
+    "Vite",
+    "GSAP ScrollTrigger",
+    "Lenis"
+  ],
+  "structure": [
+    "Weby/index.html — hlavná AiOS landing stránka, ktorá načítava aios-platform/styles.css a aios-platform/main.js.",
+    "Weby/aios-platform/ — samostatne vyzerajúci statický web s index.html, styles.css, main.js a assets/.",
+    "Weby/aios-webhosting/ — samostatne vyzerajúci statický web s index.html, styles.css, main.js a assets/.",
+    "Weby/demo-auto-detailing/ — Vite frontend s src/, public/, package.json, package-lock.json a interným podadresárom Demo-AiOS/.",
+    "Weby/aios-webhosting.zip a Weby/Demo-AiOS.zip — archívne/packaged kópie; obsah nebol rozbaľovaný ani analyzovaný."
+  ],
+  "subprojects": [
+    {
+      "path": "Weby/index.html",
+      "purpose": "AiOS marketingová/produktová landing stránka pre pracovnú AI infraštruktúru; obsahuje navigáciu, hero, architektúru, kontrolu, riešenia, readiness, investíciu a FAQ sekcie.",
+      "technology": "HTML + odkazy na CSS/JS z Weby/aios-platform/; obrázky z aios-platform/assets/.",
+      "evidence": "Weby/index.html:6-18, 35-75, 79-109; deklarované slovenské texty a sekcie."
+    },
+    {
+      "path": "Weby/aios-platform/",
+      "purpose": "Statická implementácia AiOS landing stránky a jej vizuálnych assetov.",
+      "technology": "HTML, CSS, vanilla JavaScript; bez zjavnej externej knižnice v prečítanom main.js.",
+      "evidence": "Weby/aios-platform/index.html:18, 35-75; Weby/aios-platform/main.js:1-20, 25-75; obsah priečinka obsahuje assets/, styles.css a main.js."
+    },
+    {
+      "path": "Weby/aios-webhosting/",
+      "purpose": "Samostatná statická webová varianta súvisiaca podľa názvu s webhostingom; presný produktový účel z dostupnej vzorky nie je potvrdený.",
+      "technology": "HTML, CSS a vanilla JavaScript podľa prítomnosti index.html, styles.css a main.js.",
+      "evidence": "Obsah priečinka: Weby/aios-webhosting/index.html, styles.css, main.js, assets/; Weby/aios-webhosting/index.html:18, 35-75 používa rovnakú AiOS navigačnú/landing štruktúru."
+    },
+    {
+      "path": "Weby/demo-auto-detailing/",
+      "purpose": "Editorial/demo frontend šablóna, pripravená na obsah pre auto-detailing; README opisuje všeobecnú editorial page štruktúru.",
+      "technology": "Vite 5, ES modules, GSAP 3.12.5, GSAP ScrollTrigger a Lenis 1.1.13.",
+      "evidence": "Weby/demo-auto-detailing/package.json:6-17; Weby/demo-auto-detailing/README.md:1-11; Weby/demo-auto-detailing/src/main.js:1-11; Weby/demo-auto-detailing/index.html:22-80 používa placeholder tokeny a video/image media."
+    }
+  ],
+  "observed_state": "Pozorované sú zdrojové súbory a adresárová štruktúra; funkcionalita nebola spúšťaná, testovaná ani buildovaná. README tvrdenia sú oddelené od overeného runtime stavu.",
+  "relationships": [
+    "Weby/index.html priamo odkazuje na Weby/aios-platform/styles.css, Weby/aios-platform/main.js a Weby/aios-platform/assets/.",
+    "Weby/aios-platform/index.html používa lokálne assets/; je paralelnou, viac samostatnou kópiou landing implementácie.",
+    "Weby/aios-webhosting/ má rovnaký základný layout pattern a názvoslovie AiOS ako aios-platform, ale identita/zhoda projektov nebola dokazovaná.",
+    "Weby/demo-auto-detailing/ je oddelený Vite projekt; package.json a README ho opisujú ako editorial template."
+  ],
+  "cautions": [
+    "Adresáre s podobnými názvami sú iba kandidáti na duplicitu/varianty; nebolo overované, že sú identické.",
+    "Neboli čítané archívy, .env, credentials, .claude obsah ani osobné/obchodné dáta.",
+    "Nebolo možné potvrdiť nasadenie, aktuálnosť, produkčný stav ani funkčnosť iba zo súborov a názvov.",
+    "Plytký prehľad nezahŕňa hlboký code/security audit ani hodnotenie obsahu assetov."
+  ],
+  "sources": [
+    "Weby/index.html:6-18, 35-75, 79-109",
+    "Weby/aios-platform/index.html:18, 35-75",
+    "Weby/aios-platform/main.js:1-20, 25-75",
+    "Weby/aios-webhosting/index.html:18, 35-75",
+    "Weby/demo-auto-detailing/package.json:1-17",
+    "Weby/demo-auto-detailing/README.md:1-11",
+    "Weby/demo-auto-detailing/index.html:22-80",
+    "Weby/demo-auto-detailing/src/main.js:1-11"
+  ],
+  "notes_path": "/home/ubuntu/aios-overview/reviews/02.json"
+}

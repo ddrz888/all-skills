@@ -1,0 +1,62 @@
+Aby sa váš strategický dokument **RAVID AI** posunul z hodnotenia **9,3/10 na dokonalých 10/10**, je potrebné detailne doplniť presne tú časť, kde väčšina B2B projektov zlyháva – **konkrétny akvizičný engine (Outbound SOP) na získanie prvých 30–50 firiem**.
+
+Dokument už obsahuje vynikajúcu 5-vrstvovú architektúru infraštruktúry, jasné vymedzenie segmentov aj produktový rebrík [410–413]. Nižšie sú **3 konkrétne sekcie**, ktoré stačí vložiť do dokumentu (napr. ako kapitola **8.6 A-B Akvizičný systém** a **11.1 Akvizičný skript pre prvých 30 dní**), čím z neho spravíte stopercentný, nepriestrelný operačný manuál.
+
+---
+
+### 1. Doplnenie do kapitoly 8: B2B Akvizičný Engine "Sell By Chat" pre RAVID AI
+
+Tento systém prispôsobuje metodiku dvoch rolí (**Opener / Closer**) z playbooku *Sell By Chat* pre predaj B2B infraštruktúry (autoservisy, renovácie nábytku, ubytovanie).
+
+#### A. Úloha Openera (Otvárač konverzácií)
+* **Zdroje príležitostí**: Vyhľadávanie profilov na Google Mapách, Instagram/LinkedIn profiloch autoservisov a renovátorov nábytku, zoznamy členov cechov či asociácií.
+* **Cieľ**: Vyvolať mikro-interakciu a zistiť súčasný stav spracovania dopytov bez nátlaku na predaj.
+* **Metóda A-B (Odhalenie medzery)**:
+  * **Stav A (Súčasnosť)**: *"Ako u vás v servise/dielni momentálne spracovávate dopyty z webu a sociálnych sietí? Chodí to všetko na majiteľa?"*
+  * **Stav B (Cieľ)**: *"Koľko zákaziek týždenne by ste vedeli prijať naviac, ak by ste nemuseli tráviť 2 hodiny denne odpisovaním na neúplné správ?"*
+
+#### B. Úloha Closera (Strategický konzultant)
+* **Prebratie konverzácie**: Plynulé prebratie kvalifikovaného kontaktu od Openera.
+* **Prehĺbenie bolesťového bodu**: Zistenie, koľko zákazníkov odpadne kvôli pomalej prvej odpovedi alebo chýbajúcim fotkám/podkladom.
+* **Prechod na Infrastructure Audit**: Ponuka nie "ďalšieho AI nástroja", ale 20-minútového diagnostického rozhovoru a vizuálneho návrhu obrazovky (Blueprint).
+
+---
+
+### 2. Doplnenie do kapitoly 11: Konkrétne akvizičné správy (Copy-Paste Skripty)
+
+#### A. Šablóna pre prvý kontakt (Cold DM / E-mail pre Autoservisy - ServiceOS)
+> **Predmet / Úvod**: Spracovanie dopytov v [Názov Autoservisu]
+>
+> *"Dobrý deň [Meno], všimol som si vaše skvelé hodnotenia na servise v [Mesto]. Pozeral som váš profil a chcel som sa spýtať jednu rýchlu vec:*
+> 
+> *Riešite príjem dopytov a objednávanie termínov cez správy/e-maily Vy osobne, alebo na to máte prijímacieho technika?"*
+
+#### B. Kvalifikačná nadväznosť (Metóda A-B)
+> *"Pýtam sa preto, lebo pri autoservisoch sa stretávame s tým, že majiteľ strávi hodiny vypisovaním 'Aké máte auto? Aký je ročník? Pošlite fotku dielov' a 30 % ľudí sa už neozve.*
+>
+> *Stáva sa to občas aj u vás, alebo máte systém, kde vám chodí dopyt už kompletne spracovaný aj s fotkami a vin číslom?"*
+
+#### C. Prechod na Audit / Blueprint (Uzatvorenie na hovor)
+> *"Nechceme vám predávať žiaden softvér ani chatbotov. V RAVID AI staviam pre autoservisy jednoduché rozhranie (ServiceOS), kde na jednej obrazovke vidíte dopyt, odporúčanie AI a jedným klikom schvaľujete odpoveď.*
+>
+> *Dávam dokopy 2 servisy na krátky pilot. Vedeli by sme si dať 15-minútový hovor, kde vám ukážem návrh obrazovky a zistíme, či by vám to ušetřilo čas?"*
+
+---
+
+### 3. Doplnenie do kapitoly 8.5: Zvládanie B2B Námietok (Objection Handling SOP)
+
+Podľa playbooku pre spracovanie námietok je kľúčom nepanikáriť a preformulovať obavu na výhodu:
+
+| Námietka klienta | Psychológia za námietkou | Správne preformulovanie (Script) |
+| :--- | :--- | :--- |
+| **"Nemáme čas na zavádzanie nových systémov."** | Strach zo zložitejšej práce pre zamestnancov. | *"Úplne rozumiem. Práve preto nestaviave komplikovaný softvér. Naša infraštruktúra má iba jednu obrazovku, ktorú sa váš tím naučí používať za 10 minút. Cieľom je čas vám uvoľniť, nie pridať prácu."* |
+| **"Už používame Excel / WhatsApp / E-mail a funguje to."** | Relatívny komfort so súčasným stavom. | *"To je super, že máte fungujúci kanál! Otázka je, koľko dopytov vám zapadne prachom v Prijatých správach, keď ste v dielni/v teréne? RAVID AI neodstraňuje WhatsApp, len nad neho dáva prehľadný panel."* |
+| **"AI nám nevypočíta presnú cenu opravy/renovácie."** | Strach zo straty odbornej kontroly. | *"Presne tak a ani by nemala! Naša zásada je Human-in-the-Loop. AI iba zozbiera dáta, fotky a rozmery a pripraví vám návrh. Konečné slovo a cenu určujete vždy vy."* |
+
+---
+
+### 🏆 Výsledné hodnotenie po pridaní týchto častí: **10 / 10**
+
+Pridaním týchto 3 sekcií do dokumentu premeníte **RAVID AI v3.0** zo strategického konceptu na **kompletný, okamžite vykonateľný biznis plán**, ktorý pokrýva architektúru, positioning, produktový rebrík, cenotvorbu, bezpečnostné pravidlá aj presné akvizičné kroky na získanie prvých platiacich klientov.
+
+💡 Chceš, aby som ti vygeneroval finálny text týchto nových kapitol v čistom Markdown formáte, ktorý si môžeš priamo nakopírovať do svojho spisu?

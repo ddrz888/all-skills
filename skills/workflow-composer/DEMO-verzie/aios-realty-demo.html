@@ -1,0 +1,3077 @@
+<!DOCTYPE html>
+<html lang="sk" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>AiOS Realitný systém — Kvalifikácia záujemcov a riadenie obhliadok</title>
+  <meta name="description" content="AiOS Realitný systém — Overený odvetvový modul pre realitné kancelárie: kvalifikácia dopytov, shortlist nehnuteľností a bezpečné plánovanie obhliadok. Plne responzívne pre mobil aj desktop.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ================= AIOS REALTY TOKENS (aios.macaly.app identity) ================= */
+    :root {
+      --aios-bg: #07080b;
+      --aios-panel: rgba(255, 255, 255, 0.045);
+      --aios-panel-solid: #0e1117;
+      --aios-panel-2: #141822;
+      --aios-panel-3: #1c2230;
+      --aios-line: rgba(184, 194, 204, 0.18);
+      --aios-line-subtle: rgba(184, 194, 204, 0.09);
+      --aios-text: #f8fafc;
+      --aios-muted: #b4c0cf;
+      --aios-muted-bright: #cbd5e1;
+      --aios-muted-dark: #6e7c8e;
+      --aios-copper: #b06d50;
+      --aios-copper-2: #d9a184;
+      --aios-copper-dark: #8a5238;
+      --aios-copper-glow: rgba(176, 109, 80, 0.35);
+      --aios-cyan: #25d9ff;
+      --aios-cyan-glow: rgba(37, 217, 255, 0.25);
+      --aios-violet: #756bff;
+      --aios-radius: 18px;
+      --aios-radius-sm: 8px;
+      --aios-radius-pill: 999px;
+
+      /* STATUS COLORS */
+      --status-ok: #6fe3a1;
+      --status-ok-bg: rgba(74, 222, 128, 0.12);
+      --status-ok-border: rgba(74, 222, 128, 0.4);
+      --status-warn: #f4c08a;
+      --status-warn-bg: rgba(255, 150, 50, 0.1);
+      --status-warn-border: rgba(255, 160, 60, 0.5);
+      --status-crit: #f0a091;
+      --status-crit-bg: rgba(248, 113, 113, 0.12);
+      --status-crit-border: rgba(255, 110, 90, 0.4);
+
+      --font-head: 'Archivo', sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --header-h: 70px;
+      --sidebar-w: 260px;
+      --bottom-nav-h: 64px;
+    }
+
+    [data-theme="light"] {
+      --aios-bg: #F4F5F8;
+      --aios-panel: #FFFFFF;
+      --aios-panel-solid: #FFFFFF;
+      --aios-panel-2: #EBEEF2;
+      --aios-panel-3: #E0E4EB;
+      --aios-line: #D3D8E2;
+      --aios-line-subtle: #E2E6EE;
+      --aios-text: #0E1217;
+      --aios-muted: #54606E;
+      --aios-muted-dark: #828E9E;
+      --aios-copper: #9A5B40;
+      --aios-copper-2: #B87355;
+      --aios-copper-dark: #7A422B;
+      --aios-copper-glow: rgba(154, 91, 64, 0.2);
+      --aios-cyan: #0E8DA6;
+      --aios-cyan-glow: rgba(14, 141, 166, 0.15);
+      --status-ok: #15803D;
+      --status-ok-bg: #DCFCE7;
+      --status-ok-border: #86EFAC;
+      --status-warn: #9A5B40;
+      --status-warn-bg: #FFEDD5;
+      --status-warn-border: #FDBA74;
+      --status-crit: #B91C1C;
+      --status-crit-bg: #FEE2E2;
+      --status-crit-border: #FCA5A5;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+      font-family: var(--font-body);
+      background-color: var(--aios-bg);
+      color: var(--aios-text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      background-image: 
+        radial-gradient(ellipse at 90% 0%, rgba(176, 109, 80, 0.16) 0%, transparent 60%),
+        radial-gradient(ellipse at 10% 100%, rgba(37, 217, 255, 0.08) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='1000' viewBox='0 0 1000 1000' fill='none'%3E%3Cpath d='M150 200 L350 90 L580 160 L480 380 L150 200 Z' stroke='rgba(176,109,80,0.18)' stroke-width='1.2'/%3E%3Cpath d='M580 160 L800 110 L900 320 L700 440 L480 380 Z' stroke='rgba(176,109,80,0.14)' stroke-width='1.2'/%3E%3Cpath d='M150 200 L90 500 L290 640 L480 380 Z' stroke='rgba(37,217,255,0.11)' stroke-width='1.2'/%3E%3Cpath d='M480 380 L700 440 L650 720 L400 800 L290 640 Z' stroke='rgba(176,109,80,0.16)' stroke-width='1.2'/%3E%3Cpath d='M700 440 L900 320 L960 600 L840 820 L650 720 Z' stroke='rgba(176,109,80,0.13)' stroke-width='1.2'/%3E%3Cpath d='M290 640 L400 800 L220 900 L100 740 L90 500 Z' stroke='rgba(176,109,80,0.15)' stroke-width='1.2'/%3E%3Ccircle cx='350' cy='90' r='2.5' fill='%23d9a184' opacity='0.75'/%3E%3Ccircle cx='580' cy='160' r='3' fill='%2325d9ff' opacity='0.85'/%3E%3Ccircle cx='480' cy='380' r='3.5' fill='%23b06d50' opacity='0.95'/%3E%3Ccircle cx='700' cy='440' r='2.5' fill='%23d9a184' opacity='0.75'/%3E%3Ccircle cx='290' cy='640' r='3' fill='%2325d9ff' opacity='0.85'/%3E%3Ccircle cx='650' cy='720' r='2.5' fill='%23b06d50' opacity='0.75'/%3E%3C/svg%3E");
+      background-size: cover, cover, 1000px 1000px;
+      background-repeat: no-repeat, no-repeat, repeat;
+      background-attachment: fixed;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--aios-bg); }
+    ::-webkit-scrollbar-thumb { background: var(--aios-line); border-radius: var(--aios-radius-pill); }
+
+    .app-root {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      height: var(--header-h);
+      background: rgba(10, 12, 16, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--aios-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      gap: 12px;
+      z-index: 30;
+      flex-shrink: 0;
+    }
+
+    [data-theme="light"] .topbar { background: rgba(255, 255, 255, 0.92); }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--aios-radius-sm);
+      border: 1px solid var(--aios-line);
+      background: var(--aios-panel);
+      color: var(--aios-text);
+      place-items: center;
+      cursor: pointer;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+    .mobile-menu-btn:hover {
+      border-color: var(--aios-copper-2);
+      color: var(--aios-copper-2);
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .brand-wordmark-wrap {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand-wordmark {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1.55rem;
+      letter-spacing: -0.04em;
+      background: linear-gradient(135deg, #ffffff 0%, #edd3c7 35%, #d9a184 70%, #9a5b40 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+    }
+
+    .brand-tagline {
+      font-family: var(--font-mono);
+      font-size: 6px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--aios-muted);
+      text-transform: uppercase;
+      margin-top: 3px;
+      -webkit-text-fill-color: var(--aios-muted);
+      display: block;
+    }
+
+    /* KICKER EYEBROW BADGE (.png style) */
+    .kicker-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--aios-copper-2);
+      margin-bottom: 8px;
+    }
+    .kicker-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--aios-cyan);
+      box-shadow: 0 0 10px var(--aios-cyan);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .tag-env {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--aios-panel);
+      border: 1px solid var(--aios-line);
+      padding: 4px 12px;
+      border-radius: var(--aios-radius-pill);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--aios-muted);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .pulse-dot-copper {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f0a24c;
+      box-shadow: 0 0 12px 2px #ff9632bf;
+      animation: dotPulse 1.4s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes dotPulse {
+      0%, 100% { opacity: 0.75; transform: scale(0.85); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .role-switcher-box {
+      display: flex;
+      align-items: center;
+      background: var(--aios-panel-2);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius-pill);
+      padding: 4px 12px;
+      gap: 6px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .role-switcher-box:hover {
+      border-color: var(--aios-copper-2);
+      box-shadow: 0 0 14px var(--aios-copper-glow);
+    }
+
+    .role-select {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: 600;
+      color: var(--aios-text);
+      cursor: pointer;
+    }
+
+    .role-select option {
+      background: var(--aios-panel-solid);
+      color: var(--aios-text);
+    }
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--aios-radius-pill);
+      border: 1px solid var(--aios-line);
+      background: var(--aios-panel);
+      color: var(--aios-muted);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-icon:hover {
+      background: var(--aios-panel-2);
+      color: var(--aios-text);
+    }
+
+    /* BUTTONS */
+    .button {
+      color: var(--aios-text);
+      letter-spacing: 0.02em;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: var(--font-head);
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: var(--aios-radius-pill);
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      display: inline-flex;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .button:hover { transform: translateY(-1.5px); }
+
+    .button-copper {
+      background: linear-gradient(135deg, #a5623f, var(--aios-copper-2) 48%, #8a5238);
+      color: #120904 !important;
+      font-weight: 700;
+      box-shadow: 0 4px 18px var(--aios-copper-glow);
+    }
+
+    .button-copper:hover {
+      box-shadow: 0 10px 28px rgba(176, 109, 80, 0.55);
+      color: #070301 !important;
+    }
+
+    .button-ghost {
+      border: 1px solid rgba(184, 194, 204, 0.22);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--aios-text);
+    }
+
+    .button-ghost:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--aios-copper-2);
+    }
+
+    .button-small {
+      padding: 7px 14px;
+      font-size: 11.5px;
+    }
+
+    /* MAIN CONTAINER */
+    .main-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* SIDEBAR (DESKTOP & DRAWER ON MOBILE) */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: rgba(14, 17, 23, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-right: 1px solid var(--aios-line);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      padding: 18px 12px;
+      gap: 6px;
+      overflow-y: auto;
+      z-index: 40;
+    }
+
+    [data-theme="light"] .sidebar { background: rgba(255, 255, 255, 0.88); }
+
+    .sidebar-mobile-head {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 8px 12px;
+      border-bottom: 1px solid var(--aios-line);
+      margin-bottom: 6px;
+    }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 5, 8, 0.75);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 95;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .sidebar-overlay.open { display: block; opacity: 1; }
+
+    .nav-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--aios-muted-dark);
+      padding: 12px 14px 4px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: var(--aios-radius-sm);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--aios-muted);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+      border: 1px solid transparent;
+    }
+
+    .nav-link:hover {
+      background: var(--aios-panel);
+      color: var(--aios-text);
+      border-color: var(--aios-line-subtle);
+    }
+
+    .nav-link.active {
+      background: rgba(176, 109, 80, 0.12);
+      color: var(--aios-copper-2);
+      border-color: rgba(217, 161, 132, 0.3);
+      box-shadow: inset 0 0 12px rgba(176, 109, 80, 0.1);
+    }
+
+    .nav-link-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-badge {
+      background: var(--aios-panel-2);
+      color: var(--aios-muted);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: var(--aios-radius-pill);
+      font-weight: 600;
+      border: 1px solid var(--aios-line);
+    }
+
+    .nav-link.active .nav-badge {
+      background: var(--aios-copper);
+      color: #180e09;
+      border-color: var(--aios-copper-2);
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--aios-line);
+      font-size: 0.75rem;
+      color: var(--aios-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .system-status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      background: var(--aios-panel-2);
+      border-radius: var(--aios-radius-sm);
+      border: 1px solid var(--aios-line);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+    }
+
+    /* CONTENT AREA */
+    .content-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* CLIENT ISOLATION BANNER */
+    .client-mode-banner {
+      display: none;
+      background: rgba(37, 217, 255, 0.08);
+      border-bottom: 1px solid rgba(37, 217, 255, 0.3);
+      color: var(--aios-cyan);
+      padding: 10px 24px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .client-mode-banner.show { display: flex; }
+
+    /* VIEW CONTAINERS */
+    .view-container {
+      display: none;
+      padding: 30px 36px 60px;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .view-container.active {
+      display: block;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .page-title {
+      font-family: var(--font-head);
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--aios-text);
+      line-height: 1.2;
+    }
+
+    .page-subtitle {
+      color: var(--aios-muted);
+      font-size: 0.92rem;
+      margin-top: 4px;
+    }
+
+    /* KPI CARDS */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .kpi-card {
+      background: var(--aios-panel-solid);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius);
+      padding: 18px 20px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(217, 161, 132, 0.4);
+    }
+
+    .kpi-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--aios-muted);
+    }
+
+    .kpi-value {
+      font-family: var(--font-head);
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--aios-text);
+      margin: 6px 0 2px;
+      line-height: 1.1;
+    }
+
+    .kpi-note {
+      font-size: 0.76rem;
+      color: var(--aios-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .kpi-note.green { color: var(--status-ok); }
+    .kpi-note.copper { color: var(--aios-copper-2); }
+
+    /* CARDS */
+    .card {
+      background: var(--aios-panel-solid);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius);
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .card-header {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--aios-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    .card-title {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--aios-text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-body { padding: 22px; }
+
+    /* BADGES */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--aios-radius-pill);
+      font-size: 0.73rem;
+      font-weight: 600;
+      line-height: 1;
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .badge-copper {
+      color: #f4c08a;
+      background: #ff963217;
+      border: 1px solid #ffa03c80;
+    }
+
+    .badge-cyan {
+      color: var(--aios-cyan);
+      background: rgba(37, 217, 255, 0.12);
+      border: 1px solid rgba(37, 217, 255, 0.4);
+    }
+
+    .badge-ok {
+      color: #6fe3a1;
+      background: var(--status-ok-bg);
+      border: 1px solid var(--status-ok-border);
+    }
+
+    .badge-warn {
+      color: var(--status-warn);
+      background: var(--status-warn-bg);
+      border: 1px solid var(--status-warn-border);
+    }
+
+    .badge-crit {
+      color: var(--status-crit);
+      background: var(--status-crit-bg);
+      border: 1px solid var(--status-crit-border);
+    }
+
+    .badge-neutral {
+      color: var(--aios-muted);
+      background: var(--aios-panel-2);
+      border: 1px solid var(--aios-line);
+    }
+
+    /* DATA TABLES */
+    .data-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    .data-table th {
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--aios-muted);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--aios-line);
+      white-space: nowrap;
+    }
+
+    .data-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--aios-line);
+      color: var(--aios-text);
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .data-table tr:hover td { background: rgba(255, 255, 255, 0.025); }
+
+    .split-2 {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 22px;
+    }
+
+    /* PROPERTY CARDS */
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      margin-top: 14px;
+    }
+
+    .property-card {
+      background: var(--aios-panel-2);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s ease;
+    }
+
+    .property-card:hover {
+      border-color: var(--aios-copper);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .property-img {
+      height: 150px;
+      background: var(--aios-panel-3);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--aios-muted);
+      font-size: 0.85rem;
+    }
+
+    .property-tag-float {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 0.72rem;
+    }
+
+    .property-price-float {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(14, 17, 23, 0.9);
+      backdrop-filter: blur(8px);
+      padding: 4px 10px;
+      border-radius: var(--aios-radius-pill);
+      font-family: var(--font-head);
+      font-weight: 800;
+      color: var(--aios-copper-2);
+      font-size: 0.95rem;
+      border: 1px solid var(--aios-line);
+    }
+
+    .property-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .property-title {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--aios-text);
+      line-height: 1.3;
+    }
+
+    .property-specs {
+      font-size: 0.8rem;
+      color: var(--aios-muted);
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* GUARDRAIL ALERT */
+    .guardrail-alert {
+      background: rgba(255, 150, 50, 0.08);
+      border: 1px solid rgba(255, 160, 60, 0.4);
+      border-radius: var(--aios-radius);
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .guardrail-icon {
+      font-size: 1.25rem;
+      color: var(--aios-copper-2);
+      flex-shrink: 0;
+    }
+
+    .guardrail-content {
+      font-size: 0.85rem;
+      color: var(--aios-text);
+      line-height: 1.55;
+    }
+
+    /* FORMS */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .form-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--aios-muted);
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: var(--aios-radius-sm);
+      border: 1px solid var(--aios-line);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--aios-text);
+      font-family: inherit;
+      font-size: 16px; /* Prevents auto-zoom on iOS */
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--aios-cyan);
+      box-shadow: 0 0 0 2px var(--aios-cyan-glow);
+    }
+
+    .form-select option {
+      background: var(--aios-panel-solid);
+      color: var(--aios-text);
+    }
+
+    /* CODE BOX */
+    .code-box {
+      background: #08080c99;
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius-sm);
+      padding: 12px 14px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--aios-text);
+      line-height: 1.55;
+      overflow-x: auto;
+    }
+
+    /* ================= AI REALTY COPILOT & ACTION RESOLUTION CSS ================= */
+    .ai-copilot-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .ai-copilot-grid { grid-template-columns: 1fr; }
+    }
+
+    .chat-box-card {
+      display: flex;
+      flex-direction: column;
+      height: 640px;
+      background: var(--aios-panel-solid);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius);
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    .chat-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--aios-line);
+      background: rgba(255, 255, 255, 0.02);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chat-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(37, 217, 255, 0.1);
+      border: 1px solid rgba(37, 217, 255, 0.3);
+      padding: 4px 12px;
+      border-radius: var(--aios-radius-pill);
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--aios-cyan);
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scroll-behavior: smooth;
+    }
+
+    .message-item {
+      display: flex;
+      flex-direction: column;
+      max-width: 92%;
+      animation: slideUpFade 0.25s ease-out;
+    }
+
+    .message-item.user {
+      align-self: flex-end;
+      align-items: flex-end;
+    }
+
+    .message-item.ai {
+      align-self: flex-start;
+      align-items: flex-start;
+    }
+
+    .message-meta {
+      font-size: 0.72rem;
+      color: var(--aios-muted);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .message-bubble {
+      padding: 14px 18px;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--aios-text);
+      position: relative;
+    }
+
+    .message-item.user .message-bubble {
+      background: linear-gradient(135deg, rgba(176, 109, 80, 0.35) 0%, rgba(138, 82, 56, 0.55) 100%);
+      border: 1px solid rgba(217, 161, 132, 0.4);
+      border-top-right-radius: 4px;
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .message-item.ai .message-bubble {
+      background: var(--aios-panel-2);
+      border: 1px solid var(--aios-line);
+      border-top-left-radius: 4px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .ai-action-box {
+      margin-top: 12px;
+      padding: 14px 16px;
+      background: rgba(37, 217, 255, 0.05);
+      border: 1px solid rgba(37, 217, 255, 0.3);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ai-action-box-title {
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--aios-cyan);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .ai-action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .action-btn-pill {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(184, 194, 204, 0.25);
+      color: var(--aios-text);
+      border-radius: var(--aios-radius-pill);
+      padding: 7px 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .action-btn-pill:hover {
+      background: var(--aios-copper);
+      color: #120904 !important;
+      border-color: var(--aios-copper-2);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(176, 109, 80, 0.45);
+    }
+
+    .action-btn-pill.executed {
+      background: var(--status-ok-bg);
+      border-color: var(--status-ok-border);
+      color: var(--status-ok) !important;
+      pointer-events: none;
+      transform: none !important;
+    }
+
+    .chat-prompt-chips {
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.015);
+      border-top: 1px solid var(--aios-line-subtle);
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      white-space: nowrap;
+    }
+
+    .prompt-chip {
+      background: var(--aios-panel-3);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius-pill);
+      padding: 6px 14px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--aios-text);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .prompt-chip:hover {
+      color: var(--aios-copper-2);
+      border-color: var(--aios-copper-2);
+      background: rgba(176, 109, 80, 0.14);
+      transform: translateY(-1px);
+    }
+
+    .chat-input-bar {
+      padding: 14px 18px;
+      border-top: 1px solid var(--aios-line);
+      background: rgba(10, 12, 16, 0.95);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius-pill);
+      padding: 11px 18px;
+      color: var(--aios-text);
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .chat-input:focus {
+      border-color: var(--aios-cyan);
+      box-shadow: 0 0 0 3px var(--aios-cyan-glow);
+    }
+
+    /* ACTION RESOLUTION HUB CARDS */
+    .action-hub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .action-hub-card {
+      background: var(--aios-panel-solid);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius);
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .action-hub-card:hover {
+      border-color: rgba(217, 161, 132, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .action-hub-card.highlight {
+      border-color: var(--aios-cyan);
+      box-shadow: 0 0 24px rgba(37, 217, 255, 0.15);
+    }
+
+    .action-hub-card.done {
+      border-color: var(--status-ok-border);
+      background: rgba(74, 222, 128, 0.03);
+    }
+
+    .action-hub-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .action-hub-title {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--aios-text);
+      line-height: 1.35;
+    }
+
+    .action-hub-meta {
+      font-size: 0.82rem;
+      color: var(--aios-muted);
+      line-height: 1.6;
+    }
+
+    .action-hub-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--aios-line-subtle);
+    }
+
+    /* ANIMATIONS & ADVANCED VISUAL EFFECTS */
+    @keyframes slideUpFade {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseGlowRing {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(37, 217, 255, 0.4); }
+      50% { box-shadow: 0 0 0 7px rgba(37, 217, 255, 0); }
+    }
+
+    @keyframes subtleFloat {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-15px, 12px); }
+    }
+
+    @keyframes borderShimmer {
+      0%, 100% { border-color: rgba(217, 161, 132, 0.3); }
+      50% { border-color: rgba(37, 217, 255, 0.5); }
+    }
+
+    .pulse-glow-ring {
+      animation: pulseGlowRing 2s infinite;
+    }
+
+    /* AI HERO CARD (DASHBOARD HIGHLIGHT BANNER) */
+    .ai-hero-card {
+      background: linear-gradient(135deg, rgba(20, 24, 34, 0.95) 0%, rgba(28, 34, 48, 0.92) 50%, rgba(176, 109, 80, 0.22) 100%);
+      border: 1px solid rgba(217, 161, 132, 0.35);
+      border-radius: var(--aios-radius);
+      padding: 22px 26px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4), 0 0 24px rgba(176, 109, 80, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .ai-hero-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 75% 30%, rgba(37, 217, 255, 0.1), transparent 45%);
+      pointer-events: none;
+      animation: subtleFloat 7s ease-in-out infinite alternate;
+    }
+
+    .ai-hero-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--aios-copper-2);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55), 0 0 32px rgba(217, 161, 132, 0.25);
+    }
+
+    .ai-hero-title {
+      font-family: var(--font-head);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .ai-hero-desc {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      line-height: 1.55;
+      max-width: 740px;
+    }
+
+    /* SPEC CHIPS (FOR HIGH LEGIBILITY SPECIFICATIONS) */
+    .spec-badges-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 12px;
+    }
+
+    .spec-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--aios-line);
+      padding: 6px 12px;
+      border-radius: var(--aios-radius-sm);
+      font-size: 0.8rem;
+      color: #e2e8f0;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .spec-chip:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--aios-copper-2);
+      color: #ffffff;
+    }
+
+    .spec-chip strong {
+      color: var(--aios-copper-2);
+      font-weight: 700;
+    }
+
+    /* MATCH SCORE PROGRESS BAR */
+    .match-score-bar-wrap {
+      margin-top: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      height: 7px;
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .match-score-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #b06d50 0%, #25d9ff 100%);
+      transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 5, 8, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: none;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open { display: grid; }
+
+    .modal-card {
+      background: var(--aios-panel-solid);
+      border: 1px solid var(--aios-line);
+      border-radius: var(--aios-radius);
+      width: 100%;
+      max-width: 620px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      animation: modalPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalPop {
+      from { opacity: 0; transform: scale(0.96) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-head {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--aios-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-body {
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .modal-foot {
+      padding: 14px 24px;
+      border-top: 1px solid var(--aios-line);
+      background: var(--aios-panel-2);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* TIMELINE */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      padding-left: 22px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: var(--aios-line);
+    }
+
+    .timeline-item {
+      position: relative;
+      font-size: 0.86rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -22px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--aios-panel-solid);
+      border: 2px solid var(--aios-copper);
+      box-shadow: 0 0 8px var(--aios-copper-glow);
+    }
+
+    .timeline-time {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--aios-muted);
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      color: var(--aios-text);
+      margin-top: 2px;
+    }
+
+    /* TOAST */
+    .toast-container {
+      position: fixed;
+      bottom: 74px;
+      right: 20px;
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      background: var(--aios-panel-2);
+      border: 1px solid var(--aios-line);
+      color: var(--aios-text);
+      padding: 12px 18px;
+      border-radius: var(--aios-radius-pill);
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toastIn 0.25s ease forwards;
+    }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* MOBILE BOTTOM NAVIGATION BAR */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--bottom-nav-h);
+      background: rgba(14, 17, 23, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--aios-line);
+      z-index: 90;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    [data-theme="light"] .mobile-bottom-nav {
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .bottom-nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      color: var(--aios-muted);
+      cursor: pointer;
+      padding: 6px 0;
+      gap: 3px;
+      font-family: inherit;
+      transition: color 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .bottom-nav-item.active { color: var(--aios-copper-2); }
+    .bottom-nav-icon { font-size: 1.15rem; line-height: 1; }
+    .bottom-nav-label { font-size: 0.66rem; font-weight: 600; }
+
+    /* ================= RESPONSIVE MEDIA QUERIES (MOBILE) ================= */
+    @media (max-width: 860px) {
+      .mobile-menu-btn { display: grid; }
+      .tag-env { display: none; }
+
+      .topbar {
+        padding: 0 14px;
+        height: 60px;
+      }
+
+      .brand-logo { font-size: 1.05rem; }
+      .brand-badge { width: 30px; height: 30px; font-size: 0.85rem; }
+
+      .role-switcher-box {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+        max-width: 140px;
+      }
+
+      .role-select { max-width: 105px; text-overflow: ellipsis; }
+
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 280px;
+        z-index: 100;
+        transform: translateX(-100%);
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+        background: var(--aios-panel-solid);
+      }
+
+      .sidebar.open { transform: translateX(0); }
+      .sidebar-mobile-head { display: flex; }
+
+      .mobile-bottom-nav { display: flex; }
+
+      .view-container {
+        padding: 16px 14px 85px;
+      }
+
+      .page-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .page-title { font-size: 1.35rem; }
+      .page-subtitle { font-size: 0.82rem; }
+
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .kpi-card { padding: 14px; }
+      .kpi-value { font-size: 1.65rem; }
+
+      .split-2 {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .property-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-header {
+        padding: 14px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .card-body { padding: 16px; }
+
+      .modal-overlay {
+        align-items: flex-end;
+        padding: 0;
+      }
+
+      .modal-card {
+        max-width: 100%;
+        border-radius: 20px 20px 0 0;
+        max-height: 85vh;
+      }
+
+      .modal-head { padding: 16px 20px; }
+      .modal-body { padding: 18px 20px; }
+      .modal-foot { padding: 14px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .brand-logo span:last-child { display: none; }
+      .kpi-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-root">
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="brand-section">
+      <!-- HAMBURGER BUTTON -->
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+
+      <a href="#" class="brand-logo" onclick="navigate('dashboard'); return false;">
+        <div class="brand-wordmark-wrap">
+          <div class="brand-wordmark">AiOS</div>
+          <div class="brand-tagline">ADVANCED INTELLIGENCE OPERATING SYSTEM</div>
+        </div>
+        <span class="badge badge-copper" style="font-size:10px; padding:3px 8px; font-weight:700;">Reality</span>
+      </a>
+
+      <div class="tag-env">
+        <span class="pulse-dot-copper"></span>
+        <span>REALTY · MOBILE READY</span>
+      </div>
+    </div>
+
+    <div class="topbar-actions">
+      <!-- ROLE SWITCHER -->
+      <div class="role-switcher-box" title="Prepínanie rolí: Maklér vs Záujemca">
+        <span style="color:var(--aios-copper-2);">👤</span>
+        <select class="role-select" id="roleSelector" onchange="switchRole(this.value)">
+          <option value="broker">👔 Maklér (Reality Prestige)</option>
+          <option value="client">🔑 Záujemca (Ing. Michal Novák)</option>
+        </select>
+      </div>
+
+      <button class="btn-icon" onclick="toggleTheme()" title="Prepnúť motív">🌓</button>
+      <button class="button button-copper button-small" id="btnNewLead" onclick="openNewLeadModal()">+ Dopyt</button>
+    </div>
+  </header>
+
+  <!-- CLIENT PORTAL ISOLATION BANNER -->
+  <div class="client-mode-banner" id="clientBanner">
+    <span>🔒 <strong>Klientsky portál záujemcu:</strong> Zobrazuje sa iba váš schválený shortlist a dohodnuté obhliadky. Interné provízie a iní klienti sú skrytí.</span>
+    <button class="button button-ghost button-small" onclick="switchRole('broker')">Maklér</button>
+  </div>
+
+  <div class="main-body">
+    <!-- MOBILE OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMobileMenu()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="appSidebar">
+      <!-- MOBILE DRAWER HEAD -->
+      <div class="sidebar-mobile-head">
+        <div class="brand-wordmark-wrap">
+          <div class="brand-wordmark" style="font-size:1.3rem;">AiOS</div>
+          <div class="brand-tagline">ADVANCED INTELLIGENCE</div>
+        </div>
+        <button class="btn-icon" style="width:34px; height:34px;" onclick="closeMobileMenu()">✕</button>
+      </div>
+
+      <div class="nav-label">Realitné moduly</div>
+
+      <a class="nav-link active" data-view="dashboard" onclick="navigate('dashboard')">
+        <span class="nav-link-content">📊 Prehľad makléra</span>
+      </a>
+
+      <a class="nav-link" data-view="leads" id="navLeads" onclick="navigate('leads')">
+        <span class="nav-link-content">📥 Dopyty & Profily</span>
+        <span class="nav-badge" id="badgeLeadsCount">3</span>
+      </a>
+
+      <a class="nav-link" data-view="shortlist" onclick="navigate('shortlist')">
+        <span class="nav-link-content">🏘️ Shortlist ponúk</span>
+      </a>
+
+      <a class="nav-link" data-view="viewings" onclick="navigate('viewings')">
+        <span class="nav-link-content">📅 Obhliadky & Sloty</span>
+        <span class="nav-badge" style="background:var(--status-ok-bg); color:var(--status-ok);">2 potvrdené</span>
+      </a>
+
+      <a class="nav-link" data-view="ai-copilot" id="navAiCopilot" onclick="navigate('ai-copilot')">
+        <span class="nav-link-content">🤖 AI Copilot & Akcie</span>
+        <span class="nav-badge" style="background:rgba(37,217,255,0.18); color:var(--aios-cyan); font-weight:700;">4 akcie</span>
+      </a>
+
+      <div class="nav-label" id="lblGovernance">Bezpečnosť & Pravidlá</div>
+
+      <a class="nav-link" data-view="rules" id="navRules" onclick="navigate('rules')">
+        <span class="nav-link-content">🛡️ Negatívne testy</span>
+      </a>
+
+      <div class="sidebar-footer">
+        <div class="system-status-indicator">
+          <span style="color:var(--status-ok);">●</span>
+          <span>Dostupnosť: <strong>Overená človekom</strong></span>
+        </div>
+        <div style="font-size:0.7rem; color:var(--aios-muted);">AiOS Realty Module © 2026</div>
+      </div>
+    </aside>
+
+    <!-- CONTENT VIEWS -->
+    <main class="content-area">
+
+      <!-- ================= 1. DASHBOARD VIEW ================= -->
+      <section class="view-container active" id="view-dashboard">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title" id="dashTitle">Realitný dispečing & Kvalifikácia</h1>
+            <p class="page-subtitle">Automatizovaný zber preferencií, vysvetliteľné skóre bonity a bezpečné plánovanie obhliadok.</p>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="button button-ghost button-small" onclick="showToast('Export reportu pre majiteľa kancelárie pripravený')">Export reportu</button>
+            <button class="button button-copper button-small" onclick="navigate('leads')">Prejsť na dopyty →</button>
+          </div>
+        </div>
+
+        <!-- STRIKTNÉ PRAVIDLO AIOS REALITY -->
+        <div class="guardrail-alert" id="guardrailNotice">
+          <div class="guardrail-icon">🛡️</div>
+          <div class="guardrail-content">
+            <strong>Bezpečnostná hranica AiOS Realty:</strong> Systém nikdy automaticky <u>nevyhlasuje voľnú dostupnosť</u> nehnuteľnosti, nerezervuje nehnuteľnosť ani nevyjednáva o cene. Každý termín obhliadky je iba <em>kandidátnym slotom</em>, ktorý musí maklér pred odoslaním potvrdiť u predávajúceho.
+          </div>
+        </div>
+
+        <!-- AI COPILOT HERO LAUNCHER BANNER -->
+        <div class="ai-hero-card" onclick="navigate('ai-copilot')">
+          <div>
+            <div class="kicker-tag" style="margin-bottom:6px;">
+              <span class="kicker-dot"></span>
+              <span>AI REALTY ASSISTANT ACTIVE // HUMAN-IN-THE-LOOP</span>
+            </div>
+            <div class="ai-hero-title">🤖 4 odporúčané akcie čakajú na vaše schválenie</div>
+            <p class="ai-hero-desc">
+              AI Copilot vyhodnotil rozpočty a katastrálne dáta: odporúča schváliť termín na Štrbskej (Utorok 17:00), publikovať shortlist JUDr. Molnárovi bez internej marže a vyžiadať posudok k dopytu Králiková.
+            </p>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px; flex-shrink:0;">
+            <button class="button button-copper button-small" onclick="event.stopPropagation(); navigate('ai-copilot');" style="box-shadow: 0 4px 18px rgba(176,109,80,0.5);">
+              Otvoriť AI Copilot & Riešiť akcie →
+            </button>
+            <span style="font-size:0.75rem; color:var(--aios-cyan); font-family:var(--font-mono);">⚡ 1-klikové schvaľovanie</span>
+          </div>
+        </div>
+
+        <!-- KPI GRID -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-title">Dopyty na kvalifikáciu</div>
+            <div class="kpi-value">3</div>
+            <div class="kpi-note green">Medián odpovede: 18 min</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Pripravené shortlisty</div>
+            <div class="kpi-value">2</div>
+            <div class="kpi-note copper">Spárované voči rozpočtu</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Naplánované obhliadky</div>
+            <div class="kpi-value">5</div>
+            <div class="kpi-note green">0 konfliktov termínov</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Neoprávnené potvrdenia AI</div>
+            <div class="kpi-value">0</div>
+            <div class="kpi-note green">Cieľ 0 splnený na 100%</div>
+          </div>
+        </div>
+
+        <div class="split-2">
+          <!-- RECENT LEADS -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Aktuálni záujemcovia v riešení</span>
+              <button class="button button-ghost button-small" onclick="navigate('leads')">Všetci</button>
+            </div>
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Záujemca</th>
+                    <th>Hľadaná nehnuteľnosť</th>
+                    <th>Rozpočet</th>
+                    <th>Skóre</th>
+                    <th>Stav</th>
+                    <th>Akcia</th>
+                  </tr>
+                </thead>
+                <tbody id="dashLeadsTable">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- AUDIT TRAIL / REALTY TIMELINE -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Auditná stopa & Udalosti</span>
+              <span class="badge badge-neutral">Nemenný log</span>
+            </div>
+            <div class="card-body">
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-time">Dnes 04:12 · Maklér Peter</div>
+                  <div class="timeline-title">Potvrdený slot obhliadky: 3-izb. Ružinov</div>
+                  <div style="font-size:0.75rem; color:var(--aios-muted);">Telefonicky overené u majiteľa (#slot-8821)</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-time">Dnes 02:40 · AI Profiler</div>
+                  <div class="timeline-title">Záujemca Ing. Michal Novák kvalifikovaný</div>
+                  <div style="font-size:0.75rem; color:var(--aios-muted);">Rozpočet €230,000 | Hypotéka VÚB | Skóre 94%</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-time">Včera 18:15 · AI Bezpečnostná kontrola</div>
+                  <div class="timeline-title">Zablokovaný automatický súhlas s obhliadkou</div>
+                  <div style="font-size:0.75rem; color:var(--status-warn);">Zistený neoverený slot; vytvorená úloha pre makléra</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 2. LEADS & QUALIFICATION ================= -->
+      <section class="view-container" id="view-leads">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Register dopytov a kvalifikačné profily</h1>
+            <p class="page-subtitle">Zber preferencií, financovania a detekcia nezrovnalostí voči realitnému trhu.</p>
+          </div>
+          <button class="button button-copper" onclick="openNewLeadModal()">+ Nový dopyt záujemcu</button>
+        </div>
+
+        <div class="card">
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Kód</th>
+                  <th>Meno záujemcu</th>
+                  <th>Lokalita & Typ</th>
+                  <th>Rozpočet</th>
+                  <th>Financovanie</th>
+                  <th>Horizont</th>
+                  <th>Skóre</th>
+                  <th>Detail</th>
+                </tr>
+              </thead>
+              <tbody id="realtyLeadsTable">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SELECTED LEAD DETAIL CARD -->
+        <div class="card" id="leadDetailCard" style="display:none; border-left: 4px solid var(--aios-copper);">
+          <div class="card-header">
+            <div>
+              <span class="badge badge-copper" id="detId">REA-2026-081</span>
+              <h3 style="margin-top:6px; font-family:var(--font-head);" id="detName">Ing. Michal Novák</h3>
+            </div>
+            <div style="display:flex; gap:10px;">
+              <button class="button button-copper button-small" onclick="generateShortlistForLead()">Vygenerovať shortlist →</button>
+              <button class="button button-ghost button-small" onclick="document.getElementById('leadDetailCard').style.display='none'">Zavrieť</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="split-2">
+              <div>
+                <h4 style="font-size:0.9rem; color:var(--aios-muted); margin-bottom:8px;">Profil dopytu a požiadavky:</h4>
+                <div style="font-size:0.88rem; line-height:1.7;">
+                  <strong>Hľadá:</strong> <span id="detType">3-izbový byt s balkónom</span><br>
+                  <strong>Lokalita:</strong> <span id="detLoc">Bratislava — Ružinov</span><br>
+                  <strong>Rozpočet:</strong> <span id="detBudget" style="color:var(--aios-copper-2); font-weight:700;">€230,000 ± 5%</span><br>
+                  <strong>Financovanie:</strong> <span id="detFin">Hypotéka VÚB</span><br>
+                  <strong>Horizont kúpy:</strong> <span id="detHoriz">do 60 dní</span><br>
+                  <strong>Kontakt:</strong> <span id="detContact" style="color:var(--aios-cyan);">novak.michal@email.sk</span>
+                </div>
+              </div>
+
+              <!-- AI SYNTHESIS -->
+              <div>
+                <div style="background:rgba(176,109,80,0.08); border:1px solid rgba(217,161,132,0.3); border-radius:var(--aios-radius); padding:18px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <strong style="color:var(--aios-copper-2); font-family:var(--font-head);">🤖 AI Kvalifikačná analýza</strong>
+                    <span class="badge badge-ok" id="detScore">Skóre: 94%</span>
+                  </div>
+                  <div style="font-size:0.85rem; color:var(--aios-text); line-height:1.6;">
+                    ✓ <strong>Reálnosť rozpočtu:</strong> Rozpočet zodpovedá cenám v Ružinove (€3,150/m²)<br>
+                    ✓ <strong>Financovanie:</strong> Doložený certifikát predschválenej hypotéky<br>
+                    ⚠ <strong>Časové obmedzenie:</strong> Obhliadky možné len utorok / štvrtok podvečer
+                  </div>
+                  <button class="button button-ghost button-small" style="margin-top:14px; width:100%;" onclick="showToast('Otázka pripravená v koncepte')">Pripraviť doplňujúcu otázku makléra</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 3. SHORTLIST VIEW ================= -->
+      <section class="view-container" id="view-shortlist">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Shortlist nehnuteľností pre záujemcu</h1>
+            <p class="page-subtitle">Spárované ponuky podľa preferencií záujemcu Ing. Michal Novák.</p>
+          </div>
+          <button class="button button-copper button-small" onclick="approveAndPublishShortlist()">✓ Schváliť a odoslať do portálu</button>
+        </div>
+
+        <div class="property-grid">
+          <!-- PROPERTY 1 -->
+          <div class="property-card">
+            <div class="property-img">
+              <span class="property-tag-float badge badge-copper">Zodpovedá na 96%</span>
+              <span style="font-weight:600; color:#ffffff;">🏢 Bytový dom Ružinov — Štrbská</span>
+              <div class="property-price-float">€229,000</div>
+            </div>
+            <div class="property-body">
+              <div class="property-title">3-izbový byt s loggiou po kompletnej rekonštrukcii</div>
+              
+              <div class="spec-badges-row">
+                <span class="spec-chip">📐 <strong>71 m²</strong> + loggia 4.5 m²</span>
+                <span class="spec-chip">🛗 <strong>3. posch.</strong> / 7 (výťah)</span>
+                <span class="spec-chip">📍 <strong>Ružinov</strong> — Štrbská</span>
+                <span class="spec-chip">📜 <strong>LV 4102</strong> (1/1 bez tiarch)</span>
+              </div>
+
+              <p style="font-size:0.86rem; color:#cbd5e1; line-height:1.6; margin:6px 0 10px;">
+                Kompletne zrekonštruovaný tehlový byt orientovaný na juhozápad, nová elektroinštalácia, drevené parkety a vstavaný nábytok na mieru. Tichý zelený vnútroblok.
+              </p>
+
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--aios-muted); margin-bottom:2px;">
+                  <span>Zhoda s požiadavkami záujemcu</span>
+                  <span style="color:var(--status-ok); font-weight:700;">96% zhoda</span>
+                </div>
+                <div class="match-score-bar-wrap">
+                  <div class="match-score-fill" style="width: 96%;"></div>
+                </div>
+              </div>
+              
+              <div id="brokerNotesProp1" style="padding:12px; background:rgba(176,109,80,0.12); border-radius:var(--aios-radius-sm); font-size:0.8rem; color:#e2e8f0; border-left:3px solid var(--aios-copper); margin-top:12px; line-height:1.5;">
+                <strong style="color:var(--aios-copper-2);">🔒 Interná poznámka makléra (Klient neuvidí):</strong> Provízia RK: 3% (€6,870). Majiteľ je pri rýchlom konaní ochotný znížiť cenu na €225,000.
+              </div>
+
+              <div style="margin-top:auto; padding-top:14px; display:flex; justify-content:space-between; align-items:center;">
+                <span class="badge badge-ok">✓ Overený stav LV</span>
+                <button class="button button-copper button-small" onclick="planViewing('Štrbská 71m²')">📅 Navrhnúť slot →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROPERTY 2 -->
+          <div class="property-card">
+            <div class="property-img">
+              <span class="property-tag-float badge badge-cyan">Zodpovedá na 91%</span>
+              <span style="font-weight:600; color:#ffffff;">🏢 Novostavba — Bajkalská</span>
+              <div class="property-price-float">€239,000</div>
+            </div>
+            <div class="property-body">
+              <div class="property-title">Svetlý 3-izbový byt s balkónom a garážovým státím</div>
+
+              <div class="spec-badges-row">
+                <span class="spec-chip">📐 <strong>69 m²</strong> + balkón 4 m²</span>
+                <span class="spec-chip">🛗 <strong>5. posch.</strong> / 11 (2x výťah)</span>
+                <span class="spec-chip">📍 <strong>Ružinov</strong> — Bajkalská</span>
+                <span class="spec-chip">🚗 <strong>Garáž</strong> v suteréne v cene</span>
+                <span class="spec-chip">📜 <strong>LV 9821</strong> (Kolaudácia 2023)</span>
+              </div>
+
+              <p style="font-size:0.86rem; color:#cbd5e1; line-height:1.6; margin:6px 0 10px;">
+                Moderná novostavba s veľkoformátovými oknami a rekuperáciou. Bezpečnostné dvere, optický internet, nízke prevádzkové náklady (€130/mes pre 3 osoby).
+              </p>
+
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--aios-muted); margin-bottom:2px;">
+                  <span>Zhoda s požiadavkami záujemcu</span>
+                  <span style="color:var(--aios-cyan); font-weight:700;">91% zhoda</span>
+                </div>
+                <div class="match-score-bar-wrap">
+                  <div class="match-score-fill" style="width: 91%; background:linear-gradient(90deg, #b06d50 0%, #25d9ff 100%);"></div>
+                </div>
+              </div>
+
+              <div id="brokerNotesProp2" style="padding:12px; background:rgba(176,109,80,0.12); border-radius:var(--aios-radius-sm); font-size:0.8rem; color:#e2e8f0; border-left:3px solid var(--aios-copper); margin-top:12px; line-height:1.5;">
+                <strong style="color:var(--aios-copper-2);">🔒 Interná poznámka makléra (Klient neuvidí):</strong> Parkovacie státie v hodnote €20,000 v cene. Klient prekračuje rozpočet o €9k (v rámci tolerancie hypotéky).
+              </div>
+
+              <div style="margin-top:auto; padding-top:14px; display:flex; justify-content:space-between; align-items:center;">
+                <span class="badge badge-ok">✓ Exkluzívna zmluva RK</span>
+                <button class="button button-ghost button-small" onclick="planViewing('Bajkalská 69m²')">📅 Navrhnúť slot →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 4. VIEWINGS ================= -->
+      <section class="view-container" id="view-viewings">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Plánovanie obhliadok a schvaľovanie slotov</h1>
+            <p class="page-subtitle">Každý termín je pred odoslaním overený u predávajúceho človekom — maklérom.</p>
+          </div>
+        </div>
+
+        <div class="split-2">
+          <!-- CANDIDATE SLOTS -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Kandidátne termíny pre nehnuteľnosť</span>
+              <span class="badge badge-copper">Overenie majiteľa</span>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Vybraná nehnuteľnosť:</label>
+                <div class="code-box">3-izbový byt s loggiou, Štrbská (Ružinov) · Predávajúci: p. Kováč (kontakt overený)</div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Navrhované sloty pre záujemcu (Utorok / Štvrtok po 16:30):</label>
+                <div style="display:flex; flex-direction:column; gap:10px; margin-top:6px;">
+                  <label style="display:flex; align-items:center; gap:10px; padding:12px; background:var(--aios-panel-2); border-radius:var(--aios-radius-sm); border:1px solid var(--aios-line); cursor:pointer;">
+                    <input type="checkbox" checked style="accent-color:var(--aios-copper);">
+                    <div>
+                      <strong>Utorok, 29. 9. 2026 o 17:00</strong>
+                      <div style="font-size:0.75rem; color:var(--status-ok);">✓ Majiteľ súhlasil s termínom</div>
+                    </div>
+                  </label>
+
+                  <label style="display:flex; align-items:center; gap:10px; padding:12px; background:var(--aios-panel-2); border-radius:var(--aios-radius-sm); border:1px solid var(--aios-line); cursor:pointer;">
+                    <input type="checkbox" checked style="accent-color:var(--aios-copper);">
+                    <div>
+                      <strong>Štvrtok, 01. 10. 2026 o 16:45</strong>
+                      <div style="font-size:0.75rem; color:var(--status-ok);">✓ Majiteľ súhlasil s termínom</div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; flex-wrap:wrap; gap:10px;">
+                <div style="font-size:0.75rem; color:var(--aios-muted);">
+                  🔒 <em>Overenie maklérom:</em> <code>#broker-peter-aios</code>
+                </div>
+                <button class="button button-copper" onclick="confirmSlotsAndNotify()">Schváliť a sprístupniť klientovi</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- POST-VIEWING CHECKLIST -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Checklist po obhliadke</span>
+              <span class="badge badge-neutral">Záznam spätnej väzby</span>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Spätná väzba záujemcu:</label>
+                <select class="form-select">
+                  <option>Veľký záujem — žiada návrh rezervačnej zmluvy</option>
+                  <option>Záujem trvá, ale navrhuje zníženie ceny o 3%</option>
+                  <option>Výhrada voči hlučnosti — hľadať inú ponuku</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Záväzný ďalší krok a termín:</label>
+                <input type="text" class="form-input" value="Zaslať návrh rezervačnej zmluvy do piatku 12:00">
+              </div>
+
+              <button class="button button-ghost button-small" style="width:100%; margin-top:8px;" onclick="showToast('Výsledok obhliadky zaznamenaný v auditnej stope')">Uložiť výsledok obhliadky</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 5. RULES ================= -->
+      <section class="view-container" id="view-rules">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Bezpečnostné testy a ochrana (Negatívne testy)</h1>
+            <p class="page-subtitle">Demonštrácia blokovania neautorizovaných krokov predpísaných v Prílohe Segmentových modulov.</p>
+          </div>
+          <span class="badge badge-ok">Všetky testy PASS</span>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Prehľad blokujúcich pravidiel pre AiOS Reality</span>
+          </div>
+          <div class="card-body">
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Testovaný scenár</th>
+                    <th>Pokus o nedovolenú akciu</th>
+                    <th>Reakcia systému AiOS</th>
+                    <th>Stav</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="table-strong">Neoverený termín majiteľa</td>
+                    <td>Záujemca žiada okamžité potvrdenie slotu na zajtra</td>
+                    <td>Systém označí slot ako „kandidátny“, blokuje odoslanie súhlasu a vytvorí úlohu pre makléra</td>
+                    <td><span class="badge badge-ok">PASS (Zablokované)</span></td>
+                  </tr>
+                  <tr>
+                    <td class="table-strong">Nereálny rozpočet záujemcu</td>
+                    <td>Požiadavka na 4-izb. Staré Mesto za €120,000</td>
+                    <td>AI Profiler nezostaví prázdny shortlist, ale označí rozpor rozpočet–trh a vyzve makléra na úpravu</td>
+                    <td><span class="badge badge-ok">PASS (Detekovaný rozpor)</span></td>
+                  </tr>
+                  <tr>
+                    <td class="table-strong">Únik provízie v portáli</td>
+                    <td>Záujemca sa prihlási do portálu a pozerá detail nehnuteľnosti</td>
+                    <td>RLS politika a oddelený payload striktne odstránia výšku provízie a interné poznámky</td>
+                    <td><span class="badge badge-ok">PASS (Striktná izolácia)</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      <!-- ================= 6. AI REALTY COPILOT & ACTION RESOLUTION ================= -->
+      <section class="view-container" id="view-ai-copilot">
+        <div class="page-header">
+          <div>
+            <div class="kicker-tag">
+              <span class="kicker-dot"></span>
+              <span>AIOS REALTY COPILOT // AKČNÉ CENTRUM</span>
+            </div>
+            <h1 class="page-title">Komunikácia s AI & Riešenie realitných akcií</h1>
+            <p class="page-subtitle">Inteligentný asistent prepája katastrálne dáta, kalendár makléra a klientske profily na okamžité schválenie krokov.</p>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="button button-ghost button-small" onclick="resetAiChat()">Vyčistiť chat</button>
+            <button class="button button-copper button-small" onclick="showToast('AI Model: AiOS Reality v2.4 (Active RLS)')">⚡ Stav AI: Online</button>
+          </div>
+        </div>
+
+        <div class="ai-copilot-grid">
+          <!-- ĽAVÝ STĹPEC: CHAT S AI -->
+          <div class="chat-box-card">
+            <div class="chat-header">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <span style="font-size:1.25rem;">🤖</span>
+                <div>
+                  <div style="font-weight:700; font-size:0.95rem; color:var(--aios-text);">AiOS Reality Copilot</div>
+                  <div style="font-size:0.72rem; color:var(--aios-muted);">Human-in-the-Loop overovanie zapnuté</div>
+                </div>
+              </div>
+              <div class="chat-status-pill">
+                <span class="kicker-dot" style="width:6px; height:6px;"></span>
+                <span>RLS Active</span>
+              </div>
+            </div>
+
+            <!-- CHAT SPRÁVY -->
+            <div class="chat-messages" id="chatMessages">
+              <!-- AI MSG 1 -->
+              <div class="message-item ai">
+                <div class="message-meta">
+                  <span>🤖 AiOS Copilot</span>
+                  <span>•</span>
+                  <span>dnes 09:15</span>
+                </div>
+                <div class="message-bubble">
+                  Dobrý deň! Analyzoval som aktuálne dopyty a stav v databáze nehnuteľností. Evidujem <strong>3 kvalifikovaných záujemcov</strong> a pripravil som <strong>4 odporúčané akcie</strong>, ktoré môžete jedným klikom schváliť alebo upraviť.
+                  <div class="ai-action-box">
+                    <div class="ai-action-box-title">
+                      <span>⚡ Rýchle akcie na schválenie</span>
+                    </div>
+                    <div class="ai-action-buttons">
+                      <button class="action-btn-pill" id="chatActBtn1" onclick="executeAction('act1')">
+                        📅 Schváliť slot: Štrbská (Utorok 17:00)
+                      </button>
+                      <button class="action-btn-pill" id="chatActBtn2" onclick="executeAction('act2')">
+                        🏘️ Publikovať Shortlist do portálu
+                      </button>
+                      <button class="action-btn-pill" id="chatActBtn3" onclick="executeAction('act3')">
+                        📄 Vygenerovať koncept rezervačnej zmluvy
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- USER MSG 1 -->
+              <div class="message-item user">
+                <div class="message-meta">
+                  <span>Peter Maklér</span>
+                  <span>•</span>
+                  <span>dnes 09:20</span>
+                </div>
+                <div class="message-bubble">
+                  Prever mi prosím dopyt Ing. Michala Nováka. Čo presne odporúčaš urobiť ako ďalší krok pre jeho 3-izbový byt?
+                </div>
+              </div>
+
+              <!-- AI MSG 2 -->
+              <div class="message-item ai">
+                <div class="message-meta">
+                  <span>🤖 AiOS Copilot</span>
+                  <span>•</span>
+                  <span>dnes 09:21</span>
+                </div>
+                <div class="message-bubble">
+                  Preveril som profil <strong>Ing. Michal Novák (REA-2026-081)</strong>:
+                  <ul style="margin: 8px 0 8px 18px; line-height: 1.6; font-size: 0.88rem; color:#d6dde6;">
+                    <li><strong>Rozpočet & Bonita:</strong> €230,000 (Predschválená hypotéka VÚB, skóre 94%).</li>
+                    <li><strong>Katastrálny audit:</strong> Byt na Štrbskej (LV 4102 Ružinov) je <em>1/1 v osobnom vlastníctve bez tiarch a exekúcií</em>.</li>
+                    <li><strong>Overenie termínu u majiteľa:</strong> Majiteľ p. Kováč telefonicky potvrdil voľný termín na <strong>Utorok 29. 9. o 17:00</strong>.</li>
+                  </ul>
+                  <div style="font-size: 0.8rem; color: var(--aios-muted); margin-bottom: 6px;">
+                    🛡️ <em>AiOS Bezpečnostná poistka:</em> Termín je v stave „kandidátny“. Pre odoslanie do zákazníckeho portálu kliknite na schválenie nižšie:
+                  </div>
+                  <div class="ai-action-box">
+                    <div class="ai-action-box-title">
+                      <span>🎯 Odporúčaný krok pre Nováka</span>
+                    </div>
+                    <div class="ai-action-buttons">
+                      <button class="action-btn-pill" id="chatActBtn4" onclick="executeAction('act1')">
+                        ✅ Schváliť slot a odoslať záujemcovi Novákovi
+                      </button>
+                      <button class="action-btn-pill" onclick="navigate('shortlist')">
+                        🏘️ Pozrieť ponuku Štrbská v Shortliste
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- PROMPT CHIPS (RÝCHLE AKCIE) -->
+            <div class="chat-prompt-chips">
+              <button class="prompt-chip" onclick="usePromptChip('Over bonitu a rozpočet Zuzany Králikovej')">⚡ Bonita Králikovej</button>
+              <button class="prompt-chip" onclick="usePromptChip('Skontroluj LV a ťarchy pre Bajkalskú')">🔍 Kataster Bajkalská</button>
+              <button class="prompt-chip" onclick="usePromptChip('Navrhni ďalší termín obhliadky na štvrtok')">📅 Voľné sloty štvrtok</button>
+              <button class="prompt-chip" onclick="usePromptChip('Over či klientsky portál neprezrádza výšku provízie')">🛡️ Test úniku provízie</button>
+            </div>
+
+            <!-- INPUT BAR -->
+            <div class="chat-input-bar">
+              <input type="text" id="chatUserInput" class="chat-input" placeholder="Napíšte otázku alebo príkaz (napr. Prever termín pre p. Molnára)..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+              <button class="button button-copper button-small" onclick="sendChatMessage()">Odoslať ↗</button>
+            </div>
+          </div>
+
+          <!-- PRAVÝ STĹPEC: ACTION RESOLUTION HUB -->
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="card" style="margin-bottom:0;">
+              <div class="card-header">
+                <div>
+                  <span class="card-title">Centrum okamžitého riešenia akcií</span>
+                  <div style="font-size:0.78rem; color:var(--aios-muted);">Akcie pripravené AI vyžadujúce schválenie maklérom (Human-in-the-Loop).</div>
+                </div>
+                <span class="badge badge-copper" id="openActionsCountBadge">4 otvorené</span>
+              </div>
+              <div class="card-body" style="padding:16px;">
+                <div class="action-hub-list">
+                  <!-- ACTION 1 -->
+                  <div class="action-hub-card highlight" id="cardAct1">
+                    <div class="action-hub-head">
+                      <div>
+                        <span class="badge badge-copper" style="font-size:10px;">REA-ACT-01 · Obhliadky</span>
+                        <div class="action-hub-title" style="margin-top:4px;">Schválenie kandidátneho slotu pre Ing. Michala Nováka</div>
+                      </div>
+                      <span class="badge badge-warn" id="badgeAct1">Čaká na podpis</span>
+                    </div>
+                    <div class="action-hub-meta">
+                      Nehnuteľnosť: <strong>3-izbový byt Štrbská (Ružinov)</strong><br>
+                      Termín: <strong>Utorok 29. 9. o 17:00</strong> · Majiteľ súhlasí<br>
+                      Riziko: <span style="color:var(--status-ok);">Nízke (overené u majiteľa)</span>
+                    </div>
+                    <div class="action-hub-actions">
+                      <button class="button button-copper button-small" id="btnAct1" onclick="executeAction('act1')">
+                        ✓ Schváliť a sprístupniť v portáli
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- ACTION 2 -->
+                  <div class="action-hub-card" id="cardAct2">
+                    <div class="action-hub-head">
+                      <div>
+                        <span class="badge badge-cyan" style="font-size:10px;">REA-ACT-02 · Shortlist</span>
+                        <div class="action-hub-title" style="margin-top:4px;">Publikovanie shortlistu s ochranou internej provízie</div>
+                      </div>
+                      <span class="badge badge-warn" id="badgeAct2">Čaká na schválenie</span>
+                    </div>
+                    <div class="action-hub-meta">
+                      Klient: <strong>JUDr. Peter Molnár</strong> (Investičný 2-izb. byt do €175,000)<br>
+                      RLS Firewall: <span style="color:var(--status-ok);">Interná marža makléra €5,250 je z klientskeho zobrazenia bezpečne vyňatá</span>
+                    </div>
+                    <div class="action-hub-actions">
+                      <button class="button button-copper button-small" id="btnAct2" onclick="executeAction('act2')">
+                        🚀 Publikovať do klientskeho portálu
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- ACTION 3 -->
+                  <div class="action-hub-card" id="cardAct3">
+                    <div class="action-hub-head">
+                      <div>
+                        <span class="badge badge-copper" style="font-size:10px;">REA-ACT-03 · Bonita & Trh</span>
+                        <div class="action-hub-title" style="margin-top:4px;">Riešenie rozporu financovania (Zuzana Králiková)</div>
+                      </div>
+                      <span class="badge badge-warn" id="badgeAct3">Rozpor detekovaný</span>
+                    </div>
+                    <div class="action-hub-meta">
+                      Klientka žiada dom za €290k, financovanie viazané na predaj starého bytu bez znaleckého posudku.<br>
+                      Odporúčanie AI: <span style="color:var(--aios-copper-2);">Vyžiadať posudok pred zaradením do shortlistu</span>
+                    </div>
+                    <div class="action-hub-actions">
+                      <button class="button button-ghost button-small" id="btnAct3" onclick="executeAction('act3')">
+                        📩 Vyžiadať znalecký posudok cez portál
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- ACTION 4 -->
+                  <div class="action-hub-card" id="cardAct4">
+                    <div class="action-hub-head">
+                      <div>
+                        <span class="badge badge-ok" style="font-size:10px;">REA-ACT-04 · Zmluva</span>
+                        <div class="action-hub-title" style="margin-top:4px;">Príprava konceptu rezervačnej zmluvy (Štrbská)</div>
+                      </div>
+                      <span class="badge badge-neutral" id="badgeAct4">Pripravené</span>
+                    </div>
+                    <div class="action-hub-meta">
+                      Rezervačná záloha: <strong>€5,000</strong> vinkulovaná na účte RK.<br>
+                      Cena zmluvy: <strong>€229,000 pevná</strong> (AI blokuje zmeny ceny bez súhlasu makléra).
+                    </div>
+                    <div class="action-hub-actions">
+                      <button class="button button-ghost button-small" id="btnAct4" onclick="executeAction('act4')">
+                        📝 Vygenerovať koncept zmluvy
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MOBILE BOTTOM NAVIGATION BAR -->
+  <nav class="mobile-bottom-nav">
+    <button class="bottom-nav-item active" data-bnav="dashboard" onclick="navigate('dashboard')">
+      <span class="bottom-nav-icon">📊</span>
+      <span class="bottom-nav-label">Prehľad</span>
+    </button>
+    <button class="bottom-nav-item" data-bnav="leads" id="bnavLeads" onclick="navigate('leads')">
+      <span class="bottom-nav-icon">📥</span>
+      <span class="bottom-nav-label">Dopyty</span>
+    </button>
+    <button class="bottom-nav-item" data-bnav="shortlist" onclick="navigate('shortlist')">
+      <span class="bottom-nav-icon">🏘️</span>
+      <span class="bottom-nav-label">Shortlist</span>
+    </button>
+    <button class="bottom-nav-item" data-bnav="viewings" onclick="navigate('viewings')">
+      <span class="bottom-nav-icon">📅</span>
+      <span class="bottom-nav-label">Obhliadky</span>
+    </button>
+    <button class="bottom-nav-item" data-bnav="ai-copilot" id="bnavAiCopilot" onclick="navigate('ai-copilot')">
+      <span class="bottom-nav-icon">🤖</span>
+      <span class="bottom-nav-label">AI Copilot</span>
+    </button>
+    <button class="bottom-nav-item" onclick="toggleMobileMenu()">
+      <span class="bottom-nav-icon">☰</span>
+      <span class="bottom-nav-label">Menu</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ================= MODAL: NOVÝ DOPYT ================= -->
+<div class="modal-overlay" id="newLeadModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 style="font-family:var(--font-head); font-size:1.15rem; color:var(--aios-text);">Nový dopyt záujemcu</h3>
+      <button class="btn-icon" onclick="closeNewLeadModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Meno a priezvisko *</label>
+        <input type="text" id="inpName" class="form-input" placeholder="MUDr. Lucia Kováčová">
+      </div>
+
+      <div class="split-2">
+        <div class="form-group">
+          <label class="form-label">E-mail *</label>
+          <input type="email" id="inpEmail" class="form-input" placeholder="lucia@klinika.sk">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Telefón *</label>
+          <input type="tel" id="inpPhone" class="form-input" placeholder="+421 905 ...">
+        </div>
+      </div>
+
+      <div class="split-2">
+        <div class="form-group">
+          <label class="form-label">Rozpočet (€)</label>
+          <input type="number" id="inpBudget" class="form-input" placeholder="250000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Financovanie</label>
+          <select id="inpFin" class="form-select">
+            <option value="Hypotéka — predschválená">Hypotéka — predschválená</option>
+            <option value="Vlastné zdroje (Hotovosť)">Vlastné zdroje (Hotovosť)</option>
+            <option value="Hypotéka v štádiu riešenia">Hypotéka v štádiu riešenia</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Lokalita a typ nehnuteľnosti</label>
+        <input type="text" id="inpLoc" class="form-input" placeholder="Bratislava Ružinov, 3-izbový byt">
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="button button-ghost button-small" onclick="closeNewLeadModal()">Zrušiť</button>
+      <button class="button button-copper button-small" onclick="submitNewLead()">Uložiť a kvalifikovať</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastArea"></div>
+
+<script>
+// ================= REALTY DATA STORE =================
+const REALTY_STATE = {
+  currentRole: 'broker',
+  currentView: 'dashboard',
+  theme: 'dark',
+  leads: [
+    {
+      id: 'REA-2026-081',
+      name: 'Ing. Michal Novák',
+      type: '3-izbový byt s balkónom',
+      location: 'Bratislava — Ružinov',
+      budget: '€230,000 ± 5%',
+      financing: 'Predschválená hypotéka VÚB',
+      horizon: 'do 60 dní',
+      score: 94,
+      status: 'Kvalifikovaný',
+      phone: '+421 905 444 333',
+      email: 'novak.michal@email.sk'
+    },
+    {
+      id: 'REA-2026-082',
+      name: 'JUDr. Peter Molnár',
+      type: '2-izbový byt investičný',
+      location: 'Bratislava — Nové Mesto',
+      budget: '€175,000',
+      financing: 'Hotovosť (vlastné zdroje)',
+      horizon: 'ihneď',
+      score: 98,
+      status: 'Shortlist pripravený',
+      phone: '+421 911 222 111',
+      email: 'molnar.advokat@gmail.com'
+    },
+    {
+      id: 'REA-2026-083',
+      name: 'Zuzana Králiková',
+      type: '4-izbový rodinný dom',
+      location: 'Chorvátsky Grob',
+      budget: '€290,000',
+      financing: 'Predaj starého bytu',
+      horizon: 'do 6 mesiacov',
+      score: 68,
+      status: 'Čaká na overenie',
+      phone: '+421 903 777 888',
+      email: 'kralikova.z@post.sk'
+    }
+  ]
+};
+
+// ================= INITIALIZATION =================
+window.addEventListener('DOMContentLoaded', () => {
+  renderLeads();
+  renderDashboard();
+});
+
+// ================= MOBILE MENU HANDLERS =================
+function toggleMobileMenu() {
+  const sidebar = document.getElementById('appSidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('open');
+}
+
+function closeMobileMenu() {
+  const sidebar = document.getElementById('appSidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  if (sidebar) sidebar.classList.remove('open');
+  if (overlay) overlay.classList.remove('open');
+}
+
+// ================= NAVIGATION =================
+function navigate(viewId) {
+  REALTY_STATE.currentView = viewId;
+  closeMobileMenu();
+
+  document.querySelectorAll('.nav-link').forEach(link => {
+    if (link.getAttribute('data-view') === viewId) link.classList.add('active');
+    else link.classList.remove('active');
+  });
+
+  document.querySelectorAll('.bottom-nav-item').forEach(btn => {
+    if (btn.getAttribute('data-bnav') === viewId) btn.classList.add('active');
+    else btn.classList.remove('active');
+  });
+
+  document.querySelectorAll('.view-container').forEach(view => {
+    view.classList.remove('active');
+  });
+
+  const target = document.getElementById('view-' + viewId);
+  if (target) target.classList.add('active');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ================= ROLE SWITCHING =================
+function switchRole(role) {
+  REALTY_STATE.currentRole = role;
+  document.getElementById('roleSelector').value = role;
+
+  const banner = document.getElementById('clientBanner');
+  const btnNewLead = document.getElementById('btnNewLead');
+  const navLeads = document.getElementById('navLeads');
+  const bnavLeads = document.getElementById('bnavLeads');
+  const navRules = document.getElementById('navRules');
+  const lblGov = document.getElementById('lblGovernance');
+  const guardNotice = document.getElementById('guardrailNotice');
+  const brokerNotes1 = document.getElementById('brokerNotesProp1');
+  const brokerNotes2 = document.getElementById('brokerNotesProp2');
+  const navAi = document.getElementById('navAiCopilot');
+  const bnavAi = document.getElementById('bnavAiCopilot');
+
+  if (role === 'client') {
+    banner.classList.add('show');
+    if (btnNewLead) btnNewLead.style.display = 'none';
+    if (navLeads) navLeads.style.display = 'none';
+    if (bnavLeads) bnavLeads.style.display = 'none';
+    if (navRules) navRules.style.display = 'none';
+    if (lblGov) lblGov.style.display = 'none';
+    if (guardNotice) guardNotice.style.display = 'none';
+    if (navAi) navAi.style.display = 'none';
+    if (bnavAi) bnavAi.style.display = 'none';
+
+    if (brokerNotes1) brokerNotes1.style.display = 'none';
+    if (brokerNotes2) brokerNotes2.style.display = 'none';
+
+    document.getElementById('dashTitle').innerText = 'Klientsky portál: Ing. Michal Novák';
+    showToast('Prepnuté na zobrazenie záujemcu (provízie skryté)');
+    navigate('shortlist');
+  } else {
+    banner.classList.remove('show');
+    if (btnNewLead) btnNewLead.style.display = 'inline-flex';
+    if (navLeads) navLeads.style.display = 'flex';
+    if (bnavLeads) bnavLeads.style.display = 'flex';
+    if (navRules) navRules.style.display = 'flex';
+    if (lblGov) lblGov.style.display = 'block';
+    if (guardNotice) guardNotice.style.display = 'flex';
+    if (navAi) navAi.style.display = 'flex';
+    if (bnavAi) bnavAi.style.display = 'flex';
+
+    if (brokerNotes1) brokerNotes1.style.display = 'block';
+    if (brokerNotes2) brokerNotes2.style.display = 'block';
+
+    document.getElementById('dashTitle').innerText = 'Realitný dispečing & Kvalifikácia';
+    showToast('Prepnuté na rolu: Realitný maklér');
+    navigate('dashboard');
+  }
+}
+
+// ================= AI COPILOT & ACTION RESOLUTION HUB =================
+let activeActionCount = 4;
+const executedActions = new Set();
+
+const DEFAULT_CHAT_HTML = `
+  <div class="message-item ai">
+    <div class="message-meta">
+      <span>🤖 AiOS Copilot</span>
+      <span>•</span>
+      <span>dnes 09:15</span>
+    </div>
+    <div class="message-bubble">
+      Dobrý deň! Analyzoval som aktuálne dopyty a stav v databáze nehnuteľností. Evidujem <strong>3 kvalifikovaných záujemcov</strong> a pripravil som <strong>4 odporúčané akcie</strong>, ktoré môžete jedným klikom schváliť alebo upraviť.
+      <div class="ai-action-box">
+        <div class="ai-action-box-title">
+          <span>⚡ Rýchle akcie na schválenie</span>
+        </div>
+        <div class="ai-action-buttons">
+          <button class="action-btn-pill" id="chatActBtn1" onclick="executeAction('act1')">
+            📅 Schváliť slot: Štrbská (Utorok 17:00)
+          </button>
+          <button class="action-btn-pill" id="chatActBtn2" onclick="executeAction('act2')">
+            🏘️ Publikovať Shortlist do portálu
+          </button>
+          <button class="action-btn-pill" id="chatActBtn3" onclick="executeAction('act4')">
+            📄 Vygenerovať koncept rezervačnej zmluvy
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="message-item user">
+    <div class="message-meta">
+      <span>Peter Maklér</span>
+      <span>•</span>
+      <span>dnes 09:20</span>
+    </div>
+    <div class="message-bubble">
+      Prever mi prosím dopyt Ing. Michala Nováka. Čo presne odporúčaš urobiť ako ďalší krok pre jeho 3-izbový byt?
+    </div>
+  </div>
+
+  <div class="message-item ai">
+    <div class="message-meta">
+      <span>🤖 AiOS Copilot</span>
+      <span>•</span>
+      <span>dnes 09:21</span>
+    </div>
+    <div class="message-bubble">
+      Preveril som profil <strong>Ing. Michal Novák (REA-2026-081)</strong>:
+      <ul style="margin: 8px 0 8px 18px; line-height: 1.6; font-size: 0.88rem; color:#d6dde6;">
+        <li><strong>Rozpočet & Bonita:</strong> €230,000 (Predschválená hypotéka VÚB, skóre 94%).</li>
+        <li><strong>Katastrálny audit:</strong> Byt na Štrbskej (LV 4102 Ružinov) je <em>1/1 v osobnom vlastníctve bez tiarch a exekúcií</em>.</li>
+        <li><strong>Overenie termínu u majiteľa:</strong> Majiteľ p. Kováč telefonicky potvrdil voľný termín na <strong>Utorok 29. 9. o 17:00</strong>.</li>
+      </ul>
+      <div style="font-size: 0.8rem; color: var(--aios-muted); margin-bottom: 6px;">
+        🛡️ <em>AiOS Bezpečnostná poistka:</em> Termín je v stave „kandidátny“. Pre odoslanie do zákazníckeho portálu kliknite na schválenie nižšie:
+      </div>
+      <div class="ai-action-box">
+        <div class="ai-action-box-title">
+          <span>🎯 Odporúčaný krok pre Nováka</span>
+        </div>
+        <div class="ai-action-buttons">
+          <button class="action-btn-pill" id="chatActBtn4" onclick="executeAction('act1')">
+            ✅ Schváliť slot a odoslať záujemcovi Novákovi
+          </button>
+          <button class="action-btn-pill" onclick="navigate('shortlist')">
+            🏘️ Pozrieť ponuku Štrbská v Shortliste
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+`;
+
+function resetAiChat() {
+  const container = document.getElementById('chatMessages');
+  if (container) {
+    container.innerHTML = DEFAULT_CHAT_HTML;
+    container.scrollTop = 0;
+  }
+  showToast('Chat s AI asistentom bol vyčistený');
+}
+
+function sendChatMessage(overrideText) {
+  const input = document.getElementById('chatUserInput');
+  const text = (overrideText !== undefined ? overrideText : (input ? input.value : '')).trim();
+  if (!text) return;
+  if (input) input.value = '';
+
+  const msgContainer = document.getElementById('chatMessages');
+  const timeNow = new Date();
+  const timeStr = 'dnes ' + timeNow.toLocaleTimeString('sk-SK', { hour: '2-digit', minute: '2-digit' });
+
+  // Append user bubble
+  const userDiv = document.createElement('div');
+  userDiv.className = 'message-item user';
+  userDiv.innerHTML = `
+    <div class="message-meta">
+      <span>Peter Maklér</span>
+      <span>•</span>
+      <span>${timeStr}</span>
+    </div>
+    <div class="message-bubble">${escapeHtml(text)}</div>
+  `;
+  msgContainer.appendChild(userDiv);
+  msgContainer.scrollTop = msgContainer.scrollHeight;
+
+  // Typing response simulation
+  setTimeout(() => {
+    handleAiResponseLogic(text, timeStr);
+  }, 400);
+}
+
+function usePromptChip(prompt) {
+  sendChatMessage(prompt);
+}
+
+function escapeHtml(str) {
+  return str.replace(/[&<>'"]/g, tag => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#39;',
+    '"': '&quot;'
+  }[tag] || tag));
+}
+
+function handleAiResponseLogic(query, timeStr) {
+  const q = query.toLowerCase();
+  let replyHtml = '';
+  let actionsHtml = '';
+
+  if (q.includes('králik') || q.includes('bonita') || q.includes('grob') || q.includes('posudok')) {
+    replyHtml = `
+      Analyzoval som profil <strong>Zuzany Králikovej (REA-2026-083)</strong>:
+      <ul style="margin: 8px 0 8px 18px; line-height: 1.6; font-size: 0.88rem; color:#d6dde6;">
+        <li><strong>Dopyt:</strong> 4-izbový rodinný dom Chorvátsky Grob (€290,000).</li>
+        <li><strong>Finančné riziko (Skóre 68%):</strong> Financovanie je 100% viazané na predaj existujúceho 2-izbového bytu, ku ktorému <em>nebol doložený znalecký posudok</em> ani zmluva o budúcej zmluve.</li>
+        <li><strong>AiOS Odporúčanie:</strong> Nezaraďovať drahé nehnuteľnosti do shortlistu skôr, než bude doložená reálna trhová hodnota predávaného bytu.</li>
+      </ul>
+    `;
+    actionsHtml = `
+      <button class="action-btn-pill" onclick="executeAction('act3')">
+        📩 Odoslať výzvu na znalecký posudok (REA-ACT-03)
+      </button>
+      <button class="action-btn-pill" onclick="showLeadDetail('REA-2026-083')">
+        👤 Zobraziť profil Králikovej
+      </button>
+    `;
+  } else if (q.includes('kataster') || q.includes('ťarch') || q.includes('bajkalsk') || q.includes('štrbsk') || q.includes('lv')) {
+    replyHtml = `
+      <strong>Katastrálny audit nehnuteľností v ponuke:</strong>
+      <ul style="margin: 8px 0 8px 18px; line-height: 1.6; font-size: 0.88rem; color:#d6dde6;">
+        <li><strong>Štrbská 71 m² (LV 4102, Ružinov):</strong> Vlastníctvo 1/1, žiadne exekučné príkazy, žiadne doživotné užívanie. Záložné právo v prospech banky na kúpnu cenu bolo vymazané v roku 2024. Byt je právne 100% voľný na prevod.</li>
+        <li><strong>Bajkalská 69 m² (LV 9821, Novostavba):</strong> Kolaudované 2023, exkluzívna sprostredkovateľská zmluva s našou RK, viazané podzemné státie v suteréne.</li>
+      </ul>
+      Právne riziko: <span style="color:var(--status-ok); font-weight:700;">NÍZKE (0 nálezov)</span>.
+    `;
+    actionsHtml = `
+      <button class="action-btn-pill" onclick="executeAction('act4')">
+        📄 Pripraviť rezervačnú zmluvu Štrbská
+      </button>
+      <button class="action-btn-pill" onclick="navigate('shortlist')">
+        🏘️ Otvoriť Shortlist
+      </button>
+    `;
+  } else if (q.includes('termín') || q.includes('slot') || q.includes('štvrtok') || q.includes('obhliad')) {
+    replyHtml = `
+      <strong>Analýza voľných termínov u predávajúcich:</strong>
+      <ul style="margin: 8px 0 8px 18px; line-height: 1.6; font-size: 0.88rem; color:#d6dde6;">
+        <li><strong>Utorok 29. 9. o 17:00</strong> — 3-izb. Štrbská · Majiteľ Kováč telefonicky súhlasil. Pripravené na schválenie maklérom.</li>
+        <li><strong>Štvrtok 01. 10. o 16:45</strong> — 3-izb. Štrbská · Náhradný kandidátny slot.</li>
+      </ul>
+      <em>AiOS Safety:</em> Klient uvidí len sloty, ktoré explicitne schválite.
+    `;
+    actionsHtml = `
+      <button class="action-btn-pill" onclick="executeAction('act1')">
+        ✓ Schváliť Utorok 17:00 pre Nováka (REA-ACT-01)
+      </button>
+      <button class="action-btn-pill" onclick="navigate('viewings')">
+        📅 Prejsť do správy obhliadok
+      </button>
+    `;
+  } else if (q.includes('provízi') || q.includes('marž') || q.includes('únik') || q.includes('test') || q.includes('rls') || q.includes('ochran')) {
+    replyHtml = `
+      🛡️ <strong>Bezpečnostný test RLS (Row-Level Security): PASS</strong>
+      <ul style="margin: 8px 0 8px 18px; line-height: 1.6; font-size: 0.88rem; color:#d6dde6;">
+        <li>Interná marža RK: <strong>3% (€6,870 pre Štrbskú)</strong> je uložená v databáze v chránenej maklérskej schéme.</li>
+        <li>Klientsky JSON payload generovaný portálom neobsahuje polia <code>broker_commission</code>, <code>owner_minimum_price</code> ani <code>internal_notes</code>.</li>
+        <li>Simulácia úniku dát cez DevTools/API: <strong style="color:var(--status-ok);">0 exponovaných hodnôt</strong>.</li>
+      </ul>
+    `;
+    actionsHtml = `
+      <button class="action-btn-pill" onclick="executeAction('act2')">
+        🚀 Publikovať zabezpečený shortlist (REA-ACT-02)
+      </button>
+      <button class="action-btn-pill" onclick="navigate('rules')">
+        🛡️ Zobraziť bezpečnostné testy
+      </button>
+    `;
+  } else {
+    replyHtml = `
+      Rozumiem požiadavke <em>„${escapeHtml(query)}“</em>. Na základe stavu realitného systému odporúčam vyriešiť otvorené akcie v pravom paneli:
+      <ul style="margin: 8px 0 8px 18px; line-height: 1.6; font-size: 0.88rem; color:#d6dde6;">
+        <li>1. Schváliť slot obhliadky na Štrbskej pre p. Nováka.</li>
+        <li>2. Publikovať shortlist JUDr. Molnárovi s aktívnym RLS filtrom provízie.</li>
+        <li>3. Pripraviť rezervačnú zmluvu s pevnou kúpnou cenou €229,000.</li>
+      </ul>
+    `;
+    actionsHtml = `
+      <button class="action-btn-pill" onclick="executeAction('act1')">
+        📅 Schváliť termín Novák
+      </button>
+      <button class="action-btn-pill" onclick="executeAction('act2')">
+        🏘️ Publikovať Shortlist
+      </button>
+      <button class="action-btn-pill" onclick="executeAction('act4')">
+        📄 Vygenerovať zmluvu
+      </button>
+    `;
+  }
+
+  const msgContainer = document.getElementById('chatMessages');
+  const aiDiv = document.createElement('div');
+  aiDiv.className = 'message-item ai';
+  aiDiv.innerHTML = `
+    <div class="message-meta">
+      <span>🤖 AiOS Copilot</span>
+      <span>•</span>
+      <span>${timeStr}</span>
+    </div>
+    <div class="message-bubble">
+      ${replyHtml}
+      ${actionsHtml ? `
+        <div class="ai-action-box">
+          <div class="ai-action-box-title">⚡ Odporúčané akcie</div>
+          <div class="ai-action-buttons">${actionsHtml}</div>
+        </div>
+      ` : ''}
+    </div>
+  `;
+  msgContainer.appendChild(aiDiv);
+  msgContainer.scrollTop = msgContainer.scrollHeight;
+}
+
+function executeAction(actId) {
+  if (executedActions.has(actId)) {
+    showToast('Táto akcia už bola vyriešená.');
+    return;
+  }
+  executedActions.add(actId);
+  activeActionCount = Math.max(0, activeActionCount - 1);
+
+  // Update counters
+  const badge = document.getElementById('openActionsCountBadge');
+  if (badge) {
+    badge.innerText = activeActionCount > 0 ? `${activeActionCount} otvorené` : '0 otvorených (všetko vyriešené)';
+    if (activeActionCount === 0) badge.className = 'badge badge-ok';
+  }
+  const navBadge = document.querySelector('#navAiCopilot .nav-badge');
+  if (navBadge) {
+    navBadge.innerText = activeActionCount > 0 ? `${activeActionCount} akcie` : '✓ Hotovo';
+    if (activeActionCount === 0) navBadge.style.background = 'var(--status-ok-bg)';
+  }
+
+  const timeStr = 'dnes ' + new Date().toLocaleTimeString('sk-SK', { hour: '2-digit', minute: '2-digit' });
+
+  if (actId === 'act1') {
+    const card = document.getElementById('cardAct1');
+    const badgeEl = document.getElementById('badgeAct1');
+    const btn = document.getElementById('btnAct1');
+    if (card) { card.classList.add('done'); card.classList.remove('highlight'); }
+    if (badgeEl) { badgeEl.className = 'badge badge-ok'; badgeEl.innerText = '✓ SCHVÁLENÉ (PASS)'; }
+    if (btn) { btn.disabled = true; btn.className = 'button button-ghost button-small'; btn.innerText = '✓ Vyriešené (#ACT-8821)'; }
+
+    const chat1 = document.getElementById('chatActBtn1');
+    if (chat1) { chat1.classList.add('executed'); chat1.innerText = '✓ Termín Štrbská schválený'; }
+    const chat4 = document.getElementById('chatActBtn4');
+    if (chat4) { chat4.classList.add('executed'); chat4.innerText = '✓ Slot odoslaný záujemcovi Novákovi'; }
+
+    appendAiLogMessage(`✅ <strong>Akcia REA-ACT-01 úspešne vyriešená!</strong> Kandidátny termín obhliadky na <em>Utorok 29. 9. o 17:00 (Štrbská 71 m²)</em> bol maklérom schválený. Záujemcovi Ing. Michalovi Novákovi bola do klientskeho portálu odoslaná pozvánka s priamym exportom do kalendára.`, timeStr);
+    showToast('✓ REA-ACT-01: Slot obhliadky schválený a sprístupnený v portáli');
+  } else if (actId === 'act2') {
+    const card = document.getElementById('cardAct2');
+    const badgeEl = document.getElementById('badgeAct2');
+    const btn = document.getElementById('btnAct2');
+    if (card) card.classList.add('done');
+    if (badgeEl) { badgeEl.className = 'badge badge-ok'; badgeEl.innerText = '✓ PUBLIKOVANÉ'; }
+    if (btn) { btn.disabled = true; btn.className = 'button button-ghost button-small'; btn.innerText = '✓ Vyriešené (#PUB-9410)'; }
+
+    const chat2 = document.getElementById('chatActBtn2');
+    if (chat2) { chat2.classList.add('executed'); chat2.innerText = '✓ Shortlist publikovaný v portáli'; }
+
+    appendAiLogMessage(`🚀 <strong>Akcia REA-ACT-02 úspešne vyriešená!</strong> Shortlist nehnuteľností pre JUDr. Petra Molnára bol publikovaný do klientskeho portálu. <strong>RLS firewall kontrola:</strong> Interná marža makléra €5,250 a interné poznámky boli zo zobrazenia bezpečne vyňaté.`, timeStr);
+    showToast('✓ REA-ACT-02: Shortlist bezpečne publikovaný v klientskom portáli');
+  } else if (actId === 'act3') {
+    const card = document.getElementById('cardAct3');
+    const badgeEl = document.getElementById('badgeAct3');
+    const btn = document.getElementById('btnAct3');
+    if (card) card.classList.add('done');
+    if (badgeEl) { badgeEl.className = 'badge badge-ok'; badgeEl.innerText = '✓ ŽIADOSŤ ODOSLANÁ'; }
+    if (btn) { btn.disabled = true; btn.className = 'button button-ghost button-small'; btn.innerText = '✓ Vyriešené (#REQ-4112)'; }
+
+    appendAiLogMessage(`📩 <strong>Akcia REA-ACT-03 úspešne vyriešená!</strong> Klientke Zuzane Králikovej bola odoslaná oficiálna požiadavka na dodanie znaleckého posudku pre jej existujúci byt pred rezerváciou domu v Chorvátskom Grobe. Dopyt pozastavený do dodania posudku.`, timeStr);
+    showToast('✓ REA-ACT-03: Požiadavka na znalecký posudok odoslaná klientke');
+  } else if (actId === 'act4') {
+    const card = document.getElementById('cardAct4');
+    const badgeEl = document.getElementById('badgeAct4');
+    const btn = document.getElementById('btnAct4');
+    if (card) card.classList.add('done');
+    if (badgeEl) { badgeEl.className = 'badge badge-ok'; badgeEl.innerText = '✓ ZMLUVA VYGENEROVANÁ'; }
+    if (btn) { btn.disabled = true; btn.className = 'button button-ghost button-small'; btn.innerText = '✓ Vyriešené (#DOC-2026-REZ)'; }
+
+    const chat3 = document.getElementById('chatActBtn3');
+    if (chat3) { chat3.classList.add('executed'); chat3.innerText = '✓ Zmluva vygenerovaná'; }
+
+    appendAiLogMessage(`📝 <strong>Akcia REA-ACT-04 úspešne vyriešená!</strong> Koncept rezervačnej zmluvy pre byt Štrbská (rezervačná záloha €5,000 na vinkulovaný účet RK, kúpna cena pevná €229,000) bol vygenerovaný s právnymi doložkami modulu AiOS Legal. Dokument pripravený na podpis.`, timeStr);
+    showToast('✓ REA-ACT-04: Koncept rezervačnej zmluvy pripravený na podpis');
+  }
+}
+
+function appendAiLogMessage(htmlMsg, timeStr) {
+  const msgContainer = document.getElementById('chatMessages');
+  if (!msgContainer) return;
+  const aiDiv = document.createElement('div');
+  aiDiv.className = 'message-item ai';
+  aiDiv.innerHTML = `
+    <div class="message-meta">
+      <span>🤖 AiOS Copilot</span>
+      <span>•</span>
+      <span>${timeStr}</span>
+    </div>
+    <div class="message-bubble" style="border-left: 3px solid var(--status-ok);">
+      ${htmlMsg}
+    </div>
+  `;
+  msgContainer.appendChild(aiDiv);
+  msgContainer.scrollTop = msgContainer.scrollHeight;
+}
+
+// ================= THEME TOGGLE =================
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  REALTY_STATE.theme = next;
+  showToast(next === 'dark' ? 'Zapnutý tmavý motív' : 'Zapnutý svetlý motív');
+}
+
+// ================= RENDER FUNCTIONS =================
+function renderDashboard() {
+  const tbody = document.getElementById('dashLeadsTable');
+  tbody.innerHTML = '';
+
+  REALTY_STATE.leads.forEach(lead => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="table-strong">
+        <div>${lead.name}</div>
+        <div style="font-size:0.75rem; color:var(--aios-muted); font-family:var(--font-mono);">${lead.id}</div>
+      </td>
+      <td>${lead.type} (${lead.location})</td>
+      <td style="font-weight:600; color:var(--aios-copper-2);">${lead.budget}</td>
+      <td><span class="badge ${lead.score >= 90 ? 'badge-ok' : 'badge-warn'}">${lead.score}%</span></td>
+      <td><span class="badge badge-neutral">${lead.status}</span></td>
+      <td>
+        <button class="button button-ghost button-small" onclick="showLeadDetail('${lead.id}')">Karta</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderLeads() {
+  const tbody = document.getElementById('realtyLeadsTable');
+  tbody.innerHTML = '';
+
+  document.getElementById('badgeLeadsCount').innerText = REALTY_STATE.leads.length;
+
+  REALTY_STATE.leads.forEach(lead => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="font-family:var(--font-mono); color:var(--aios-cyan); font-weight:600;">${lead.id}</td>
+      <td class="table-strong">
+        <div>${lead.name}</div>
+        <div style="font-size:0.75rem; color:var(--aios-muted);">${lead.phone}</div>
+      </td>
+      <td>${lead.type}<br><small style="color:var(--aios-muted);">${lead.location}</small></td>
+      <td style="color:var(--aios-copper-2); font-weight:700;">${lead.budget}</td>
+      <td>${lead.financing}</td>
+      <td>${lead.horizon}</td>
+      <td><span class="badge ${lead.score >= 90 ? 'badge-ok' : 'badge-warn'}">${lead.score}%</span></td>
+      <td>
+        <button class="button button-ghost button-small" onclick="showLeadDetail('${lead.id}')">Profil</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function showLeadDetail(id) {
+  const lead = REALTY_STATE.leads.find(l => l.id === id);
+  if (!lead) return;
+
+  document.getElementById('detId').innerText = lead.id;
+  document.getElementById('detName').innerText = lead.name;
+  document.getElementById('detType').innerText = lead.type;
+  document.getElementById('detLoc').innerText = lead.location;
+  document.getElementById('detBudget').innerText = lead.budget;
+  document.getElementById('detFin').innerText = lead.financing;
+  document.getElementById('detHoriz').innerText = lead.horizon;
+  document.getElementById('detContact').innerText = `${lead.email} | ${lead.phone}`;
+  document.getElementById('detScore').innerText = `Skóre: ${lead.score}%`;
+
+  const card = document.getElementById('leadDetailCard');
+  card.style.display = 'block';
+  navigate('leads');
+  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function generateShortlistForLead() {
+  showToast('Shortlist odporúčaných ponúk spárovaný');
+  navigate('shortlist');
+}
+
+function planViewing(property) {
+  showToast(`Plánovanie obhliadky pre: ${property}`);
+  navigate('viewings');
+}
+
+function confirmSlotsAndNotify() {
+  showToast('✓ Sloty overené u majiteľa a sprístupnené v portáli');
+}
+
+function approveAndPublishShortlist() {
+  showToast('✓ Shortlist schválený maklérom a publikovaný záujemcovi');
+}
+
+// ================= MODAL =================
+function openNewLeadModal() {
+  document.getElementById('newLeadModal').classList.add('open');
+}
+
+function closeNewLeadModal() {
+  document.getElementById('newLeadModal').classList.remove('open');
+}
+
+function submitNewLead() {
+  const name = document.getElementById('inpName').value.trim();
+  const email = document.getElementById('inpEmail').value.trim();
+  const phone = document.getElementById('inpPhone').value.trim();
+  const budget = document.getElementById('inpBudget').value.trim();
+  const fin = document.getElementById('inpFin').value;
+  const loc = document.getElementById('inpLoc').value.trim();
+
+  if (!name || !email) {
+    alert('Vyplňte prosím aspoň meno a e-mail.');
+    return;
+  }
+
+  const newId = 'REA-2026-0' + (REALTY_STATE.leads.length + 84);
+
+  const newLead = {
+    id: newId,
+    name: name,
+    type: loc || 'Byt v Bratislave',
+    location: 'Bratislava a okolie',
+    budget: budget ? `€${Number(budget).toLocaleString()} ± 5%` : '€200,000',
+    financing: fin,
+    horizon: 'do 90 dní',
+    score: 88,
+    status: 'Kvalifikovaný',
+    phone: phone || '+421 900 000 000',
+    email: email
+  };
+
+  REALTY_STATE.leads.unshift(newLead);
+  closeNewLeadModal();
+  renderLeads();
+  renderDashboard();
+
+  showToast(`Záujemca ${name} zaevidovaný (#${newId})`);
+  showLeadDetail(newId);
+}
+
+// ================= TOAST =================
+function showToast(msg) {
+  const area = document.getElementById('toastArea');
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = `<span style="color:var(--aios-copper-2);">⚡</span> <span>${msg}</span>`;
+  area.appendChild(t);
+
+  setTimeout(() => {
+    t.style.opacity = '0';
+    t.style.transform = 'translateY(8px)';
+    t.style.transition = 'all 0.25s ease';
+    setTimeout(() => t.remove(), 250);
+  }, 3200);
+}
+</script>
+</body>
+</html>
